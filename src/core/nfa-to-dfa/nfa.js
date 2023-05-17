@@ -19,3 +19,5 @@ function getAlphabetFromTransitions(transitions) {
 function getStartStateFromStates(states) {
     return Math.min(...states);
 }
+
+module.exports = NFA;
