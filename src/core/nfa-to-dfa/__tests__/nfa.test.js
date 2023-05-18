@@ -1,5 +1,5 @@
-const NFA = require('../nfa');
-const Transition = require('../transition');
+import NFA from '../nfa';
+import Transition from '../transition';
 
 function testNFA() {
     const states = [0, 1, 2];
