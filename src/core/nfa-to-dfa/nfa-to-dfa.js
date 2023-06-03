@@ -1,3 +1,5 @@
+import NFA from './nfa';
+
 epsilonSymbol = '#';
 
 function convertNFAToDFA(nfa) {
@@ -89,5 +91,7 @@ function convertNFAToDFA(nfa) {
         return dfaStateName
     }
 
-    
+    const nfaStartStateClosure = findEpsilonClosures([nfa.states[0]])
+    const dfaStartState = getOrCreateDFA(nfaStartStateClosure)
+    return new NFA(dfaStates, dfaTransitions, dfaAcceptStates)
 }
