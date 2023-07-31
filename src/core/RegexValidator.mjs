@@ -52,4 +52,3 @@ function checkParenthesis(expression) {
   }
 
   export default validateExpression;
-  
