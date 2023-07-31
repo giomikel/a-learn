@@ -1,23 +1,5 @@
-class  Automata{
-    constructor() {
-        this.n = 0;
-        this.a = 0;
-        this.t = 0;
-        this.eIndex = [];
-        this.vec = [];
-      }
-}
-
-class Edge {
-    constructor(index, ch) {
-      this.index = index;
-      this.ch = ch;
-    }
-
-	equals(other) {
-		return this.index === other.index && this.ch === other.ch;
-	}
-}
+import Edge from './Edge.mjs';
+import Automata from './Automata.mjs';
 
 var automata_stack = [];
 
