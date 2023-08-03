@@ -49,48 +49,48 @@ test('check quantity, number of states and successful state indexes after conver
 test('check edges after converting regular expression to nfa', () => {
     let result1 = regexToNFA("(1or0|(y)*)*");
 
-    expect(result1.automata.vec[0].length).toEqual(2);
-    expect(result1.automata.vec[0][0]).toEqual(new Edge(1, '1'));
-    expect(result1.automata.vec[0][1]).toEqual(new Edge(5, 'y'));
+    expect(result1.automata.edges[0].length).toEqual(2);
+    expect(result1.automata.edges[0][0]).toEqual(new Edge(1, '1'));
+    expect(result1.automata.edges[0][1]).toEqual(new Edge(5, 'y'));
 
-    expect(result1.automata.vec[1].length).toEqual(1);
-    expect(result1.automata.vec[1][0]).toEqual(new Edge(2, 'o'));
+    expect(result1.automata.edges[1].length).toEqual(1);
+    expect(result1.automata.edges[1][0]).toEqual(new Edge(2, 'o'));
 
-    expect(result1.automata.vec[2].length).toEqual(1);
-    expect(result1.automata.vec[2][0]).toEqual(new Edge(3, 'r'));
+    expect(result1.automata.edges[2].length).toEqual(1);
+    expect(result1.automata.edges[2][0]).toEqual(new Edge(3, 'r'));
 
-    expect(result1.automata.vec[3].length).toEqual(1);
-    expect(result1.automata.vec[3][0]).toEqual(new Edge(4, '0'));
+    expect(result1.automata.edges[3].length).toEqual(1);
+    expect(result1.automata.edges[3][0]).toEqual(new Edge(4, '0'));
 
-    expect(result1.automata.vec[4].length).toEqual(2);
-    expect(result1.automata.vec[4][0]).toEqual(new Edge(1, '1'));
-    expect(result1.automata.vec[4][1]).toEqual(new Edge(5, 'y'));
+    expect(result1.automata.edges[4].length).toEqual(2);
+    expect(result1.automata.edges[4][0]).toEqual(new Edge(1, '1'));
+    expect(result1.automata.edges[4][1]).toEqual(new Edge(5, 'y'));
 
-    expect(result1.automata.vec[5].length).toEqual(2);
-    expect(result1.automata.vec[5][0]).toEqual(new Edge(5, 'y'));
-    expect(result1.automata.vec[5][1]).toEqual(new Edge(1, '1'));
+    expect(result1.automata.edges[5].length).toEqual(2);
+    expect(result1.automata.edges[5][0]).toEqual(new Edge(5, 'y'));
+    expect(result1.automata.edges[5][1]).toEqual(new Edge(1, '1'));
     
     
 
     let result2 = regexToNFA("u|wq|qm0");
     
-    expect(result2.automata.vec[0].length).toEqual(3);
-    expect(result2.automata.vec[0][0]).toEqual(new Edge(1, 'u'));
-    expect(result2.automata.vec[0][1]).toEqual(new Edge(2, 'w'));
-    expect(result2.automata.vec[0][2]).toEqual(new Edge(4, 'q'));
+    expect(result2.automata.edges[0].length).toEqual(3);
+    expect(result2.automata.edges[0][0]).toEqual(new Edge(1, 'u'));
+    expect(result2.automata.edges[0][1]).toEqual(new Edge(2, 'w'));
+    expect(result2.automata.edges[0][2]).toEqual(new Edge(4, 'q'));
 
-    expect(result2.automata.vec[1].length).toEqual(0);
+    expect(result2.automata.edges[1].length).toEqual(0);
 
-    expect(result2.automata.vec[2].length).toEqual(1);
-    expect(result2.automata.vec[2][0]).toEqual(new Edge(3, 'q'));
+    expect(result2.automata.edges[2].length).toEqual(1);
+    expect(result2.automata.edges[2][0]).toEqual(new Edge(3, 'q'));
 
-    expect(result2.automata.vec[3].length).toEqual(0);
+    expect(result2.automata.edges[3].length).toEqual(0);
 
-    expect(result2.automata.vec[4].length).toEqual(1);
-    expect(result2.automata.vec[4][0]).toEqual(new Edge(5, 'm'));
+    expect(result2.automata.edges[4].length).toEqual(1);
+    expect(result2.automata.edges[4][0]).toEqual(new Edge(5, 'm'));
 
-    expect(result2.automata.vec[5].length).toEqual(1);
-    expect(result2.automata.vec[5][0]).toEqual(new Edge(6, '0'));
+    expect(result2.automata.edges[5].length).toEqual(1);
+    expect(result2.automata.edges[5][0]).toEqual(new Edge(6, '0'));
 
-    expect(result2.automata.vec[6].length).toEqual(0);
+    expect(result2.automata.edges[6].length).toEqual(0);
 })

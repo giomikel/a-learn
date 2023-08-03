@@ -108,18 +108,18 @@ function standart(ch){
 	var initial_arr = [];
 	initial_arr.push(1);
 	automata.eIndex=initial_arr;
-	var node = new Edge();
-	node.index=1;
-	node.ch=ch;
-	var array_array_node = [];
+	var edge = new Edge();
+	edge.index=1;
+	edge.ch=ch;
+	var allEdges = [];
 
-	var array_node = [];
-	array_node.push(node);
+	var nodeEdges = [];
+	nodeEdges.push(edge);
    
-	array_array_node.push(array_node);
+	allEdges.push(nodeEdges);
     var n_tm = [];
-	array_array_node.push(n_tm);
-	automata.vec = array_array_node;
+	allEdges.push(n_tm);
+	automata.edges = allEdges;
 	automata_stack.push(automata);
 	
 }
@@ -136,16 +136,16 @@ function contains(v, num){
 function star(){
   var last_aut = automata_stack[automata_stack.length -1];
   automata_stack.pop();
-  var array_node = Array.from(last_aut.vec[0]);
+  var nodeEdges = Array.from(last_aut.edges[0]);
   for(let i=0; i<last_aut.eIndex.length; i++){
-		for(let j=0; j<array_node.length; j++){
-			last_aut.vec[last_aut.eIndex[i]].push(new Edge(array_node[j].index, array_node[j].ch));
+		for(let j=0; j<nodeEdges.length; j++){
+			last_aut.edges[last_aut.eIndex[i]].push(new Edge(nodeEdges[j].index, nodeEdges[j].ch));
 		}
   }
   
   
   last_aut.a+=1;
-  last_aut.t+=(last_aut.eIndex.length*array_node.length);
+  last_aut.t+=(last_aut.eIndex.length*nodeEdges.length);
   last_aut.eIndex.push(0);
   automata_stack.push(last_aut);
 }
@@ -158,28 +158,28 @@ function unification(){
    for(let i=0; i<second_aut.eIndex.length; i++){
 	   second_aut.eIndex[i]+=first_aut.n-1;
    }
-   for(let i=0; i<second_aut.vec.length; i++){
-	   for(let j=0; j<second_aut.vec[i].length; j++){
-		  second_aut.vec[i][j].index+=first_aut.n-1;
+   for(let i=0; i<second_aut.edges.length; i++){
+	   for(let j=0; j<second_aut.edges[i].length; j++){
+		  second_aut.edges[i][j].index+=first_aut.n-1;
 	   }
    }
-   var edges=second_aut.vec[0];
+   var edges=second_aut.edges[0];
    var nFirst=first_aut.n+second_aut.n-1;
    for(let i=0; i<edges.length; i++){
 		if(edges[i].index===first_aut.n-1){
 			var edge=edges[i]; 
-			first_aut.vec[0].push(new Edge(edge.index, edge.ch));
+			first_aut.edges[0].push(new Edge(edge.index, edge.ch));
 		}else{
-			first_aut.vec[0].push(new Edge(edges[i].index, edges[i].ch));
+			first_aut.edges[0].push(new Edge(edges[i].index, edges[i].ch));
 		}
 	}
 	
-	for(let i=1; i<second_aut.vec.length; i++){
+	for(let i=1; i<second_aut.edges.length; i++){
 		var tm_edges = [];
-		for(let j=0; j<second_aut.vec[i].length; j++){
-            tm_edges.push(new Edge(second_aut.vec[i][j].index, second_aut.vec[i][j].ch));
+		for(let j=0; j<second_aut.edges[i].length; j++){
+            tm_edges.push(new Edge(second_aut.edges[i][j].index, second_aut.edges[i][j].ch));
 		}
-		first_aut.vec.push(tm_edges);
+		first_aut.edges.push(tm_edges);
 	}
 	   
     if(contains(second_aut.eIndex, first_aut.n-1)){
@@ -222,15 +222,15 @@ function concatenation(){
 	   second_aut.eIndex[i]+=first_aut.n-1;
    }
 
-   for(let i=0; i<second_aut.vec.length; i++){
-	   for(let j=0; j<second_aut.vec[i].length; j++){
-		   second_aut.vec[i][j].index+=first_aut.n-1;
+   for(let i=0; i<second_aut.edges.length; i++){
+	   for(let j=0; j<second_aut.edges[i].length; j++){
+		   second_aut.edges[i][j].index+=first_aut.n-1;
 	   }
    }
 
-   var edges=second_aut.vec[0];
+   var edges=second_aut.edges[0];
    var nFirst=first_aut.n+second_aut.n-1;
-   var tFirst=first_aut.t+(second_aut.vec[0].length*first_aut.eIndex.length)+second_aut.t-second_aut.vec[0].length;
+   var tFirst=first_aut.t+(second_aut.edges[0].length*first_aut.eIndex.length)+second_aut.t-second_aut.edges[0].length;
 
 
    for(let j=0; j<first_aut.eIndex.length; j++){
@@ -240,20 +240,20 @@ function concatenation(){
 			if(edges[i].index===first_aut.n-1){
 				var edge=edges[i];
 				edge.index=first_aut.eIndex[j];
-				first_aut.vec[first_aut.eIndex[j]].push(new Edge(edge.index, edge.ch));
+				first_aut.edges[first_aut.eIndex[j]].push(new Edge(edge.index, edge.ch));
 			}else{
-				first_aut.vec[first_aut.eIndex[j]].push(new Edge(edges[i].index, edges[i].ch));
+				first_aut.edges[first_aut.eIndex[j]].push(new Edge(edges[i].index, edges[i].ch));
 			}
 	
 		}
 	}   
 
-	for(let i=1; i<second_aut.vec.length; i++){
+	for(let i=1; i<second_aut.edges.length; i++){
 		var tm_edges = [];
-		for(let j=0; j<second_aut.vec[i].length; j++){
-            tm_edges.push(new Edge(second_aut.vec[i][j].index, second_aut.vec[i][j].ch));
+		for(let j=0; j<second_aut.edges[i].length; j++){
+            tm_edges.push(new Edge(second_aut.edges[i][j].index, second_aut.edges[i][j].ch));
 		}
-		first_aut.vec.push(tm_edges);
+		first_aut.edges.push(tm_edges);
 	}
 
     if(contains(second_aut.eIndex, first_aut.n-1)){
@@ -284,10 +284,10 @@ function epsilon(){
 	var initial_arr = [];
 	initial_arr.push(0);
 	automata.eIndex=initial_arr;
-	var array_node = [];
-	var array_array_node = [];
-	array_array_node.push(array_node);
-	automata.vec=array_array_node;
+	var nodeEdges = [];
+	var allEdges = [];
+	allEdges.push(nodeEdges);
+	automata.edges=allEdges;
 	automata_stack.push(automata);	
 }
 
@@ -329,8 +329,8 @@ function regexToNFA(expression){
     }
 
     let quantity = 0;
-    for (let i = 0; i < automata.vec.length; i++) {
-		const all_edges = automata.vec[i];
+    for (let i = 0; i < automata.edges.length; i++) {
+		const all_edges = automata.edges[i];
 		const unique_edges = new Set();
 		for (let j = 0; j < all_edges.length; j++) {
 		  addEdgeToSet(unique_edges, all_edges[j]);
@@ -340,7 +340,7 @@ function regexToNFA(expression){
 		  all_edges.push(value);
 		  quantity++;
 		});
-		automata.vec[i] = all_edges;
+		automata.edges[i] = all_edges;
 	}
 	
     return { automata, s, quantity };

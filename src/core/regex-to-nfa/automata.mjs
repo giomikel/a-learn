@@ -4,7 +4,7 @@ class  Automata{
         this.a = 0;
         this.t = 0;
         this.eIndex = [];
-        this.vec = [];
+        this.edges = [];
       }
 }
 
