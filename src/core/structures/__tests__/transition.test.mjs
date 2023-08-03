@@ -1,7 +1,7 @@
-const fsm_transition = require('../../structures/fsm_transition');
+import { Transition } from '../fsm_transition.mjs';
 
 function testTransition() {
-    const transition = new fsm_transition.Transition(0, '0', 1);
+    const transition = new Transition(0, '0', 1);
     if (transition.fromState !== 0 ||
         transition.symbol !== '0' ||
         transition.toState !== 1

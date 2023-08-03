@@ -10,6 +10,4 @@ class Transition {
     }
 }
 
-module.exports = {
-    Transition
-};
+export { Transition };

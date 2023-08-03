@@ -1,20 +1,20 @@
-const fsm = require('../fsm');
-const fsm_transition = require('../fsm_transition')
+import { FiniteStateMachine } from '../fsm.mjs'
+import { Transition } from '../fsm_transition.mjs';
 
 function testNFA() {
     const states = [0, 1, 2];
     const transitions = [
-        new fsm_transition.Transition(0, 0, 0),
-        new fsm_transition.Transition(0, 1, 1),
-        new fsm_transition.Transition(1, 0, 1),
-        new fsm_transition.Transition(1, 1, 1),
-        new fsm_transition.Transition(1, 0, 2),
-        new fsm_transition.Transition(2, 0, 2),
-        new fsm_transition.Transition(2, 1, 2),
-        new fsm_transition.Transition(2, 1, 1)
+        new Transition(0, 0, 0),
+        new Transition(0, 1, 1),
+        new Transition(1, 0, 1),
+        new Transition(1, 1, 1),
+        new Transition(1, 0, 2),
+        new Transition(2, 0, 2),
+        new Transition(2, 1, 2),
+        new Transition(2, 1, 1)
     ];
     const acceptStates = [2];
-    const nfa = new fsm.FiniteStateMachine(
+    const nfa = new FiniteStateMachine(
         states,
         transitions,
         acceptStates
@@ -35,15 +35,15 @@ function testNFA() {
 function testDFA() {
     const states = [0, 1, 2];
     const transitions = [
-        new fsm_transition.Transition(0, 0, 0),
-        new fsm_transition.Transition(0, 1, 1),
-        new fsm_transition.Transition(1, 1, 1),
-        new fsm_transition.Transition(1, 0, 2),
-        new fsm_transition.Transition(2, 0, 2),
-        new fsm_transition.Transition(2, 1, 2)
+        new Transition(0, 0, 0),
+        new Transition(0, 1, 1),
+        new Transition(1, 1, 1),
+        new Transition(1, 0, 2),
+        new Transition(2, 0, 2),
+        new Transition(2, 1, 2)
     ];
     const acceptStates = [2];
-    const dfa = new fsm.FiniteStateMachine(
+    const dfa = new FiniteStateMachine(
         states,
         transitions,
         acceptStates

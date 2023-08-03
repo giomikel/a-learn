@@ -1,4 +1,4 @@
-const constants = require('../constants')
+import { EPSILON_SYMBOL } from '../constants.mjs';
 
 class FiniteStateMachine {
     constructor(states, transitions, acceptStates) {
@@ -24,7 +24,7 @@ function getAlphabetFromTransitions(transitions) {
     transitions.forEach(element => {
         alphabet.add(element.symbol);
     });
-    alphabet.delete(constants.EPSILON_SYMBOL);
+    alphabet.delete(EPSILON_SYMBOL);
     return Array.from(alphabet);
 }
 
@@ -33,7 +33,7 @@ function getStartStateFromStates(states) {
 }
 
 function determineFSMIsDFA(states, transitions, alphabet) {
-    if (transitions.some((transition) => transition.symbol == constants.EPSILON_SYMBOL)) {
+    if (transitions.some((transition) => transition.symbol == EPSILON_SYMBOL)) {
         return false; // Epsilon transitions are not allowed in DFAs
     }
 
@@ -64,8 +64,5 @@ function determineFSMIsDFA(states, transitions, alphabet) {
     return true;
 }
 
-module.exports = {
-    FiniteStateMachine,
-    getAlphabetFromTransitions,
-    getStartStateFromStates
-};
+
+export { FiniteStateMachine, getAlphabetFromTransitions, getStartStateFromStates };
