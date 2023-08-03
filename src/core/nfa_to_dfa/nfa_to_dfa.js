@@ -1,9 +1,6 @@
-// import NFA from './nfa';
-const NFA = require('./nfa')
-const DFA = require('./dfa')
-const Transition = require('./transition')
-
-epsilonSymbol = '#';
+const fsm = require('../structures/fsm')
+const fsm_transition = require('../structures/fsm_transition')
+const constants = require('../constants')
 
 function convertNFAToDFA(nfa) {
     const dfaStates = [];
@@ -14,16 +11,16 @@ function convertNFAToDFA(nfa) {
     function findEpsilonClosures(states) {
         const closures = new Set(states);
 
-        function dfs_epsilon(state) {
+        function dfsEpsilon(state) {
             nfa.transitions.forEach(element => {
-                if (element.fromState == state && element.symbol == epsilonSymbol && !closures.has(element.toState)) {
+                if (element.fromState == state && element.symbol == constants.EPSILON_SYMBOL && !closures.has(element.toState)) {
                     closures.add(element.toState);
-                    dfs_epsilon(element.toState);
+                    dfsEpsilon(element.toState);
                 }
             });
         }
 
-        states.forEach(state => dfs_epsilon(state));
+        states.forEach(state => dfsEpsilon(state));
 
         return Array.from(closures);
     }
@@ -55,7 +52,7 @@ function convertNFAToDFA(nfa) {
             nextState += 1;
         });
         transitions.forEach(transition => {
-            const newTransition = new Transition(
+            const newTransition = new fsm_transition.Transition(
                 mapping[transition.fromState],
                 transition.symbol,
                 mapping[transition.toState]
@@ -82,7 +79,7 @@ function convertNFAToDFA(nfa) {
                 dfaStates.push(statesFromCurrentDFAStateWithSymbol);
                 unprocessedDFAStates.push(statesFromCurrentDFAStateWithSymbol);
             }
-            dfaTransitions.add(new Transition(currentDFAState, symbol, statesFromCurrentDFAStateWithSymbol));
+            dfaTransitions.add(new fsm_transition.Transition(currentDFAState, symbol, statesFromCurrentDFAStateWithSymbol));
         });
     }
 
@@ -95,11 +92,9 @@ function convertNFAToDFA(nfa) {
     const finalDFAStates = reindexedResultStates[0];
     const finalDFATransitions = reindexedResultStates[1];
     const finalDFAAcceptStates = reindexedResultStates[2];
-    return new DFA(finalDFAStates, finalDFATransitions, finalDFAAcceptStates);
+    return new fsm.FiniteStateMachine(finalDFAStates, finalDFATransitions, finalDFAAcceptStates);
 }
 
-// export default convertNFAToDFA;
 module.exports = {
-    convertNFAToDFA,
-    epsilonSymbol
+    convertNFAToDFA
 };
