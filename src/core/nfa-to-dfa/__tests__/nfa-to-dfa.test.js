@@ -31,6 +31,7 @@ function runTestCase1() {
     } else {
         console.log("NFA to DFA conversion test 1 passed");
     }
+    console.log(dfa.toString());
 }
 
 function runTestCase2() {
