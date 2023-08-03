@@ -6,6 +6,14 @@ class NFA {
         this.alphabet = getAlphabetFromTransitions(transitions);    // Array of alphabet symbols
         this.startState = getStartStateFromStates(states);  // Start state
     }
+
+    toString() {
+        return `States: ${this.states.toString()},
+                Transitions: ${this.transitions.toString()},
+                Accept States: ${this.acceptStates.toString()},
+                Alphabet: ${this.alphabet.toString()},
+                Start State: ${this.startState.toString()}`;
+    }
 }
 
 function getAlphabetFromTransitions(transitions) {
@@ -13,6 +21,7 @@ function getAlphabetFromTransitions(transitions) {
     transitions.forEach(element => {
         alphabet.add(element.symbol);
     });
+    alphabet.delete('#');
     return Array.from(alphabet);
 }
 
@@ -20,4 +29,9 @@ function getStartStateFromStates(states) {
     return Math.min(...states);
 }
 
-export default NFA;
+// export default NFA;
+module.exports = {
+    NFA,
+    getAlphabetFromTransitions,
+    getStartStateFromStates
+};
