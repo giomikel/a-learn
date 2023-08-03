@@ -42,6 +42,33 @@ function convertNFAToDFA(nfa) {
         return Array.from(reachableStates);
     }
 
+    function reindexResultStates(states, transitions, acceptStates) {
+        const mapping = {};
+        let nextState = 0;
+        const newStates = [];
+        const newTransitions = [];
+        const newAcceptStates = [];
+
+        states.forEach(state => {
+            mapping[state] = nextState;
+            newStates.push(nextState);
+            nextState += 1;
+        });
+        transitions.forEach(transition => {
+            const newTransition = new Transition(
+                mapping[transition.fromState],
+                transition.symbol,
+                mapping[transition.toState]
+            );
+            newTransitions.push(newTransition);
+        })
+        acceptStates.forEach(acceptState => {
+            const newAcceptState = mapping[acceptState];
+            newAcceptStates.push(newAcceptState);
+        });
+        return [newStates, newTransitions, newAcceptStates];
+    }
+
     const nfaStartStateClosure = findEpsilonClosures([nfa.states[0]])
     dfaStates.push(nfaStartStateClosure);
     const unprocessedDFAStates = [nfaStartStateClosure];
@@ -64,8 +91,11 @@ function convertNFAToDFA(nfa) {
             dfaAcceptStates.add(st);
         }
     });
-
-    return new DFA(dfaStates, dfaTransitions, dfaAcceptStates)
+    const reindexedResultStates = reindexResultStates(dfaStates, Array.from(dfaTransitions), Array.from(dfaAcceptStates));
+    const finalDFAStates = reindexedResultStates[0];
+    const finalDFATransitions = reindexedResultStates[1];
+    const finalDFAAcceptStates = reindexedResultStates[2];
+    return new DFA(finalDFAStates, finalDFATransitions, finalDFAAcceptStates);
 }
 
 // export default convertNFAToDFA;

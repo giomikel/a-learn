@@ -8,10 +8,10 @@ class NFA {
     }
 
     toString() {
-        return `States: ${this.states.toString()},
-                Transitions: ${this.transitions.toString()},
-                Accept States: ${this.acceptStates.toString()},
-                Alphabet: ${this.alphabet.toString()},
+        return `States: ${this.states.toString()}
+                Transitions: ${this.transitions.toString()}
+                Accept States: ${this.acceptStates.toString()}
+                Alphabet: ${this.alphabet.toString()}
                 Start State: ${this.startState.toString()}`;
     }
 }
