@@ -298,9 +298,7 @@ function iterateOverPostfixExpression(postfix_expression){
 			case '|': unification(); break;
 			case '.': concatenation(); break;
 			case '#': epsilon(); break;
-			default: standart(postfix_expression[i]);
-			
-			
+			default: standart(postfix_expression[i]);	
 		}
 	}
 }
