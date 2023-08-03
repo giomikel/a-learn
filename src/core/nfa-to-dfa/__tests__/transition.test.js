@@ -1,4 +1,5 @@
-import Transition from '../transition';
+// import Transition from '../transition';
+const Transition = require('../transition');
 
 function testTransition() {
     const transition = new Transition(0, '0', 1);

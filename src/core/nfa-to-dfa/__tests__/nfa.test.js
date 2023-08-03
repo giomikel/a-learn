@@ -1,5 +1,8 @@
-import NFA from '../nfa';
-import Transition from '../transition';
+// import NFA from '../nfa';
+// import Transition from '../transition';
+
+const NFA = require('../nfa');
+const Transition = require('../transition');
 
 function testNFA() {
     const states = [0, 1, 2];
@@ -12,7 +15,7 @@ function testNFA() {
         new Transition(2, '1', 2)
     ];
     const acceptStates = [2];
-    const nfa = new NFA(
+    const nfa = new NFA.NFA(
         states,
         transitions,
         acceptStates
