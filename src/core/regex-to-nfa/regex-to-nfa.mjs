@@ -1,5 +1,5 @@
-import Edge from './edge.mjs';
-import Automata from './automata.mjs';
+import Edge from './internal-structures/edge.mjs'
+import Automata from './internal-structures/automata.mjs';
 
 var automata_stack = [];
 

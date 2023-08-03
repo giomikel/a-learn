@@ -1,5 +1,5 @@
-import regexToNFA from "../core/regex-to-nfa/regex-to-nfa.mjs"
-import Edge from "../core/regex-to-nfa/edge.mjs";
+import regexToNFA from "../regex-to-nfa.mjs"
+import Edge from "../internal-structures/edge.mjs";
  
 test('check quantity, number of states and successful state indexes after converting regular expression to nfa', () => {
     let result1 = regexToNFA("(1or0|(y)*)*");

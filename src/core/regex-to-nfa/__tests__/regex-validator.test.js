@@ -1,4 +1,4 @@
-import validateExpression from "../core/regex-to-nfa/regex-validator.mjs";
+import validateExpression from "../regex-validator.mjs";
 
 test('properly validates regular expression', () => {
     expect(validateExpression("(1or0|(y)*)*")).toEqual(true)
