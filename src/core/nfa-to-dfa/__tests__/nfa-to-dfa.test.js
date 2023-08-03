@@ -1,9 +1,3 @@
-// import NFA from '../nfa'
-// import DFA from '../dfa'
-// import Transition from '../transition'
-// import epsilonSymbol from '../nfa-to-dfa'
-// import convertNFAToDFA from '../nfa-to-dfa'
-
 const NFA = require('../nfa');
 const DFA = require('../dfa');
 const Transition = require('../transition');
@@ -28,12 +22,11 @@ function runTestCase1() {
         acceptStates
     );
     const dfa = nfaToDFA.convertNFAToDFA(nfa);
-    const t = Array.from(dfa.acceptStates)[0]
 
     if (dfa.states.length !== 3
-        || JSON.stringify(Array.from(dfa.acceptStates)[0]) != JSON.stringify([2])
-        || dfa.transitions.size !== 6
-        || JSON.stringify(dfa.states[0]) != JSON.stringify([0, 1])) {
+        || JSON.stringify(dfa.acceptStates) != JSON.stringify([1])
+        || dfa.transitions.length !== 6
+        || JSON.stringify(dfa.states) != JSON.stringify([0, 1, 2])) {
         console.log("NFA to DFA conversion test 1 failed");
     } else {
         console.log("NFA to DFA conversion test 1 passed");
@@ -60,13 +53,14 @@ function runTestCase2() {
     );
     const dfa2 = nfaToDFA.convertNFAToDFA(nfa2);
     if (dfa2.states.length !== 3
-        || JSON.stringify(Array.from(dfa2.acceptStates)[0]) !== JSON.stringify([1, 2])
-        || dfa2.transitions.size !== 6
-        || JSON.stringify(dfa2.states[0]) !== JSON.stringify([0])) {
+        || JSON.stringify(dfa2.acceptStates) !== JSON.stringify([2])
+        || dfa2.transitions.length !== 6
+        || JSON.stringify(dfa2.states) !== JSON.stringify([0, 1, 2])) {
         console.log("NFA to DFA conversion test 2 failed");
     } else {
         console.log("NFA to DFA conversion test 2 passed");
     }
+    console.log(dfa2.toString());
 }
 
 testNFAtoDFA();
