@@ -1,5 +1,6 @@
 import Edge from './internal-structures/edge.mjs'
 import Automata from './internal-structures/automata.mjs';
+import buildFSM from './fsm-builder.mjs';
 
 var automata_stack = [];
 
@@ -273,7 +274,6 @@ function concatenation(){
    first_aut.t=tFirst;
    
    automata_stack.push(first_aut);
-	
 }
 
 function epsilon(){
@@ -315,8 +315,6 @@ function addEdgeToSet(set, edge){
 	return;
 }
 
-
-
 function regexToNFA(expression){
     var modified_expression = insertSigns(expression);
     var postfix_expression = postfix(modified_expression);
@@ -328,7 +326,6 @@ function regexToNFA(expression){
         s.add(automata.eIndex[i]);
     }
 
-    let quantity = 0;
     for (let i = 0; i < automata.edges.length; i++) {
 		const all_edges = automata.edges[i];
 		const unique_edges = new Set();
@@ -338,12 +335,11 @@ function regexToNFA(expression){
 		all_edges.length = 0;
 		unique_edges.forEach((value) => {
 		  all_edges.push(value);
-		  quantity++;
 		});
 		automata.edges[i] = all_edges;
 	}
 	
-    return { automata, s, quantity };
+    return buildFSM(automata, s);
 }
 
 export default regexToNFA;
