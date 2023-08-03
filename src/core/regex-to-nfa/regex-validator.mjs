@@ -16,24 +16,28 @@ function checkParenthesis(expression) {
     return stack.length === 0; 
   }
 
-  function checkPrevFollChars(expression, invalidPreviousChars, invalidFollowingChars, index){
+  function checkPrevFollCharsUn(expression, invalidPreviousChars, invalidFollowingChars, index){
     return invalidPreviousChars.includes(expression[index-1]) || invalidFollowingChars.includes(expression[index+1]);
 
   }
 
+  function checkPrevFollCharsSt(expression, index){
+    return expression[index-1] !== ')' || expression[index+1] === '*';
+  }
+
   function checkSpecialSymbols(expression){
-    if (expression[0] === '|' || expression[0] === '*' || expression[expression.length-1] === '|'){
+    if (expression[0] === '|' || expression[0] === '*' || expression[expression.length-1] === '|' || (expression[expression.length-1] === '*' && expression[expression.length-2] !== ')')){
         return false;
     }
 
     for(let i = 1; i < expression.length-1; i++){
       const char = expression[i];
       if (char === '|'){
-        if (checkPrevFollChars(expression, ['|', '('], ['*', '|', ')'], i)) {
+        if (checkPrevFollCharsUn(expression, ['|', '('], ['*', '|', ')'], i)) {
           return false;
         }
       }else if (char === '*'){
-          if(checkPrevFollChars(expression, ["*", '|', '('], ['*'], i)){
+          if(checkPrevFollCharsSt(expression, i)){
             return false;
           }
       }
@@ -46,9 +50,13 @@ function checkParenthesis(expression) {
     return regex.test(expression);	
   }
 
+  function checkLength(expression){
+    return expression.length !== 0;
+  }
+
 
   function validateExpression(expression){
-    return validateCharacters(expression) && checkParenthesis(expression) && checkSpecialSymbols(expression);
+    return checkLength(expression) && validateCharacters(expression) && checkParenthesis(expression) && checkSpecialSymbols(expression);
   }
 
   export default validateExpression;
