@@ -1,40 +1,16 @@
-import NFA from './nfa';
+// import NFA from './nfa';
+const NFA = require('./nfa')
+const DFA = require('./dfa')
+const Transition = require('./transition')
 
 epsilonSymbol = '#';
 
 function convertNFAToDFA(nfa) {
     const dfaStates = [];
-    const dfaTransitions = [];
-    const dfaAcceptStates = [];
+    const dfaTransitions = new Set();
+    const dfaAcceptStates = new Set();
 
-    /*
-    function findEpsilonClosures(state) {
-        const closures = new Set();
-        closures.add(state);
-
-        function dfs_epsilon(st) {
-            const epsilonTransitions = new Set();
-            nfa.transitions.forEach(element => {
-                if (element.fromState == state && element.symbol == epsilonSymbol) {
-                    epsilonTransitions.add(element);
-                }
-            });
-            if (epsilonTransitions) {
-                epsilonTransitions.forEach(epsilonTransition => {
-                    if (!closures.has(epsilonTransition)) {
-                        closures.add(epsilonTransition)
-                        dfs_epsilon(epsilonTransition)
-                    }
-                })
-            }
-        }
-
-        dfs_epsilon(state)
-        return Array.from(closures);
-    }*/
-
-
-    // Finds epsilon closure set for given state(s)
+    // Finds epsilon closure set for given states
     function findEpsilonClosures(states) {
         const closures = new Set(states);
 
@@ -55,43 +31,45 @@ function convertNFAToDFA(nfa) {
     // Finds every reachable state from all elements of 'states' array with given symbol
     function getReachableStatesWithSymbol(states, symbol) {
         const reachableStates = new Set();
-        const statesWithEpsilonClosure = findEpsilonClosures(states)
-        statesWithEpsilonClosure.forEach(state => {
-            const transitions = new Set();
+        states.forEach(state => {
             nfa.transitions.forEach(element => {
                 if (element.fromState == state && element.symbol == symbol) {
-                    transitions.add(element);
+                    toStateClosure = findEpsilonClosures([element.toState])
+                    reachableStates.add(...toStateClosure);
                 }
             });
-            if (transitions) {
-                reachableStates.add(...transitions);
-            }
         });
         return Array.from(reachableStates);
     }
 
-    function getOrCreateDFA(nfaStates) {
-        const dfaStateName = nfaStates.sort().join(',')
-        if (!dfaStates.includes(dfaStateName)) {
-            dfaStates.push(dfaStateName)
-
-            if (nfaStates.some(state => nfa.acceptStates.includes(state))) {
-                dfaAcceptStates.push(dfaStateName)
+    const nfaStartStateClosure = findEpsilonClosures([nfa.states[0]])
+    dfaStates.push(nfaStartStateClosure);
+    const unprocessedDFAStates = [nfaStartStateClosure];
+    const dfaStartStateName = nfaStartStateClosure.sort().join(',');
+    while (unprocessedDFAStates.length > 0) {
+        const currentDFAState = unprocessedDFAStates.shift()
+        nfa.alphabet.forEach(symbol => {
+            const statesFromCurrentDFAStateWithSymbol = getReachableStatesWithSymbol(currentDFAState, symbol).sort();
+            const isInDFAStates = dfaStates.some((arr) => JSON.stringify(arr) === JSON.stringify(statesFromCurrentDFAStateWithSymbol));
+            if (!isInDFAStates) {
+                dfaStates.push(statesFromCurrentDFAStateWithSymbol);
+                unprocessedDFAStates.push(statesFromCurrentDFAStateWithSymbol);
             }
-
-            const dfaTransitionsForState = {};
-            nfa.alphabet.forEach(symbol => {
-                const statesOnSymbol = getReachableStatesWithSymbol(nfaStates, symbol)
-                if (statesOnSymbol.length > 0) {
-                    dfaTransitionsForState[symbol] = getOrCreateDFA(statesOnSymbol)
-                }
-            });
-            dfaTransitions[dfaStateName] = dfaTransitionsForState
-        }
-        return dfaStateName
+            dfaTransitions.add(new Transition(currentDFAState, symbol, statesFromCurrentDFAStateWithSymbol));
+        });
     }
 
-    const nfaStartStateClosure = findEpsilonClosures([nfa.states[0]])
-    const dfaStartState = getOrCreateDFA(nfaStartStateClosure)
-    return new NFA(dfaStates, dfaTransitions, dfaAcceptStates)
+    dfaStates.forEach(st => {
+        if (nfa.acceptStates.some((element) => st.includes(element))) {
+            dfaAcceptStates.add(st);
+        }
+    });
+
+    return new DFA(dfaStates, dfaTransitions, dfaAcceptStates)
 }
+
+// export default convertNFAToDFA;
+module.exports = {
+    convertNFAToDFA,
+    epsilonSymbol
+};
