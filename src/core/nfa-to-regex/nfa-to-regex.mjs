@@ -30,8 +30,43 @@ function convertNFAToRegex(nfa) {
         nfa.acceptStates = newAcceptStates;
         return nfa;
     }
+
+    function buildRegularExpression(nfa) {
+        let nextStateToDelete = nfa.startState + 1;
+        while (nextStateToDelete != nfa.states.length - 1) {
+            let stateTransitions = new Set();
+            nfa.transitions.forEach(incomingTransition => {
+                if (incomingTransition.toState == nextStateToDelete && incomingTransition.fromState != nextStateToDelete) {
+                    stateTransitions.add(incomingTransition)
+                    nfa.transitions.forEach(outgoingTransition => {
+                        if (outgoingTransition.fromState == nextStateToDelete && outgoingTransition.toState != nextStateToDelete) {
+                            stateTransitions.add(outgoingTransition)
+                            let alreadyConnectingTransitions = nfa.transitions.filter(t => t.fromState == incomingTransition.fromState && t.toState == outgoingTransition.toState);
+                            stateTransitions.add(...alreadyConnectingTransitions);
+                            const loopTransitions = nfa.transitions.filter(t => t.fromState == nextStateToDelete && t.toState == nextStateToDelete);
+                            let loopRegexes = [];
+                            loopTransitions.forEach(t => {
+                                loopRegexes.push(`${t.symbol}`);
+                            })
+                            const loopRegex = loopRegexes.join('|');
+                            const newTransitionRegex = `(${incomingTransition.symbol})(${loopRegex})*(${outgoingTransition.symbol})`;
+                            alreadyConnectingTransitions.push(new Transition(incomingTransition.fromState, newTransitionRegex, outgoingTransition.toState));
+                            const finalTransitionRegex = alreadyConnectingTransitions.map(t => t.symbol).join('|');
+                            const finalTransition = new Transition(incomingTransition.fromState, finalTransitionRegex, outgoingTransition.toState);
+                            nfa.transitions.push(finalTransition);
+                            stateTransitions.add(...loopTransitions);
+                        }
+                    })
+                }
+            })
+            nfa.transitions = nfa.transitions.filter(t => !stateTransitions.has(t));
+            nextStateToDelete += 1;
+        }
+        return nfa.transitions.filter(t => t.fromState == 0 && t.toState == nfa.states.length - 1);
+    }
     nfa = addNewStartAndFinalStates(nfa);
-    return nfa;
+    const regex = buildRegularExpression(nfa);
+    return regex;
 }
 
 export { convertNFAToRegex };
