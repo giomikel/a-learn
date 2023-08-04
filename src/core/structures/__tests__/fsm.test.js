@@ -1,7 +1,7 @@
 import { FiniteStateMachine } from '../fsm.mjs'
-import { Transition } from '../fsm_transition.mjs';
+import { Transition } from '../fsm-transition.mjs';
 
-function testNFA() {
+test('check nfa initialization', () => {
     const states = [0, 1, 2];
     const transitions = [
         new Transition(0, 0, 0),
@@ -19,20 +19,15 @@ function testNFA() {
         transitions,
         acceptStates
     );
-    if (nfa.states.length !== 3 ||
-        nfa.transitions.length !== 8 ||
-        nfa.acceptStates.length !== 1 ||
-        nfa.alphabet.length !== 2 ||
-        nfa.startState !== 0 ||
-        nfa.isDFA != false
-    ) {
-        console.error('NFA initialization failed');
-    } else {
-        console.log('NFA initialization passed');
-    }
-}
+    expect(nfa.states.length).toEqual(3);
+    expect(nfa.transitions.length).toEqual(8);
+    expect(nfa.acceptStates.length).toEqual(1);
+    expect(nfa.alphabet.length).toEqual(2);
+    expect(nfa.startState).toEqual(0);
+    expect(nfa.isDFA).toEqual(false);
+})
 
-function testDFA() {
+test('check dfa initialization', () => {
     const states = [0, 1, 2];
     const transitions = [
         new Transition(0, 0, 0),
@@ -48,18 +43,10 @@ function testDFA() {
         transitions,
         acceptStates
     );
-    if (dfa.states.length !== 3 ||
-        dfa.transitions.length !== 6 ||
-        dfa.acceptStates.length !== 1 ||
-        dfa.alphabet.length !== 2 ||
-        dfa.startState !== 0 ||
-        dfa.isDFA != true
-    ) {
-        console.error('DFA initialization failed');
-    } else {
-        console.log('DFA initialization passed');
-    }
-}
-
-testNFA();
-testDFA();
+    expect(dfa.states.length).toEqual(3);
+    expect(dfa.transitions.length).toEqual(6);
+    expect(dfa.acceptStates.length).toEqual(1);
+    expect(dfa.alphabet.length).toEqual(2);
+    expect(dfa.startState).toEqual(0);
+    expect(dfa.isDFA).toEqual(true);
+})

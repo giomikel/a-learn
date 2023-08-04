@@ -1,5 +1,5 @@
 import { FiniteStateMachine } from "../structures/fsm.mjs"
-import { Transition } from "../structures/fsm_transition.mjs";
+import { Transition } from "../structures/fsm-transition.mjs";
 
 function createStateArray(numberOfStates){
     let states = [];

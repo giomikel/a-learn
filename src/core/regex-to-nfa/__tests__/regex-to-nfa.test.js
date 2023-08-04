@@ -1,5 +1,5 @@
 import regexToNFA from "../regex-to-nfa.mjs"
-import { Transition } from "../../structures/fsm_transition.mjs";
+import { Transition } from "../../structures/fsm-transition.mjs";
  
 test('check quantity, number of states and successful state indexes after converting regular expression to nfa', () => {
     let nfa1 = regexToNFA("(1or0|(y)*)*");
