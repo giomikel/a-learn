@@ -1,9 +1,7 @@
-import { FiniteStateMachine } from "../structures/fsm.mjs"
 import { Transition } from "../structures/fsm-transition.mjs";
 import { EPSILON_SYMBOL } from "../constants.mjs";
 
 function convertNFAToRegex(nfa) {
-
     function addNewStartAndFinalStates(nfa) {
         const newStates = [];
         const newTransitions = [];
@@ -42,19 +40,23 @@ function convertNFAToRegex(nfa) {
                         if (outgoingTransition.fromState == nextStateToDelete && outgoingTransition.toState != nextStateToDelete) {
                             stateTransitions.add(outgoingTransition)
                             let alreadyConnectingTransitions = nfa.transitions.filter(t => t.fromState == incomingTransition.fromState && t.toState == outgoingTransition.toState);
-                            stateTransitions.add(...alreadyConnectingTransitions);
+                            // stateTransitions.add(...alreadyConnectingTransitions); Doesnt work
+                            alreadyConnectingTransitions.forEach(t => stateTransitions.add(t));
                             const loopTransitions = nfa.transitions.filter(t => t.fromState == nextStateToDelete && t.toState == nextStateToDelete);
                             let loopRegexes = [];
                             loopTransitions.forEach(t => {
                                 loopRegexes.push(`${t.symbol}`);
                             })
                             const loopRegex = loopRegexes.join('|');
-                            const newTransitionRegex = `(${incomingTransition.symbol})(${loopRegex})*(${outgoingTransition.symbol})`;
+                            const incomingSymbol = incomingTransition.symbol == EPSILON_SYMBOL ? '' : incomingTransition.symbol;
+                            const outgoingSymbol = outgoingTransition.symbol == EPSILON_SYMBOL ? '' : outgoingTransition.symbol;
+                            const newTransitionRegex = `(${incomingSymbol})(${loopRegex})*(${outgoingSymbol})`;
                             alreadyConnectingTransitions.push(new Transition(incomingTransition.fromState, newTransitionRegex, outgoingTransition.toState));
                             const finalTransitionRegex = alreadyConnectingTransitions.map(t => t.symbol).join('|');
                             const finalTransition = new Transition(incomingTransition.fromState, finalTransitionRegex, outgoingTransition.toState);
                             nfa.transitions.push(finalTransition);
-                            stateTransitions.add(...loopTransitions);
+                            // stateTransitions.add(...loopTransitions); Doesnt work
+                            loopTransitions.forEach(t => stateTransitions.add(t));
                         }
                     })
                 }
@@ -62,10 +64,20 @@ function convertNFAToRegex(nfa) {
             nfa.transitions = nfa.transitions.filter(t => !stateTransitions.has(t));
             nextStateToDelete += 1;
         }
-        return nfa.transitions.filter(t => t.fromState == 0 && t.toState == nfa.states.length - 1);
+        return nfa.transitions.filter(t => t.fromState == nfa.startState && t.toState == nfa.states.length - 1)[0].symbol;
     }
+
+    function removeRedundantParentheses(regex) {
+        regex = regex.replace(/\(([^()|*]*)\)/g, '$1');
+        regex = regex.replace(/\(\*\)/g, '');
+        regex = regex.replace(/\(\)/g, '');
+        regex = regex.replace(/(?<![)\w])\*/g, '');
+        return regex;
+    }
+
     nfa = addNewStartAndFinalStates(nfa);
-    const regex = buildRegularExpression(nfa);
+    let regex = buildRegularExpression(nfa);
+    regex = removeRedundantParentheses(regex);
     return regex;
 }
 
