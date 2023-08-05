@@ -2,9 +2,19 @@ import { EPSILON_SYMBOL } from '../constants.mjs';
 
 class FiniteStateMachine {
     constructor(states, transitions, acceptStates) {
-        this.states = states;   // Array of states, e.g. [0, 1, 2, ...] Where initial state is the lowest value
-        this.transitions = transitions; // Array of Transition objects
-        this.acceptStates = acceptStates;   // Array of accept states
+        this.states = states.sort();   // Array of states, e.g. [0, 1, 2, ...] Where initial state is the lowest value
+        this.transitions = transitions.sort((a, b) => {
+            if (a.fromState !== b.fromState) {
+                return a.fromState - b.fromState;
+            } else if (a.toState !== b.toState) {
+                return a.toState - b.toState;
+            } else {
+                if (a.symbol < b.symbol) return -1;
+                if (a.symbol > b.symbol) return 1;
+                return 0;
+            }
+        }); // Array of Transition objects
+        this.acceptStates = acceptStates.sort();   // Array of accept states
         this.alphabet = getAlphabetFromTransitions(transitions);    // Array of alphabet symbols
         this.startState = getStartStateFromStates(states);  // Start state
         this.isDFA = determineFSMIsDFA(this.states, this.transitions, this.alphabet);
