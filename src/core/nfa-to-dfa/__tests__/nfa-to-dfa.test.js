@@ -47,3 +47,34 @@ test('test nfa to dfa conversion algorithm without epsilon symbol', () => {
     expect(dfa2.transitions.length).toEqual(6);
     expect(dfa2.states).toEqual([0, 1, 2]);
 })
+
+test('test nfa to dfa conversion algorithm with epsilon symbol 2', () => {
+    const states = [0, 1, 2, 3];
+    const transitions = [
+        new Transition(0, EPSILON_SYMBOL, 1),
+        new Transition(1, 'a', 1),
+        new Transition(1, 'b', 2),
+        new Transition(2, 'a', 2),
+        new Transition(2, 'b', 2),
+        new Transition(2, EPSILON_SYMBOL, 3)
+    ];
+    const acceptStates = [3];
+    const nfa = new FiniteStateMachine(
+        states,
+        transitions,
+        acceptStates
+    );
+    const result = convertNFAToDFA(nfa);
+
+    const resultStates = [0, 1, 2];
+    const resultTransitions = [
+        new Transition(0, 'a', 1),
+        new Transition(0, 'b', 2),
+        new Transition(1, 'a', 1),
+        new Transition(1, 'b', 2),
+        new Transition(2, 'a', 2),
+        new Transition(2, 'b', 2)
+    ];
+    const resultAcceptStates = [2];
+    expect(result).toEqual(new FiniteStateMachine(resultStates, resultTransitions, resultAcceptStates));
+})
