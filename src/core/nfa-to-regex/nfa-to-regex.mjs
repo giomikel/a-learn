@@ -1,5 +1,6 @@
 import { Transition } from "../structures/fsm-transition.mjs";
 import { EPSILON_SYMBOL } from "../constants.mjs";
+import { FiniteStateMachine } from "../structures/fsm.mjs";
 
 function convertNFAToRegex(nfa) {
     function addNewStartAndFinalStates(nfa) {
@@ -23,44 +24,43 @@ function convertNFAToRegex(nfa) {
         newTransitions.push(new Transition(0, EPSILON_SYMBOL, 1));
         newAcceptStates.push(nfa.states.length + 1);
 
-        nfa.states = newStates;
-        nfa.transitions = newTransitions;
-        nfa.acceptStates = newAcceptStates;
-        return nfa;
+        return new FiniteStateMachine(newStates, newTransitions, newAcceptStates);
     }
 
     function buildRegularExpression(nfa) {
         let nextStateToDelete = nfa.startState + 1;
         while (nextStateToDelete != nfa.states.length - 1) {
             let stateTransitions = new Set();
+            let newTransitionsToPush = new Set();
             nfa.transitions.forEach(incomingTransition => {
                 if (incomingTransition.toState == nextStateToDelete && incomingTransition.fromState != nextStateToDelete) {
                     stateTransitions.add(incomingTransition)
                     nfa.transitions.forEach(outgoingTransition => {
                         if (outgoingTransition.fromState == nextStateToDelete && outgoingTransition.toState != nextStateToDelete) {
                             stateTransitions.add(outgoingTransition)
-                            let alreadyConnectingTransitions = nfa.transitions.filter(t => t.fromState == incomingTransition.fromState && t.toState == outgoingTransition.toState);
-                            // stateTransitions.add(...alreadyConnectingTransitions); Doesnt work
+                            let alreadyConnectingTransitions = new Set();
+                            let potentialConnectingTransitions = new Set(nfa.transitions);
+                            newTransitionsToPush.forEach(t => potentialConnectingTransitions.add(t));
+                            alreadyConnectingTransitions = new Set(Array.from(potentialConnectingTransitions).filter(t => t.fromState == incomingTransition.fromState && t.toState == outgoingTransition.toState));
                             alreadyConnectingTransitions.forEach(t => stateTransitions.add(t));
                             const loopTransitions = nfa.transitions.filter(t => t.fromState == nextStateToDelete && t.toState == nextStateToDelete);
                             let loopRegexes = [];
-                            loopTransitions.forEach(t => {
-                                loopRegexes.push(`${t.symbol}`);
-                            })
+                            loopTransitions.forEach(t => loopRegexes.push(`${t.symbol}`));
                             const loopRegex = loopRegexes.join('|');
-                            const incomingSymbol = incomingTransition.symbol == EPSILON_SYMBOL ? '' : incomingTransition.symbol;
-                            const outgoingSymbol = outgoingTransition.symbol == EPSILON_SYMBOL ? '' : outgoingTransition.symbol;
-                            const newTransitionRegex = `(${incomingSymbol})(${loopRegex})*(${outgoingSymbol})`;
-                            alreadyConnectingTransitions.push(new Transition(incomingTransition.fromState, newTransitionRegex, outgoingTransition.toState));
-                            const finalTransitionRegex = alreadyConnectingTransitions.map(t => t.symbol).join('|');
+                            const incomingSymbol = incomingTransition.symbol == EPSILON_SYMBOL && (outgoingTransition.symbol != EPSILON_SYMBOL || loopRegex != '') ? '' : incomingTransition.symbol;
+                            const outgoingSymbol = outgoingTransition.symbol == EPSILON_SYMBOL && (incomingTransition.symbol != EPSILON_SYMBOL || loopRegex != '' || incomingSymbol == EPSILON_SYMBOL) ? '' : outgoingTransition.symbol;
+                            const newTransitionRegex = loopRegex == '' ? `(${incomingSymbol})(${outgoingSymbol})` : `(${incomingSymbol})(${loopRegex})*(${outgoingSymbol})`;
+                            alreadyConnectingTransitions.add(new Transition(incomingTransition.fromState, newTransitionRegex, outgoingTransition.toState));
+                            let finalTransitionRegex = Array.from(alreadyConnectingTransitions).map(t => t.symbol).join('|');
+                            finalTransitionRegex = removeRedundantParentheses(finalTransitionRegex);
                             const finalTransition = new Transition(incomingTransition.fromState, finalTransitionRegex, outgoingTransition.toState);
-                            nfa.transitions.push(finalTransition);
-                            // stateTransitions.add(...loopTransitions); Doesnt work
+                            newTransitionsToPush.add(finalTransition);
                             loopTransitions.forEach(t => stateTransitions.add(t));
                         }
-                    })
+                    });
                 }
-            })
+            });
+            newTransitionsToPush.forEach(t => nfa.transitions.push(t));
             nfa.transitions = nfa.transitions.filter(t => !stateTransitions.has(t));
             nextStateToDelete += 1;
         }
@@ -68,16 +68,24 @@ function convertNFAToRegex(nfa) {
     }
 
     function removeRedundantParentheses(regex) {
-        regex = regex.replace(/\(([^()|*]*)\)/g, '$1');
+        regex = regex.replace(/\(([^()|*])\)/g, '$1');
         regex = regex.replace(/\(\*\)/g, '');
         regex = regex.replace(/\(\)/g, '');
         regex = regex.replace(/(?<![)\w])\*/g, '');
         return regex;
     }
 
+    function removeEnclosingParentheses(str) {
+        if (str.charAt(0) === '(' && str.charAt(str.length - 1) === ')') {
+            return str.slice(1, -1);
+        }
+        return str;
+    }
+
     nfa = addNewStartAndFinalStates(nfa);
     let regex = buildRegularExpression(nfa);
     regex = removeRedundantParentheses(regex);
+    regex = removeEnclosingParentheses(regex);
     return regex;
 }
 

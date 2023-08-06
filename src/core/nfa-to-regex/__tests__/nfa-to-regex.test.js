@@ -3,7 +3,7 @@ import { Transition } from "../../structures/fsm-transition.mjs";
 import { EPSILON_SYMBOL } from "../../constants.mjs";
 import { convertNFAToRegex } from "../nfa-to-regex.mjs"
 
-test('test nfa to regex conversion', () => {
+test('test nfa to regex conversion 1', () => {
     const states = [0, 1, 2];
     const transitions = [
         new Transition(0, EPSILON_SYMBOL, 1),
@@ -17,10 +17,10 @@ test('test nfa to regex conversion', () => {
         acceptStates
     );
     const result = convertNFAToRegex(nfa);
-    expect(result).toEqual('(0|1)*');
+    expect(result).toEqual('0|1');
 })
 
-test('test nfa to regex conversion', () => {
+test('test nfa to regex conversion 2', () => {
     const states = [0, 1, 2, 3];
     const transitions = [
         new Transition(0, EPSILON_SYMBOL, 1),
@@ -40,7 +40,7 @@ test('test nfa to regex conversion', () => {
     expect(result).toEqual('(a*b)(a|b)*');
 })
 
-test('test nfa to regex conversion', () => {
+test('test nfa to regex conversion 3', () => {
     const states = [0, 1, 2];
     const transitions = [
         new Transition(0, 'a', 0),
@@ -56,4 +56,42 @@ test('test nfa to regex conversion', () => {
     );
     const result = convertNFAToRegex(nfa);
     expect(result).toEqual('((a|b)*a)b');
+})
+
+test('test nfa to regex conversion 4', () => {
+    const states = [0, 1, 2];
+    const transitions = [
+        new Transition(0, 1, 1),
+        new Transition(0, 0, 2),
+        new Transition(1, 0, 2),
+        new Transition(2, 1, 1)
+    ];
+    const acceptStates = [0, 1, 2];
+    const nfa = new FiniteStateMachine(
+        states,
+        transitions,
+        acceptStates
+    );
+    const result = convertNFAToRegex(nfa);
+    expect(result).toEqual('#|1|(0|10)(10)*(#|1)');
+})
+
+test('test nfa to regex conversion 5', () => {
+    const states = [0, 1, 2, 3];
+    const transitions = [
+        new Transition(0, 0, 1),
+        new Transition(0, 1, 2),
+        new Transition(1, 1, 2),
+        new Transition(1, 1, 3),
+        new Transition(2, 0, 1),
+        new Transition(2, 0, 3)
+    ];
+    const acceptStates = [0, 3];
+    const nfa = new FiniteStateMachine(
+        states,
+        transitions,
+        acceptStates
+    );
+    const result = convertNFAToRegex(nfa);
+    expect(result).toEqual('#|(01|(1|01)(01)*(0|01))');
 })
