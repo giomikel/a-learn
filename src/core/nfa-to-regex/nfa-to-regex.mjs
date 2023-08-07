@@ -76,10 +76,34 @@ function convertNFAToRegex(nfa) {
     }
 
     function removeEnclosingParentheses(str) {
-        if (str.charAt(0) === '(' && str.charAt(str.length - 1) === ')') {
+        if (areEnclosingParenthesesPaired(str)) {
             return str.slice(1, -1);
         }
         return str;
+    }
+
+    function areEnclosingParenthesesPaired(str) {
+        if (str.length < 2) {
+            return false;
+        }
+
+        if (str[0] !== '(' || str[str.length - 1] !== ')') {
+            return false;
+        }
+
+        const stack = [];
+        for (let i = 0; i < str.length; i++) {
+            if (str[i] === '(') {
+                stack.push('(');
+            } else if (str[i] === ')') {
+                if (stack.length === 0 || (stack.length <= 1 && i != str.length - 1)) {
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+
+        return stack.length === 0;
     }
 
     nfa = addNewStartAndFinalStates(nfa);
