@@ -73,7 +73,7 @@ test('test nfa to regex conversion 4', () => {
         acceptStates
     );
     const result = convertNFAToRegex(nfa);
-    expect(result).toEqual('#|1|(0|10)(10)*(#|1)');
+    expect(result).toEqual(`${EPSILON_SYMBOL}|1|(0|10)(10)*(${EPSILON_SYMBOL}|1)`);
 })
 
 test('test nfa to regex conversion 5', () => {
@@ -93,7 +93,7 @@ test('test nfa to regex conversion 5', () => {
         acceptStates
     );
     const result = convertNFAToRegex(nfa);
-    expect(result).toEqual('#|(01|(1|01)(01)*(0|01))');
+    expect(result).toEqual(`${EPSILON_SYMBOL}|(01|(1|01)(01)*(0|01))`);
 })
 
 test('test nfa to regex conversion 6', () => {

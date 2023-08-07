@@ -61,7 +61,7 @@ function convertNFAToRegex(nfa) {
 
         const loopTransitions = nfa.transitions.filter(t => t.fromState == nextStateToDelete && t.toState == nextStateToDelete);
 
-        const finalTransitionRegex = buildRegularExpressionString(alreadyConnectingTransitions, loopTransitions, incomingTransition, outgoingTransition);
+        const finalTransitionRegex = buildRegularExpressionTransitionPairString(alreadyConnectingTransitions, loopTransitions, incomingTransition, outgoingTransition);
         const finalTransition = new Transition(incomingTransition.fromState, finalTransitionRegex, outgoingTransition.toState);
 
         newTransitionsToPush.add(finalTransition);
@@ -70,7 +70,7 @@ function convertNFAToRegex(nfa) {
         return [stateTransitions, newTransitionsToPush];
     }
 
-    function buildRegularExpressionString(alreadyConnectingTransitions, loopTransitions, incomingTransition, outgoingTransition) {
+    function buildRegularExpressionTransitionPairString(alreadyConnectingTransitions, loopTransitions, incomingTransition, outgoingTransition) {
         let loopRegexes = [];
         loopTransitions.forEach(t => loopRegexes.push(`${t.symbol}`));
         const loopRegex = loopRegexes.join('|');
