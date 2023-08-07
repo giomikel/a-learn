@@ -32,7 +32,8 @@ function convertNFAToDFA(nfa) {
             nfa.transitions.forEach(element => {
                 if (element.fromState == state && element.symbol == symbol) {
                     const toStateClosure = findEpsilonClosures([element.toState])
-                    reachableStates.add(...toStateClosure);
+                    // reachableStates.add(...toStateClosure); Doesnt work
+                    toStateClosure.forEach(s => reachableStates.add(s));
                 }
             });
         });

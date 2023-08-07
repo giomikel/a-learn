@@ -56,8 +56,8 @@ test('check edges after converting regular expression to nfa', () => {
     expect(nfa1.transitions[4]).toEqual(new Transition(3, '0', 4));
     expect(nfa1.transitions[5]).toEqual(new Transition(4, '1', 1));
     expect(nfa1.transitions[6]).toEqual(new Transition(4, 'y', 5));
-    expect(nfa1.transitions[7]).toEqual(new Transition(5, 'y', 5));
-    expect(nfa1.transitions[8]).toEqual(new Transition(5, '1', 1));
+    expect(nfa1.transitions[7]).toEqual(new Transition(5, '1', 1));
+    expect(nfa1.transitions[8]).toEqual(new Transition(5, 'y', 5));
 
     let nfa2 = regexToNFA("u|wq|qm0");
 
