@@ -95,3 +95,22 @@ test('test nfa to regex conversion 5', () => {
     const result = convertNFAToRegex(nfa);
     expect(result).toEqual('#|(01|(1|01)(01)*(0|01))');
 })
+
+test('test nfa to regex conversion 6', () => {
+    const states = [0, 1, 2];
+    const transitions = [
+        new Transition(0, 'b', 0),
+        new Transition(0, EPSILON_SYMBOL, 1),
+        new Transition(1, 'c', 0),
+        new Transition(1, 'a', 2),
+        new Transition(2, 'b', 1)
+    ];
+    const acceptStates = [1];
+    const nfa = new FiniteStateMachine(
+        states,
+        transitions,
+        acceptStates
+    );
+    const result = convertNFAToRegex(nfa);
+    expect(result).toEqual('(b*)(cb*)*|((b*)(cb*)*a)(b(cb*)*a)*(b(cb*)*)');
+})
