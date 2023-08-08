@@ -101,9 +101,63 @@ class CNFConverter {
     this.cfg.setStartSymbol("S0");
   }
 
+  addUnitProductions(state, key, unitProductions){
+    if (this.cfg.nonTerminals.has(state) && key !== state){
+      unitProductions[key] = unitProductions[key] || [];
+      unitProductions[key].push(state);
+    } 
+  }
+
+  makeUniqueProductions(){
+    for (let rule of this.cfg.productionRules){
+      let uniqueElements = new Set();
+      this.cfg.productionRules.get(rule[0]).map((el) => uniqueElements.add(el));
+      this.cfg.productionRules.set(rule[0], Array.from(uniqueElements));
+    }
+  }
+
+  eliminateUnitProductions() {
+    let unitProductions = {};
+
+    for (let rule of this.cfg.productionRules) {
+      for (let state of rule[1]){
+        this.addUnitProductions(state, rule[0], unitProductions);
+      }
+    }
+
+    while (Object.keys(unitProductions).length > 0) {
+      for (let [key, value] of Object.entries(unitProductions)) {
+        delete unitProductions[key];
+
+        for (let v of value) {
+          let rulesToReplace = this.cfg.productionRules.get(v);
+          for (let state of rulesToReplace) {
+            this.cfg.productionRules.get(key).push(state);
+            this.addUnitProductions(state, key, unitProductions)
+          }
+        }
+      }
+    }
+
+    for (let rule of this.cfg.productionRules) {
+      let nonTerminalStates = [];
+      for (let state of rule[1]){
+        if (!this.cfg.nonTerminals.has(state)){
+          nonTerminalStates.push(state);
+        } 
+      }
+      this.cfg.productionRules.set(rule[0], nonTerminalStates);
+    }
+    
+    this.makeUniqueProductions();
+  }
+
   convertToCNF() {
     let epsilonProductions = this.eliminateEpsilonProductions();
     this.addNewStartSymbol(epsilonProductions);
+    console.log(this.cfg.productionRules);
+    this.eliminateUnitProductions();
+    console.log(this.cfg.productionRules);
     return new CNF(this.cfg.productionRules, this.cfg.startSymbol);
   }
 }
