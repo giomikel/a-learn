@@ -73,14 +73,37 @@ class CNFConverter {
     return epsilonProductions;
   }
 
+  checkChildEpsilonProduction(parentState, epsilonProductions){
+    if (!this.cfg.productionRules.has(parentState)) return false;
+
+    for (let state of this.cfg.productionRules.get(parentState)){
+      if (epsilonProductions.includes(state) || this.checkChildEpsilonProduction(state, epsilonProductions)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  addNewStartSymbol(epsilonProductions){
+    this.cfg.addNonTerminal("S0");
+    this.cfg.addProductionRule("S0", this.cfg.startSymbol);
+    for (let state of this.cfg.productionRules.get(this.cfg.startSymbol)){
+      if (epsilonProductions.includes(state) || (this.cfg.nonTerminals.has(state) && this.checkChildEpsilonProduction(state, epsilonProductions))){
+         this.cfg.addProductionRule("S0", '');
+         break;
+      }
+    }
+
+    if (this.initialStartHasEpsilonProduction){
+      this.cfg.addProductionRule("S0", '');
+    }
+
+    this.cfg.setStartSymbol("S0");
+  }
+
   convertToCNF() {
-    this.eliminateEpsilonProductions();
+    let epsilonProductions = this.eliminateEpsilonProductions();
+    this.addNewStartSymbol(epsilonProductions);
+    return new CNF(this.cfg.productionRules, this.cfg.startSymbol);
   }
 }
-
-const cfgEpsilon = new CFG();
-
-
-const cnfConverter = new CNFConverter(cfgEpsilon);
-cnfConverter.convertToCNF();
-console.log(cnfConverter.cfg.productionRules);
