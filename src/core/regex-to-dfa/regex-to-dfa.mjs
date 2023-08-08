@@ -6,3 +6,5 @@ function convertRegexToDFA(regex) {
     const dfa = convertNFAToDFA(nfa);
     return dfa;
 }
+
+export { convertRegexToDFA }
