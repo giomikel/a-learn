@@ -209,7 +209,39 @@ class CNFConverter {
     
     this.makeUniqueProductions();
   }
-  
+
+  replaceTerminals() {
+
+    let terminalMap = new Map();
+    for (let rule of this.cfg.productionRules){
+      if (rule[1].length === 1 && this.cfg.terminals.has(rule[1][0])){
+         terminalMap.set(rule[1][0], rule[0]);
+      }
+    }
+
+    for (let rule of this.cfg.productionRules){
+      if (rule[1].length !== 1 || !this.cfg.terminals.has(rule[1][0])){
+         let productions = [];
+         for (let state of rule[1]){
+           let stateArr = state.split('');
+           for (let index = 0; index < stateArr.length; index++){
+             if (this.cfg.terminals.has(stateArr[index])){
+               let nonTerminal = this.getSymbol(terminalMap, stateArr[index]);
+               if (!terminalMap.has(stateArr[index])){
+                 this.cfg.addNonTerminal(nonTerminal);
+                 this.cfg.addProductionRule(nonTerminal, stateArr[index]);
+                 terminalMap.set(stateArr[index], nonTerminal);
+               }
+               stateArr[index] = nonTerminal;
+             }
+           }
+           productions.push(stateArr.join(''));
+         }
+         this.cfg.productionRules.set(rule[0], productions);
+      }
+    }
+  }
+
   convertToCNF() {
     let epsilonProductions = this.eliminateEpsilonProductions();
     this.addNewStartSymbol(epsilonProductions);
@@ -217,6 +249,8 @@ class CNFConverter {
     this.eliminateUnitProductions();
     console.log(this.cfg.productionRules);
     this.convertLongProductions();
+    console.log(this.cfg.productionRules);
+    this.replaceTerminals();
     console.log(this.cfg.productionRules);
     return new CNF(this.cfg.productionRules, this.cfg.startSymbol);
   }
