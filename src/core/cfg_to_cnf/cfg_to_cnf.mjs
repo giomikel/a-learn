@@ -1,4 +1,3 @@
-import CFG from "../structures/cfg.mjs";
 import CNF from "../structures/cnf.mjs";
 
 class CNFConverter {
@@ -85,20 +84,21 @@ class CNFConverter {
   }
 
   addNewStartSymbol(epsilonProductions){
-    this.cfg.addNonTerminal("S0");
-    this.cfg.addProductionRule("S0", this.cfg.startSymbol);
+    let newStartSymbol = this.generateNonTerminal();
+    this.cfg.addNonTerminal(newStartSymbol);
+    this.cfg.addProductionRule(newStartSymbol, this.cfg.startSymbol);
     for (let state of this.cfg.productionRules.get(this.cfg.startSymbol)){
       if (epsilonProductions.includes(state) || (this.cfg.nonTerminals.has(state) && this.checkChildEpsilonProduction(state, epsilonProductions))){
-         this.cfg.addProductionRule("S0", '');
+         this.cfg.addProductionRule(newStartSymbol, '');
          break;
       }
     }
 
     if (this.initialStartHasEpsilonProduction){
-      this.cfg.addProductionRule("S0", '');
+      this.cfg.addProductionRule(newStartSymbol, '');
     }
 
-    this.cfg.setStartSymbol("S0");
+    this.cfg.setStartSymbol(newStartSymbol);
   }
 
   addUnitProductions(state, key, unitProductions){
@@ -116,8 +116,16 @@ class CNFConverter {
     }
   }
 
+  removeSelfProductions(){
+    for (let rule of this.cfg.productionRules){
+          this.cfg.productionRules.set(rule[0], this.cfg.productionRules.get(rule[0]).filter((el) => el != rule[0]));
+    }
+  }
+
   eliminateUnitProductions() {
     let unitProductions = {};
+
+    this.removeSelfProductions();
 
     for (let rule of this.cfg.productionRules) {
       for (let state of rule[1]){
@@ -154,9 +162,7 @@ class CNFConverter {
 
   generateNonTerminal() {
     if (this.cfg.nonTerminals.length > 25){
-      let nonTerminalWithIndex = "Z"+this.generatedNonTerminalSymbolIndex;
-      this.generatedNonTerminalSymbolIndex ++;
-      return nonTerminalWithIndex;
+      throw new Error("Number of non terminal symbols exceeded the limited quantity in processing");
     }
 
     while(this.cfg.nonTerminals.has(String.fromCharCode(this.currentSymbol))){
@@ -255,3 +261,31 @@ class CNFConverter {
     return new CNF(this.cfg.productionRules, this.cfg.startSymbol);
   }
 }
+
+// cfgEpsilon.addNonTerminal('S');
+// cfgEpsilon.addNonTerminal('A');
+// cfgEpsilon.addNonTerminal('B');
+// cfgEpsilon.addProductionRule('S', 'AB');
+// cfgEpsilon.addProductionRule('A', 'B');
+// cfgEpsilon.addProductionRule('B', '');
+
+
+// cfgEpsilon.setStartSymbol('S');
+
+// cfgEpsilon.addNonTerminal('S');
+// cfgEpsilon.addNonTerminal('A');
+// cfgEpsilon.addNonTerminal('B');
+// cfgEpsilon.addNonTerminal('C');
+// cfgEpsilon.addTerminal('l');
+// cfgEpsilon.addTerminal('a');
+// cfgEpsilon.addTerminal('b');
+// cfgEpsilon.addTerminal('c');
+// cfgEpsilon.addProductionRule('S', 'AB');
+// cfgEpsilon.addProductionRule('S', 'A');
+// cfgEpsilon.addProductionRule('A', 'B');
+// cfgEpsilon.addProductionRule('B', 'aBbc');
+// cfgEpsilon.addProductionRule('B', 'l');
+// cfgEpsilon.addProductionRule('C', 'Bbc');
+// cfgEpsilon.setStartSymbol('S');
+
+export default CNFConverter;
