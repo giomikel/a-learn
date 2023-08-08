@@ -152,11 +152,71 @@ class CNFConverter {
     this.makeUniqueProductions();
   }
 
+  generateNonTerminal() {
+    if (this.cfg.nonTerminals.length > 25){
+      let nonTerminalWithIndex = "Z"+this.generatedNonTerminalSymbolIndex;
+      this.generatedNonTerminalSymbolIndex ++;
+      return nonTerminalWithIndex;
+    }
+
+    while(this.cfg.nonTerminals.has(String.fromCharCode(this.currentSymbol))){
+      this.currentSymbol ++;
+    }
+
+    return String.fromCharCode(this.currentSymbol);
+  }
+
+  getSymbol(mp, key){
+    if(mp.has(key)){
+      return mp.get(key);
+    }
+    return this.generateNonTerminal();
+  }
+
+  convertLongProductions() {
+    let longProductions = [];
+    let newNonTermninalProductions = new Map();
+
+    for (let rule of this.cfg.productionRules) {
+      for (let state of rule[1]){
+        if (state.length > 2){
+           longProductions.push([rule[0], state]);
+        }else if (state.length === 2 && rule[0] !== this.cfg.startSymbol && rule[1].length === 1){
+           newNonTermninalProductions.set(state, rule[0]);
+        }
+      }
+    }
+
+    for (let rule of longProductions) {
+      let nonTerminal = rule[0];
+      let stateArr = rule[1].split('');
+      this.cfg.productionRules.set(nonTerminal, this.cfg.productionRules.get(nonTerminal).filter(element => element !== rule[1]));
+
+      while (stateArr.length > 2) {
+        let remainPart = stateArr.slice(1).join("");
+        let newNonTerminalSymbol = this.getSymbol(newNonTermninalProductions, remainPart);
+        let newState = stateArr[0] + newNonTerminalSymbol;
+        this.cfg.addNonTerminal(newNonTerminalSymbol);
+        this.cfg.addProductionRule(nonTerminal, newState);
+        newNonTermninalProductions.set(remainPart, newNonTerminalSymbol);
+        nonTerminal = newNonTerminalSymbol;
+        stateArr = stateArr.slice(1);
+        if (stateArr.length === 2){
+          this.cfg.addProductionRule(nonTerminal, stateArr.join(''));
+        }
+      }      
+    }
+    
+    this.makeUniqueProductions();
+  }
+  
   convertToCNF() {
     let epsilonProductions = this.eliminateEpsilonProductions();
     this.addNewStartSymbol(epsilonProductions);
     console.log(this.cfg.productionRules);
     this.eliminateUnitProductions();
+    console.log(this.cfg.productionRules);
+    this.convertLongProductions();
     console.log(this.cfg.productionRules);
     return new CNF(this.cfg.productionRules, this.cfg.startSymbol);
   }
