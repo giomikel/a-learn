@@ -1,8 +1,6 @@
 import { convertRegexToDFA } from "../regex-to-dfa.mjs"
 import validateExpression from "../../regex-to-nfa/regex-validator.mjs";
-import regexToNFA from "../../regex-to-nfa/regex-to-nfa.mjs";
 import { Transition } from "../../structures/fsm-transition.mjs";
-import { convertNFAToDFA } from "../../nfa-to-dfa/nfa-to-dfa.mjs";
 import { EPSILON_SYMBOL } from "../../constants.mjs";
 
 test('test regex to dfa conversion 1', () => {
