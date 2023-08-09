@@ -1,5 +1,6 @@
 import CNF from "../structures/cnf.mjs";
 import { EPSILON_IN_CFG } from '../constants.mjs';
+import { NON_TERMINAL_SYMBOLS_LIMIT } from '../constants.mjs';
 
 class CNFConverter {
   constructor(cfg) {
@@ -162,7 +163,7 @@ class CNFConverter {
   }
 
   generateNonTerminal() {
-    if (this.cfg.nonTerminals.length > 25){
+    if (this.cfg.nonTerminals.length > NON_TERMINAL_SYMBOLS_LIMIT){
       throw new Error("Number of non terminal symbols exceeded the limited quantity in processing");
     }
 
