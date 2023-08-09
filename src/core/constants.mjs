@@ -1,3 +1,4 @@
 const EPSILON_SYMBOL = '#';
+const EPSILON_IN_CFG = '';
 
-export { EPSILON_SYMBOL };
+export { EPSILON_SYMBOL, EPSILON_IN_CFG };

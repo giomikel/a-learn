@@ -1,4 +1,5 @@
 import CNF from "../structures/cnf.mjs";
+import { EPSILON_IN_CFG } from '../constants.mjs';
 
 class CNFConverter {
   constructor(cfg) {
@@ -8,9 +9,9 @@ class CNFConverter {
     this.initialStartHasEpsilonProduction = false;
   }
 
-  generateAllStateCombinations(state, specialSymbols, index = 0, currentString = '', result = []) {
+  generateAllStateCombinations(state, specialSymbols, index = 0, currentString = EPSILON_IN_CFG, result = []) {
     if (index === state.length) {
-      if (currentString !== ''){
+      if (currentString !== EPSILON_IN_CFG){
         result.push(currentString);
       }
       return;
@@ -43,7 +44,7 @@ class CNFConverter {
     let epsilonProductions = [];
 
     for (let rule of this.cfg.productionRules) {
-      if (rule[1].includes('')) {
+      if (rule[1].includes(EPSILON_IN_CFG)) {
         epsilonProductions.push(rule[0]);
         if (rule[0] === this.cfg.startSymbol) {
           this.initialStartHasEpsilonProduction = true;
@@ -53,8 +54,8 @@ class CNFConverter {
 
     let updatedProductionRules = new Map();
     for (let rule of this.cfg.productionRules) {
-      if (rule[1].includes('')) {
-        rule[1] = rule[1].filter((element) => element !== '');
+      if (rule[1].includes(EPSILON_IN_CFG)) {
+        rule[1] = rule[1].filter((element) => element !== EPSILON_IN_CFG);
       }
       updatedProductionRules.set(rule[0], rule[1]);
     }
@@ -89,13 +90,13 @@ class CNFConverter {
     this.cfg.addProductionRule(newStartSymbol, this.cfg.startSymbol);
     for (let state of this.cfg.productionRules.get(this.cfg.startSymbol)){
       if (epsilonProductions.includes(state) || (this.cfg.nonTerminals.has(state) && this.checkChildEpsilonProduction(state, epsilonProductions))){
-         this.cfg.addProductionRule(newStartSymbol, '');
+         this.cfg.addProductionRule(newStartSymbol, EPSILON_IN_CFG);
          break;
       }
     }
 
     if (this.initialStartHasEpsilonProduction){
-      this.cfg.addProductionRule(newStartSymbol, '');
+      this.cfg.addProductionRule(newStartSymbol, EPSILON_IN_CFG);
     }
 
     this.cfg.setStartSymbol(newStartSymbol);
