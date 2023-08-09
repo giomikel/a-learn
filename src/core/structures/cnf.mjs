@@ -5,4 +5,4 @@ class CNF {
     }
 }
 
-export default CNF;
+export default CNF

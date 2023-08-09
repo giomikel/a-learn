@@ -1,4 +1,4 @@
-import CNFConverter from "../cfg_to_cnf.mjs";
+import CNFConverter from "../cfg-to-cnf.mjs";
 import CFG from "../../structures/cfg.mjs";
  
 test('check cfg with non epsilon productions', () => {

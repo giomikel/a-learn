@@ -251,41 +251,11 @@ class CNFConverter {
   convertToCNF() {
     let epsilonProductions = this.eliminateEpsilonProductions();
     this.addNewStartSymbol(epsilonProductions);
-    console.log(this.cfg.productionRules);
     this.eliminateUnitProductions();
-    console.log(this.cfg.productionRules);
     this.convertLongProductions();
-    console.log(this.cfg.productionRules);
     this.replaceTerminals();
-    console.log(this.cfg.productionRules);
     return new CNF(this.cfg.productionRules, this.cfg.startSymbol);
   }
 }
-
-// cfgEpsilon.addNonTerminal('S');
-// cfgEpsilon.addNonTerminal('A');
-// cfgEpsilon.addNonTerminal('B');
-// cfgEpsilon.addProductionRule('S', 'AB');
-// cfgEpsilon.addProductionRule('A', 'B');
-// cfgEpsilon.addProductionRule('B', '');
-
-
-// cfgEpsilon.setStartSymbol('S');
-
-// cfgEpsilon.addNonTerminal('S');
-// cfgEpsilon.addNonTerminal('A');
-// cfgEpsilon.addNonTerminal('B');
-// cfgEpsilon.addNonTerminal('C');
-// cfgEpsilon.addTerminal('l');
-// cfgEpsilon.addTerminal('a');
-// cfgEpsilon.addTerminal('b');
-// cfgEpsilon.addTerminal('c');
-// cfgEpsilon.addProductionRule('S', 'AB');
-// cfgEpsilon.addProductionRule('S', 'A');
-// cfgEpsilon.addProductionRule('A', 'B');
-// cfgEpsilon.addProductionRule('B', 'aBbc');
-// cfgEpsilon.addProductionRule('B', 'l');
-// cfgEpsilon.addProductionRule('C', 'Bbc');
-// cfgEpsilon.setStartSymbol('S');
 
 export default CNFConverter;
