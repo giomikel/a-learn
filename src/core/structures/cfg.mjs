@@ -30,3 +30,4 @@ class CFG {
   }
 
   export default CFG;
+  
