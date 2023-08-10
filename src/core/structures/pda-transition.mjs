@@ -11,3 +11,5 @@ class PDATransition {
         return `${this.fromState} --(${this.inputSymbol}, ${this.popSymbol} / ${this.pushSymbol})--> ${this.toState}`;
     }
 }
+
+export { PDATransition }
