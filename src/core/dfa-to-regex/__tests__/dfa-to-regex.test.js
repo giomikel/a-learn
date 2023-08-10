@@ -3,6 +3,7 @@ import { FiniteStateMachine } from "../../structures/fsm.mjs";
 import { convertDFAToRegex } from "../dfa-to-regex.mjs";
 
 test('test dfa to regex conversion - 1', () => {
+    
     const states = [0, 1, 2];
     const transitions = [
         new Transition(0, 'a', 1),
@@ -16,6 +17,7 @@ test('test dfa to regex conversion - 1', () => {
 })
 
 test('test dfa to regex conversion - 2', () => {
+
     const states = [0, 1, 2];
     const transitions = [
         new Transition(0, 'a', 1),
@@ -29,6 +31,7 @@ test('test dfa to regex conversion - 2', () => {
 })
 
 test('test dfa to regex conversion - 3', () => {
+
     const states = [0, 1, 2, 3];
     const transitions = [
         new Transition(0, 'a', 1),
@@ -44,6 +47,7 @@ test('test dfa to regex conversion - 3', () => {
 })
 
 test('test dfa to regex conversion - 4', () => {
+
     const states = [0, 1, 2, 3, 4];
     const transitions = [
         new Transition(0, 'a', 1),
@@ -60,6 +64,7 @@ test('test dfa to regex conversion - 4', () => {
 })
 
 test('test dfa to regex conversion - 5', () => {
+
     const states = [0, 1, 2, 3, 4, 5];
     const transitions = [
         new Transition(0, 'a', 1),
@@ -77,6 +82,7 @@ test('test dfa to regex conversion - 5', () => {
 })
 
 test('test dfa to regex conversion - 6', () => {
+
     const states = [0, 1, 2, 3, 4, 5];
     const transitions = [
         new Transition(0, 'a', 1),
@@ -98,6 +104,7 @@ test('test dfa to regex conversion - 6', () => {
 })
 
 test('test dfa to regex conversion - 7', () => {
+
     const states = [0, 1, 2, 3, 4, 5];
     const transitions = [
         new Transition(0, 'a', 1),
