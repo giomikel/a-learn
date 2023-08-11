@@ -96,4 +96,4 @@ function convertNFAToDFA(nfa) {
     return new FiniteStateMachine(finalDFAStates, finalDFATransitions, finalDFAAcceptStates);
 }
 
-export { convertNFAToDFA };
+export { convertNFAToDFA, findEpsilonClosures };
