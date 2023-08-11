@@ -56,10 +56,10 @@ function convertCFGToPDA(cfg) {
 
     function createNonTerminalTransitions(cfg, pdaTransitions, pdaStates) {
         let nonTerminals = cfg.nonTerminals;
-        const suffixStateMap = new Map();
-        const suffixArr = [];
         let nextStateIndex = 4;
         nonTerminals.forEach(nonTerminal => {
+            const suffixArr = [];
+            const suffixStateMap = new Map();
              let states = cfg.productionRules.get(nonTerminal);
              states.forEach(state => {
                 let suffix = getSuffix(suffixArr, state);
