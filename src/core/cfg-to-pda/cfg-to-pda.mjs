@@ -34,7 +34,7 @@ function convertCFGToPDA(cfg) {
         let resultSuffix = '';
         suffixArr.sort((a, b) =>  b.length - a.length);
         for (let suf of suffixArr){
-            if (state.endsWith(suf)){
+            if (state.endsWith(suf) && state !== suf){
                 resultSuffix = suf;
                 break;
             }
