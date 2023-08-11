@@ -1,15 +1,16 @@
 import { findEpsilonClosures } from "../nfa-to-dfa/nfa-to-dfa.mjs";
+import { EPSILON_SYMBOL } from "../constants.mjs";
 
 class NFASimulator {
     constructor(nfa) {
         this.nfa = nfa; // NFA
-        this.currentStates = findEpsilonClosures(nfa.startState);   // Array of current states
+        this.currentStates = findEpsilonClosures([this.nfa.startState], this.nfa.transitions);   // Array of current states
         this.currentInputIndex = 0; // Current position in input string
         this.input = ''; // Input string
     }
 
     reset() {
-        this.currentStates = findEpsilonClosures(nfa.startState);
+        this.currentStates = findEpsilonClosures([this.nfa.startState], this.nfa.transitions);
         this.currentInputIndex = 0;
         this.input = '';
     }
@@ -20,8 +21,8 @@ class NFASimulator {
     }
 
     step() {
-        if (this.currentInputIndex < this.currentInput.length) {
-            const symbol = this.currentInput[this.currentInputIndex];
+        if (this.currentInputIndex < this.input.length) {
+            const symbol = this.input[this.currentInputIndex];
             const nextStates = [];
 
             for (const state of this.currentStates) {
@@ -45,6 +46,9 @@ class NFASimulator {
     }
 
     getCurrentInputSymbol() {
+        if (this.currentInputIndex >= this.input.length) {
+            return null;
+        }
         return this.input[this.currentInputIndex];
     }
 
