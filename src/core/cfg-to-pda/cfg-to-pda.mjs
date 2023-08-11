@@ -32,9 +32,9 @@ function convertCFGToPDA(cfg) {
 
     function getSuffix(suffixArr, state) {
         let resultSuffix = '';
-        suffixArr.sort((a, b) =>  b.length - a.length);
-        for (let suf of suffixArr){
-            if (state.endsWith(suf) && state !== suf){
+        suffixArr.sort((a, b) => b.length - a.length);
+        for (let suf of suffixArr) {
+            if (state.endsWith(suf) && state !== suf) {
                 resultSuffix = suf;
                 break;
             }
@@ -42,15 +42,15 @@ function convertCFGToPDA(cfg) {
         return resultSuffix;
     }
 
-    function getInitialState(suffix, suffixStateMap){
+    function getInitialState(suffix, suffixStateMap) {
         if (suffix === '') return 2;
         return suffixStateMap.get(suffix);
     }
 
-    function populateSuffix(increment, suffix, nextStateIndex, suffixStateMap, suffixArr){
-        if (increment !== 0){
-           suffixArr.push(suffix);
-           suffixStateMap.set(suffix, nextStateIndex);
+    function populateSuffix(increment, suffix, nextStateIndex, suffixStateMap, suffixArr) {
+        if (increment !== 0) {
+            suffixArr.push(suffix);
+            suffixStateMap.set(suffix, nextStateIndex);
         }
     }
 
@@ -60,38 +60,37 @@ function convertCFGToPDA(cfg) {
         nonTerminals.forEach(nonTerminal => {
             const suffixArr = [];
             const suffixStateMap = new Map();
-             let states = cfg.productionRules.get(nonTerminal);
-             states.forEach(state => {
+            let states = cfg.productionRules.get(nonTerminal);
+            states.forEach(state => {
                 if (state === EPSILON_IN_CFG) {
-
                     pdaTransitions.add(new PDATransition(2, 2, EPSILON_SYMBOL, nonTerminal, EPSILON_SYMBOL))
                 } else {
-                    
+
                     let suffix = getSuffix(suffixArr, state);
                     let tmState = getInitialState(suffix, suffixStateMap);
-                    for (let i = state.length - suffix.length - 1; i >= 0; i--){
+                    for (let i = state.length - suffix.length - 1; i >= 0; i--) {
                         let increment = 0;
-                        if (i === 0 && i === state.length - 1){
+                        if (i === 0 && i === state.length - 1) {
                             pdaTransitions.add(new PDATransition(tmState, 2, EPSILON_SYMBOL, nonTerminal, state[i]));
-                        }else if (i === state.length - 1 ){
+                        } else if (i === state.length - 1) {
                             pdaTransitions.add(new PDATransition(tmState, nextStateIndex, EPSILON_SYMBOL, nonTerminal, state[i]));
                             tmState = nextStateIndex;
                             pdaStates.push(nextStateIndex);
-                            increment ++;
-                        }else if(i === 0){
+                            increment++;
+                        } else if (i === 0) {
                             pdaTransitions.add(new PDATransition(tmState, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, state[i]));
-                        }else{
+                        } else {
                             pdaTransitions.add(new PDATransition(tmState, nextStateIndex, EPSILON_SYMBOL, EPSILON_SYMBOL, state[i]));
                             pdaStates.push(nextStateIndex);
                             tmState = nextStateIndex;
-                            increment ++;
+                            increment++;
                         }
-                        suffix = state[i]+suffix;
+                        suffix = state[i] + suffix;
                         populateSuffix(increment, suffix, nextStateIndex, suffixStateMap, suffixArr);
                         nextStateIndex += increment;
                     }
                 }
-             });
+            });
         });
     }
 

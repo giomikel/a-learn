@@ -30,7 +30,7 @@ test('test cfg to pda - 1', () => {
 
     expect(pda.acceptStates).toEqual([3]);
     expect(pda.inputAlphabet).toEqual(['a', 'b']);
-    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'b', 'B', 'S' ]);
+    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'b', 'B', 'S']);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5]);
     expect(pda.transitions).toEqual(transitions);
 })
@@ -66,7 +66,7 @@ test('test cfg to pda - 2', () => {
         new PDATransition(2, 4, EPSILON_SYMBOL, 'S', 'a'),
         new PDATransition(2, 6, EPSILON_SYMBOL, 'B', 'k'),
         new PDATransition(4, 5, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
-        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'), 
+        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
         new PDATransition(6, 7, EPSILON_SYMBOL, EPSILON_SYMBOL, 'L'),
         new PDATransition(7, 8, EPSILON_SYMBOL, EPSILON_SYMBOL, 'c'),
         new PDATransition(8, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'b')
@@ -74,7 +74,7 @@ test('test cfg to pda - 2', () => {
 
     expect(pda.acceptStates).toEqual([3]);
     expect(pda.inputAlphabet).toEqual(['a', 'b', 'c', 'k', 'm']);
-    expect(pda.stackAlphabet).toEqual(['$', 'a', 'b', 'B', 'c', 'k', 'L', 'm', 'S' ]);
+    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'b', 'B', 'c', 'k', 'L', 'm', 'S']);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     expect(pda.transitions).toEqual(transitions);
 })
@@ -107,7 +107,7 @@ test('test cfg to pda - 3', () => {
         new PDATransition(2, 4, EPSILON_SYMBOL, 'S', 'a'),
         new PDATransition(2, 6, EPSILON_SYMBOL, 'B', 'a'),
         new PDATransition(4, 5, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
-        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'), 
+        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
         new PDATransition(6, 7, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
         new PDATransition(7, 8, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
         new PDATransition(8, 9, EPSILON_SYMBOL, EPSILON_SYMBOL, 'b'),
@@ -116,7 +116,7 @@ test('test cfg to pda - 3', () => {
 
     expect(pda.acceptStates).toEqual([3]);
     expect(pda.inputAlphabet).toEqual(['a', 'b', 'm']);
-    expect(pda.stackAlphabet).toEqual(['$', 'a', 'b', 'B', 'L', 'm', 'S' ]);
+    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'b', 'B', 'L', 'm', 'S']);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     expect(pda.transitions).toEqual(transitions);
 })
@@ -151,7 +151,7 @@ test('test cfg to pda - 4', () => {
 
     expect(pda.acceptStates).toEqual([3]);
     expect(pda.inputAlphabet).toEqual(['a', 'm']);
-    expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'm', 'S' ]);
+    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'B', 'm', 'S']);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5]);
     expect(pda.transitions).toEqual(transitions);
 })
@@ -199,7 +199,7 @@ test('test cfg to pda - 5', () => {
 
     expect(pda.acceptStates).toEqual([3]);
     expect(pda.inputAlphabet).toEqual(['a', 'k', 'l', 'm', 'p', 't']);
-    expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'k', 'l', 'm', 'p', 'S', 't' ]);
+    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'B', 'k', 'l', 'm', 'p', 'S', 't']);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     expect(pda.transitions).toEqual(transitions);
 })
@@ -235,7 +235,7 @@ test('test cfg to pda - 6', () => {
 
     expect(pda.acceptStates).toEqual([3]);
     expect(pda.inputAlphabet).toEqual(['a']);
-    expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'S' ]);
+    expect(pda.stackAlphabet).toEqual([DOLLAR_SYMBOL, 'a', 'B', 'S']);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6]);
     expect(pda.transitions).toEqual(transitions);
 })
