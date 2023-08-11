@@ -1,4 +1,3 @@
-
 class DFASimulator {
     constructor(dfa) {
         this.dfa = dfa; 
