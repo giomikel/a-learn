@@ -8,6 +8,7 @@ class DFASimulator {
     }
 
     setInput(input) {
+        this.currentState = this.dfa.startState;
         this.currentInputIndex = 0;
         this.input = input;
     }
@@ -26,7 +27,7 @@ class DFASimulator {
     }
 
     getTransition(){
-        for(let transition of this.dfa){
+        for(let transition of this.dfa.transitions){
             if (transition.fromState === this.currentState && transition.symbol === this.input[this.currentInputIndex]){
                 return transition;
             }
@@ -35,7 +36,7 @@ class DFASimulator {
     }
 
     isAcceptState() {
-        return this.nfa.acceptStates.includes(this.currentState);
+        return this.dfa.acceptStates.includes(this.currentState);
     }
 
     getCurrentInputSymbol() {
