@@ -41,7 +41,7 @@ class NFASimulator {
         return false;  // No input left
     }
 
-    isAcceptState() {
+    isInAcceptStates() {
         return this.currentStates.some(state => this.nfa.acceptStates.includes(state));
     }
 
@@ -57,7 +57,7 @@ class NFASimulator {
 
         while (this.step());
 
-        return this.currentStates.some(state => this.isAcceptState(state));
+        return this.currentStates.some(state => this.isInAcceptStates(state));
     }
 }
 
