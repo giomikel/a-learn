@@ -7,31 +7,13 @@ function convertNFAToDFA(nfa) {
     const dfaTransitions = new Set();
     const dfaAcceptStates = new Set();
 
-    // Finds epsilon closure set for given states
-    function findEpsilonClosures(states) {
-        const closures = new Set(states);
-
-        function dfsEpsilon(state) {
-            nfa.transitions.forEach(element => {
-                if (element.fromState == state && element.symbol == EPSILON_SYMBOL && !closures.has(element.toState)) {
-                    closures.add(element.toState);
-                    dfsEpsilon(element.toState);
-                }
-            });
-        }
-
-        states.forEach(state => dfsEpsilon(state));
-
-        return Array.from(closures);
-    }
-
     // Finds every reachable state from all elements of 'states' array with given symbol
     function getReachableStatesWithSymbol(states, symbol) {
         const reachableStates = new Set();
         states.forEach(state => {
             nfa.transitions.forEach(element => {
                 if (element.fromState == state && element.symbol == symbol) {
-                    const toStateClosure = findEpsilonClosures([element.toState])
+                    const toStateClosure = findEpsilonClosures([element.toState], nfa.transitions)
                     // reachableStates.add(...toStateClosure); Doesnt work
                     toStateClosure.forEach(s => reachableStates.add(s));
                 }
@@ -67,7 +49,7 @@ function convertNFAToDFA(nfa) {
         return [newStates, newTransitions, newAcceptStates];
     }
 
-    const nfaStartStateClosure = findEpsilonClosures([nfa.states[0]])
+    const nfaStartStateClosure = findEpsilonClosures([nfa.states[0]], nfa.transitions);
     dfaStates.push(nfaStartStateClosure);
     const unprocessedDFAStates = [nfaStartStateClosure];
     const dfaStartStateName = nfaStartStateClosure.sort().join(',');
@@ -94,6 +76,24 @@ function convertNFAToDFA(nfa) {
     const finalDFATransitions = reindexedResultStates[1];
     const finalDFAAcceptStates = reindexedResultStates[2];
     return new FiniteStateMachine(finalDFAStates, finalDFATransitions, finalDFAAcceptStates);
+}
+
+// Finds epsilon closure set for given states
+function findEpsilonClosures(states, transitions) {
+    const closures = new Set(states);
+
+    function dfsEpsilon(state) {
+        transitions.forEach(element => {
+            if (element.fromState == state && element.symbol == EPSILON_SYMBOL && !closures.has(element.toState)) {
+                closures.add(element.toState);
+                dfsEpsilon(element.toState);
+            }
+        });
+    }
+
+    states.forEach(state => dfsEpsilon(state));
+
+    return Array.from(closures);
 }
 
 export { convertNFAToDFA, findEpsilonClosures };
