@@ -1,4 +1,4 @@
-import { DOLLAR_SYMBOL, EPSILON_SYMBOL } from "../../constants.mjs";
+import { DOLLAR_SYMBOL, EPSILON_SYMBOL, EPSILON_IN_CFG } from "../../constants.mjs";
 import CFG from "../../structures/cfg.mjs";
 import { PDATransition } from "../../structures/pda-transition.mjs";
 import { convertCFGToPDA } from "../cfg-to-pda.mjs";
@@ -198,12 +198,44 @@ test('test cfg to pda - 5', () => {
     ];
 
     expect(pda.acceptStates).toEqual([3]);
-    console.log(pda.inputAlphabet);
     expect(pda.inputAlphabet).toEqual(['a', 'k', 'l', 'm', 'p', 't']);
-    console.log(pda.stackAlphabet);
     expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'k', 'l', 'm', 'p', 'S', 't' ]);
-    console.log(pda.states);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
-    console.log(pda.transitions);
+    expect(pda.transitions).toEqual(transitions);
+})
+
+
+test('test cfg to pda - 6', () => {
+    const cfg = new CFG();
+
+    cfg.addNonTerminal('S');
+    cfg.addNonTerminal('B');
+    cfg.addTerminal('a');
+    cfg.addProductionRule('S', 'aBa');
+    cfg.addProductionRule('S', 'a');
+    cfg.addProductionRule('B', 'SB');
+    cfg.addProductionRule('B', EPSILON_IN_CFG);
+    cfg.setStartSymbol('S');
+
+    const pda = convertCFGToPDA(cfg);
+
+    const transitions = [
+        new PDATransition(0, 1, EPSILON_SYMBOL, EPSILON_SYMBOL, DOLLAR_SYMBOL),
+        new PDATransition(1, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'S'),
+        new PDATransition(2, 2, 'a', 'a', EPSILON_SYMBOL),
+        new PDATransition(2, 2, EPSILON_SYMBOL, 'B', EPSILON_SYMBOL),
+        new PDATransition(2, 2, EPSILON_SYMBOL, 'S', 'a'),
+        new PDATransition(2, 3, EPSILON_SYMBOL, DOLLAR_SYMBOL, EPSILON_SYMBOL),
+        new PDATransition(2, 4, EPSILON_SYMBOL, 'S', 'a'),
+        new PDATransition(2, 6, EPSILON_SYMBOL, 'B', 'B'),
+        new PDATransition(4, 5, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
+        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
+        new PDATransition(6, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'S')
+    ];
+
+    expect(pda.acceptStates).toEqual([3]);
+    expect(pda.inputAlphabet).toEqual(['a']);
+    expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'S' ]);
+    expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6]);
     expect(pda.transitions).toEqual(transitions);
 })
