@@ -115,12 +115,95 @@ test('test cfg to pda - 3', () => {
     ];
 
     expect(pda.acceptStates).toEqual([3]);
-    console.log(pda.inputAlphabet);
     expect(pda.inputAlphabet).toEqual(['a', 'b', 'm']);
-    console.log(pda.stackAlphabet);
     expect(pda.stackAlphabet).toEqual(['$', 'a', 'b', 'B', 'L', 'm', 'S' ]);
-    console.log(pda.states);
     expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(pda.transitions).toEqual(transitions);
+})
+
+
+test('test cfg to pda - 4', () => {
+    const cfg = new CFG();
+
+    cfg.addNonTerminal('S');
+    cfg.addNonTerminal('B');
+    cfg.addTerminal('a');
+    cfg.addTerminal('m');
+    cfg.addProductionRule('S', 'aBa');
+    cfg.addProductionRule('S', 'Ba');
+    cfg.addProductionRule('B', 'm');
+    cfg.setStartSymbol('S');
+
+    const pda = convertCFGToPDA(cfg);
+
+    const transitions = [
+        new PDATransition(0, 1, EPSILON_SYMBOL, EPSILON_SYMBOL, DOLLAR_SYMBOL),
+        new PDATransition(1, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'S'),
+        new PDATransition(2, 2, 'a', 'a', EPSILON_SYMBOL),
+        new PDATransition(2, 2, EPSILON_SYMBOL, 'B', 'm'),
+        new PDATransition(2, 2, 'm', 'm', EPSILON_SYMBOL),
+        new PDATransition(2, 3, EPSILON_SYMBOL, DOLLAR_SYMBOL, EPSILON_SYMBOL),
+        new PDATransition(2, 4, EPSILON_SYMBOL, 'S', 'a'),
+        new PDATransition(4, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
+        new PDATransition(4, 5, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
+        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a')
+    ];
+
+    expect(pda.acceptStates).toEqual([3]);
+    expect(pda.inputAlphabet).toEqual(['a', 'm']);
+    expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'm', 'S' ]);
+    expect(pda.states).toEqual([0, 1, 2, 3, 4, 5]);
+    expect(pda.transitions).toEqual(transitions);
+})
+
+
+test('test cfg to pda - 5', () => {
+    const cfg = new CFG();
+
+    cfg.addNonTerminal('S');
+    cfg.addNonTerminal('B');
+    cfg.addTerminal('a');
+    cfg.addTerminal('m');
+    cfg.addTerminal('l');
+    cfg.addTerminal('k');
+    cfg.addTerminal('t');
+    cfg.addTerminal('p');
+    cfg.addProductionRule('S', 'Ba');
+    cfg.addProductionRule('S', 'aBa');
+    cfg.addProductionRule('B', 'mlpk');
+    cfg.addProductionRule('B', 'tpk');
+    cfg.setStartSymbol('S');
+
+    const pda = convertCFGToPDA(cfg);
+
+    const transitions = [
+        new PDATransition(0, 1, EPSILON_SYMBOL, EPSILON_SYMBOL, DOLLAR_SYMBOL),
+        new PDATransition(1, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'S'),
+        new PDATransition(2, 2, 'a', 'a', EPSILON_SYMBOL),
+        new PDATransition(2, 2, 'k', 'k', EPSILON_SYMBOL),
+        new PDATransition(2, 2, 'l', 'l', EPSILON_SYMBOL),
+        new PDATransition(2, 2, 'm', 'm', EPSILON_SYMBOL),
+        new PDATransition(2, 2, 'p', 'p', EPSILON_SYMBOL),
+        new PDATransition(2, 2, 't', 't', EPSILON_SYMBOL),
+        new PDATransition(2, 3, EPSILON_SYMBOL, DOLLAR_SYMBOL, EPSILON_SYMBOL),
+        new PDATransition(2, 4, EPSILON_SYMBOL, 'S', 'a'),
+        new PDATransition(2, 6, EPSILON_SYMBOL, 'B', 'k'),
+        new PDATransition(4, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
+        new PDATransition(4, 5, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
+        new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
+        new PDATransition(6, 7, EPSILON_SYMBOL, EPSILON_SYMBOL, 'p'),
+        new PDATransition(7, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 't'),
+        new PDATransition(7, 8, EPSILON_SYMBOL, EPSILON_SYMBOL, 'l'),
+        new PDATransition(8, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'm')
+    ];
+
+    expect(pda.acceptStates).toEqual([3]);
+    console.log(pda.inputAlphabet);
+    expect(pda.inputAlphabet).toEqual(['a', 'k', 'l', 'm', 'p', 't']);
+    console.log(pda.stackAlphabet);
+    expect(pda.stackAlphabet).toEqual(['$', 'a', 'B', 'k', 'l', 'm', 'p', 'S', 't' ]);
+    console.log(pda.states);
+    expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
     console.log(pda.transitions);
     expect(pda.transitions).toEqual(transitions);
 })
