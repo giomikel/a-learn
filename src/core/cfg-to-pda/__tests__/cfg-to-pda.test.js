@@ -105,11 +105,13 @@ test('test cfg to pda - 3', () => {
         new PDATransition(2, 2, 'm', 'm', EPSILON_SYMBOL),
         new PDATransition(2, 3, EPSILON_SYMBOL, DOLLAR_SYMBOL, EPSILON_SYMBOL),
         new PDATransition(2, 4, EPSILON_SYMBOL, 'S', 'a'),
+        new PDATransition(2, 6, EPSILON_SYMBOL, 'B', 'a'),
         new PDATransition(4, 5, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
         new PDATransition(5, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'), 
-        new PDATransition(5, 6, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
-        new PDATransition(6, 7, EPSILON_SYMBOL, EPSILON_SYMBOL, 'b'),
-        new PDATransition(7, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'L')
+        new PDATransition(6, 7, EPSILON_SYMBOL, EPSILON_SYMBOL, 'B'),
+        new PDATransition(7, 8, EPSILON_SYMBOL, EPSILON_SYMBOL, 'a'),
+        new PDATransition(8, 9, EPSILON_SYMBOL, EPSILON_SYMBOL, 'b'),
+        new PDATransition(9, 2, EPSILON_SYMBOL, EPSILON_SYMBOL, 'L')
     ];
 
     expect(pda.acceptStates).toEqual([3]);
@@ -118,7 +120,7 @@ test('test cfg to pda - 3', () => {
     console.log(pda.stackAlphabet);
     expect(pda.stackAlphabet).toEqual(['$', 'a', 'b', 'B', 'L', 'm', 'S' ]);
     console.log(pda.states);
-    expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    expect(pda.states).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     console.log(pda.transitions);
     expect(pda.transitions).toEqual(transitions);
 })
