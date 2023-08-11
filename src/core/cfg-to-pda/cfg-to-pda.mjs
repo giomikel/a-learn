@@ -3,13 +3,18 @@ import { PDA } from "../structures/pda.mjs";
 import { DOLLAR_SYMBOL, EPSILON_IN_CFG, EPSILON_SYMBOL } from "../constants.mjs";
 
 function convertCFGToPDA(cfg) {
+function convertCFGToPDA(cfg) {
 
     function createBaseStates() {
         const states = [0, 1, 2, 3];
         const acceptStates = [3];
         return [states, acceptStates];
+        const states = [0, 1, 2, 3];
+        const acceptStates = [3];
+        return [states, acceptStates];
     }
 
+    // Dollar symbol sits on the bottom of the stack
     // Dollar symbol sits on the bottom of the stack
     function createDollarTransitions() {
         const dollarTransitions = [
@@ -104,5 +109,7 @@ function convertCFGToPDA(cfg) {
 
     return new PDA(Array.from(pdaStates), Array.from(pdaTransitions), Array.from(pdaAcceptStates));
 }
+
+export { convertCFGToPDA }
 
 export { convertCFGToPDA }
