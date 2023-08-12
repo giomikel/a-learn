@@ -4,23 +4,26 @@ class DFASimulator {
         this.currentState = dfa.startState;
         this.currentInputIndex = 0; 
         this.input = '';
+        this.failure = false;
     }
 
     setInput(input) {
+        this.failure = false;
         this.currentState = this.dfa.startState;
         this.currentInputIndex = 0;
         this.input = input;
     }
 
     step() {
-        if (this.currentInputIndex >= this.input.length) {
-            return false;
-        }
-        const transition = this.getTransition();
-        if (transition !== null){
-            this.currentState = transition.toState;
-            this.currentInputIndex += 1;
-            return true;
+        if (this.currentInputIndex < this.input.length) {
+            const transition = this.getTransition();
+            if (transition !== null){
+                this.currentState = transition.toState;
+                this.currentInputIndex += 1;
+                return true;
+            } else {
+                this.failure = true;
+            }
         }
         return false;  
     }
@@ -35,7 +38,7 @@ class DFASimulator {
     }
 
     isAcceptState() {
-        return this.dfa.acceptStates.includes(this.currentState);
+        return this.dfa.acceptStates.includes(this.currentState) && !this.failure;
     }
 
     getCurrentInputSymbol() {
