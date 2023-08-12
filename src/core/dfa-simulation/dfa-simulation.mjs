@@ -38,7 +38,7 @@ class DFASimulator {
     }
 
     isAcceptState() {
-        return this.dfa.acceptStates.includes(this.currentState) && !this.failure;
+        return !this.failure && this.dfa.acceptStates.includes(this.currentState);
     }
 
     getCurrentInputSymbol() {
