@@ -26,13 +26,11 @@ class NFASimulator {
             const nextStates = [];
 
             for (const state of this.currentStates) {
-                const transitions = this.nfa.transitions.filter(transition =>
-                    transition.fromState == state && (transition.symbol == symbol || transition.symbol == EPSILON_SYMBOL)
-                );
-                transitions.forEach(transition => nextStates.push(transition.toState));
+                const transitions = this.nfa.transitions.filter(transition => transition.fromState == state && transition.symbol == symbol);
+                transitions.forEach(transition => nextStates.push(...findEpsilonClosures([transition.toState], this.nfa.transitions)));
             }
 
-            this.currentStates = Array.from(new Set(nextStates));
+            this.currentStates = Array.from(new Set(nextStates)).sort();
             this.currentInputIndex++;
 
             return this.currentStates.length > 0;  // Return if transitioned states exist
