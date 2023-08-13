@@ -29,11 +29,11 @@ class PDASimulator {
             transitions.forEach(element => {
                 if (element.fromState == state && element.inputSymbol == EPSILON_SYMBOL) {
                     currentStateStacks.forEach(s => {
-                        if (s[s.length - 1] == element.popSymbol) {
+                        if (s[s.length - 1] == element.popSymbol || element.popSymbol == EPSILON_SYMBOL) {
                             closures.add(element.toState);
                             const toStateStacks = stacks.get(element.toState) || [];
-                            s.pop();
-                            s.push(element.pushSymbol);
+                            if (element.popSymbol != EPSILON_SYMBOL) { s.pop(); }
+                            if (element.pushSymbol != EPSILON_SYMBOL) { s.push(element.pushSymbol); }
                             toStateStacks.push(s);
                             stacks.set(element.toState, toStateStacks);
                             dfsEpsilon(element.toState);
@@ -60,11 +60,11 @@ class PDASimulator {
                 const toStates = new Set();
                 transitions.forEach(t => {
                     currentStateStacks.forEach(s => {
-                        if (s[s.length - 1] == t.popSymbol) {
+                        if (s[s.length - 1] == t.popSymbol || t.popSymbol == EPSILON_SYMBOL) {
                             toStates.push(t.toState);
                             const toStateStacks = this.stacks.get(t.toState) || [];
-                            s.pop();
-                            s.push(t.pushSymbol);
+                            if (t.popSymbol != EPSILON_SYMBOL) { s.pop(); }
+                            if (t.pushSymbol != EPSILON_SYMBOL) { s.push(t.pushSymbol); }
                             toStateStacks.push(s);
                             this.stacks.set(t.toState, toStateStacks);
                         }
