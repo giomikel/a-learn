@@ -1,6 +1,8 @@
 import TMSimulator from "../tm-simulation.mjs"
 import TuringTransition from "../../structures/turing-transition.mjs";
 import TuringMachine from "../../structures/turing-machine.mjs";
+import { TURING_MACHINE_MAX_STEP_NUM } from "../../constants.mjs"
+
 
 test('test tm-simulator - check step by step - (1)', () => {
 
@@ -217,5 +219,26 @@ test('test tm-simulator - check step by step - (2)', () => {
     expect(turingSimulator.status).toEqual(1);
     expect(turingSimulator.turingMachine.tape).toEqual(['X', 'Y', '_']);
     expect(turingSimulator.isAccepted()).toEqual(true);
+
+})
+
+
+test('test tm-simulator - check accepts method (1)', () => {
+
+    const transitions = [
+        new TuringTransition(0, '0', 0, '0', 'R'),
+        new TuringTransition(0, '1', 0, '1', 'R'),
+        new TuringTransition(0, '_', 1, '_', 'L'),
+        new TuringTransition(1, '0', 1, '0', 'L'),
+        new TuringTransition(1, '1', 1, '1', 'L'),
+        new TuringTransition(1, '_', 0, '_', 'R')
+    ];
+    const numberOfStates = 3;
+    const turingMachine = new TuringMachine(transitions, numberOfStates);
+    const turingSimulator = new TMSimulator(turingMachine);
+
+    expect(turingSimulator.accepts("00")).toEqual(false);
+    expect(turingSimulator.currentStepNum).toEqual(TURING_MACHINE_MAX_STEP_NUM + 1);
+    expect(turingSimulator.turingMachine.tape).toEqual(['0', '0', '_']);
 
 })
