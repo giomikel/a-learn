@@ -4,16 +4,16 @@ class PDASimulator {
     constructor(pda) {
         this.pda = pda;
         this.currentStacks = new Map();
-        this.currentStates = this.findPDAEpsilonClosures(this.pda.startState, this.pda.transitions, this.currentStacks);
+        this.currentStates = this.findPDAEpsilonClosures([this.pda.startState], this.pda.transitions);
         this.currentInputIndex = 0;
         this.input = '';
     }
 
     reset() {
-        this.currentStates = this.findPDAEpsilonClosures(this.pda.startState, this.pda.transitions, this.currentStacks);
+        this.currentStacks = new Map();
+        this.currentStates = this.findPDAEpsilonClosures([this.pda.startState], this.pda.transitions);
         this.currentInputIndex = 0;
         this.input = '';
-        this.currentStacks = new Map();
     }
 
     setInput(input) {
@@ -21,29 +21,30 @@ class PDASimulator {
         this.input = input;
     }
 
-    findPDAEpsilonClosures(states, transitions, stacks) {
+    findPDAEpsilonClosures(states, transitions) {
         const closures = new Set(states);
 
-        function dfsEpsilon(state) {
-            const currentStateStacks = stacks.get(state);
+        function dfsEpsilon(state, currentStacks, arraysInclude) {
+            const currentStateStacks = [...(currentStacks.get(state) || [[]])];
             transitions.forEach(element => {
                 if (element.fromState == state && element.inputSymbol == EPSILON_SYMBOL) {
                     currentStateStacks.forEach(s => {
                         if (s[s.length - 1] == element.popSymbol || element.popSymbol == EPSILON_SYMBOL) {
                             closures.add(element.toState);
-                            const toStateStacks = stacks.get(element.toState) || [];
-                            if (element.popSymbol != EPSILON_SYMBOL) { s.pop(); }
-                            if (element.pushSymbol != EPSILON_SYMBOL) { s.push(element.pushSymbol); }
-                            toStateStacks.push(s);
-                            stacks.set(element.toState, toStateStacks);
-                            dfsEpsilon(element.toState);
+                            const toStateStacks = [...(currentStacks.get(element.toState) || [])];
+                            const sClone = [...s];
+                            if (element.popSymbol != EPSILON_SYMBOL) { sClone.pop(); }
+                            if (element.pushSymbol != EPSILON_SYMBOL) { sClone.push(element.pushSymbol); }
+                            if (!arraysInclude(toStateStacks, sClone)) { toStateStacks.push(sClone); }
+                            currentStacks.set(element.toState, toStateStacks);
+                            dfsEpsilon(element.toState, currentStacks, arraysInclude);
                         }
                     });
                 }
             });
         }
-        states.forEach(state => dfsEpsilon(state));
-        return [Array.from(closures), stacks];
+        states.forEach(state => dfsEpsilon(state, this.currentStacks, this.arraysInclude));
+        return Array.from(closures);
     }
 
     step() {
@@ -52,27 +53,23 @@ class PDASimulator {
             const nextStates = [];
 
             for (const state of this.currentStates) {
-                const transitions = this.pda.transitions.filter(transition =>
-                    transition.fromState == state
-                    && transition.inputSymbol == symbol
-                );
-                const currentStateStacks = this.stacks.get(state);
+                const transitions = this.pda.transitions.filter(transition => transition.fromState == state && transition.inputSymbol == symbol);
+                const currentStateStacks = [...(this.currentStacks.get(state) || [[]])];
                 const toStates = new Set();
                 transitions.forEach(t => {
                     currentStateStacks.forEach(s => {
                         if (s[s.length - 1] == t.popSymbol || t.popSymbol == EPSILON_SYMBOL) {
-                            toStates.push(t.toState);
-                            const toStateStacks = this.stacks.get(t.toState) || [];
-                            if (t.popSymbol != EPSILON_SYMBOL) { s.pop(); }
-                            if (t.pushSymbol != EPSILON_SYMBOL) { s.push(t.pushSymbol); }
-                            toStateStacks.push(s);
-                            this.stacks.set(t.toState, toStateStacks);
+                            toStates.add(t.toState);
+                            const toStateStacks = [...(this.currentStacks.get(t.toState) || [])];
+                            const sClone = [...s];
+                            if (t.popSymbol != EPSILON_SYMBOL) { sClone.pop(); }
+                            if (t.pushSymbol != EPSILON_SYMBOL) { sClone.push(t.pushSymbol); }
+                            if (!this.arraysInclude(toStateStacks, sClone)) { toStateStacks.push(sClone); }
+                            this.currentStacks.set(t.toState, toStateStacks);
                         }
-                    })
+                    });
                 });
-                const [closures, stacks] = this.findPDAEpsilonClosures(Array.from(toStates), this.pda.transitions, this.pda.stacks);
-                nextStates.push(...closures);
-                this.stacks = stacks;
+                nextStates.push(...this.findPDAEpsilonClosures(transitions.map(t => t.toState), this.pda.transitions));
             }
             this.currentStates = Array.from(new Set(nextStates)).sort();
             this.currentInputIndex++;
@@ -97,7 +94,14 @@ class PDASimulator {
 
         while (this.step());
 
-        return this.currentStates.some(state => this.isInAcceptStates(state));
+        return this.currentStates.some(s => this.isInAcceptStates(s) && Array.from(this.currentStacks.get(s)).some(st => st.length === 0));
+    }
+
+    arraysInclude(arrays, targetArray) {
+        return arrays.some(array =>
+            array.length === targetArray.length &&
+            array.every((value, index) => value === targetArray[index])
+        );
     }
 }
 
