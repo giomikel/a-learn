@@ -16,7 +16,6 @@ class TMSimulator{
     }
 
     setPointer(input) {
-        console.log(input);
         if (input == ''){
            return -1;
         }
