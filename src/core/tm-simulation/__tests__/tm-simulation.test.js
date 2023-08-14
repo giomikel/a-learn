@@ -241,4 +241,53 @@ test('test tm-simulator - check accepts method (1)', () => {
     expect(turingSimulator.currentStepNum).toEqual(TURING_MACHINE_MAX_STEP_NUM + 1);
     expect(turingSimulator.turingMachine.tape).toEqual(['0', '0', '_']);
 
+    expect(turingSimulator.accepts("01")).toEqual(false);
+    expect(turingSimulator.currentStepNum).toEqual(TURING_MACHINE_MAX_STEP_NUM + 1);
+    expect(turingSimulator.turingMachine.tape).toEqual(['0', '1', '_']);
+
+})
+
+test('test tm-simulator - check accepts method (2)', () => {
+
+    const transitions = [
+        new TuringTransition(0, '0', 0, '0', 'R'),
+        new TuringTransition(0, '1', 1, '1', 'R'),
+        new TuringTransition(1, '0', 2, '0', 'R'),
+        new TuringTransition(1, '1', 0, '1', 'R'),
+        new TuringTransition(2, '0', 1, '0', 'R'),
+        new TuringTransition(2, '1', 2, '1', 'R'),
+        new TuringTransition(0, '_', 3, '_', 'R')
+
+    ];
+    const numberOfStates = 4;
+    const turingMachine = new TuringMachine(transitions, numberOfStates);
+    const turingSimulator = new TMSimulator(turingMachine);
+
+    expect(turingSimulator.accepts("101")).toEqual(false);
+    expect(turingSimulator.turingMachine.tape).toEqual(['1', '0', '1', '_']);
+
+    expect(turingSimulator.accepts("01")).toEqual(false);
+    expect(turingSimulator.turingMachine.tape).toEqual(['0', '1', '_']);
+
+    expect(turingSimulator.accepts("1")).toEqual(false);
+    expect(turingSimulator.accepts("10")).toEqual(false);
+    expect(turingSimulator.accepts("1010")).toEqual(false);
+    expect(turingSimulator.accepts("1011")).toEqual(false);
+    expect(turingSimulator.accepts("1000")).toEqual(false);
+    expect(turingSimulator.accepts("0010")).toEqual(false);
+    expect(turingSimulator.accepts("10100")).toEqual(false);
+    expect(turingSimulator.accepts("10110")).toEqual(false);
+    expect(turingSimulator.accepts("10111")).toEqual(false);
+    expect(turingSimulator.accepts("10001")).toEqual(false);
+
+    expect(turingSimulator.accepts("11")).toEqual(true);
+    expect(turingSimulator.accepts("110")).toEqual(true);
+    expect(turingSimulator.accepts("1001")).toEqual(true);
+    expect(turingSimulator.accepts("1100")).toEqual(true);
+    expect(turingSimulator.accepts("1111")).toEqual(true);
+    expect(turingSimulator.accepts("10010")).toEqual(true);
+    expect(turingSimulator.accepts("10101")).toEqual(true);
+    expect(turingSimulator.accepts("11000")).toEqual(true);
+    expect(turingSimulator.accepts("11011")).toEqual(true);
+    expect(turingSimulator.accepts("000011110")).toEqual(true);
 })
