@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Reset default margin and padding */
 body, h1, h2, h3, p {
     margin: 0;
@@ -46,7 +44,9 @@ body, h1, h2, h3, p {
   .nav-list {
     list-style: none;
     padding: 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
     justify-content: center;
   }
   
