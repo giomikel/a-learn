@@ -23,11 +23,13 @@ class PDASimulator {
 
     findPDAEpsilonClosures(states, transitions, nextStacks) {
         const closures = new Set(states);
+        const transitionsTook = new Set();
 
         function dfsEpsilon(state, currentStacks, arraysInclude) {
             const currentStateStacks = [...(currentStacks.get(state) || [[]])];
             transitions.forEach(element => {
-                if (element.fromState == state && element.inputSymbol == EPSILON_SYMBOL) {
+                if (element.fromState == state && element.inputSymbol == EPSILON_SYMBOL && !transitionsTook.has(element)) {
+                    transitionsTook.add(element);
                     currentStateStacks.forEach(s => {
                         if (s[s.length - 1] == element.popSymbol || element.popSymbol == EPSILON_SYMBOL) {
                             closures.add(element.toState);
@@ -51,9 +53,7 @@ class PDASimulator {
         if (this.currentInputIndex < this.input.length) {
             const symbol = this.input[this.currentInputIndex];
             const nextStates = [];
-
             const nextStacks = new Map();
-
             for (const state of this.currentStates) {
                 const transitions = this.pda.transitions.filter(transition => transition.fromState == state && transition.inputSymbol == symbol);
                 const currentStateStacks = [...(this.currentStacks.get(state) || [[]])];
@@ -71,16 +71,15 @@ class PDASimulator {
                         }
                     });
                 });
-                nextStates.push(...this.findPDAEpsilonClosures(transitions.map(t => t.toState), this.pda.transitions, nextStacks
-                ));
+                nextStates.push(...this.findPDAEpsilonClosures(toStates, this.pda.transitions, nextStacks));
             }
             this.currentStacks.forEach((value, key) => {
                 if (nextStacks.has(key)) {
-                    const nextStacksForState = nextStacks.get(key) || [];
-                    // const filteredStacks = nextStacksForState.filter(stack => value.some(arr => JSON.stringify(arr) === JSON.stringify(second)));
+                    const nextStacksForState = nextStacks.get(key);
                     this.currentStacks.set(key, nextStacksForState);
                 }
             });
+            nextStacks.forEach((value, key) => { if (!this.currentStacks.has(key)) { this.currentStacks.set(key, value); } });
             this.currentStates = Array.from(new Set(nextStates)).sort();
             this.currentInputIndex++;
             return this.currentStates.length > 0;
@@ -104,7 +103,7 @@ class PDASimulator {
 
         while (this.step());
 
-        return this.currentStates.some(s => this.isInAcceptStates(s) && Array.from(this.currentStacks.get(s)).some(st => st.length === 0));
+        return this.currentStates.some(s => this.isInAcceptStates(s) && Array.from(this.currentStacks.get(s) || []).some(st => st.length === 0));
     }
 
     arraysInclude(arrays, targetArray) {
