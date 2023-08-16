@@ -27,7 +27,7 @@ class NFASimulator {
 
             for (const state of this.currentStates) {
                 const transitions = this.nfa.transitions.filter(transition => transition.fromState == state && transition.symbol == symbol);
-                transitions.forEach(transition => nextStates.push(...findEpsilonClosures([transition.toState], this.nfa.transitions)));
+                nextStates.push(...findEpsilonClosures(transitions.map(t => t.toState), this.nfa.transitions));
             }
 
             this.currentStates = Array.from(new Set(nextStates)).sort();
