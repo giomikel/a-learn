@@ -23,6 +23,69 @@ function Home() {
               </div>
             </a>
           </li>
+          <li className="nav-item">
+            <a href="/DFAToRegex" className="nav-link">
+              <div className="nav-card">
+                <span>DFAToRegex</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/RegexToDFA" className="nav-link">
+              <div className="nav-card">
+                <span>RegexToDFA</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/NFAToDFA" className="nav-link">
+              <div className="nav-card">
+                <span>NFAToDFA</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/CFGToCNF" className="nav-link">
+              <div className="nav-card">
+                <span>CFGToCNF</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/CFGToPDA" className="nav-link">
+              <div className="nav-card">
+                <span>CFGToPDA</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/DFASimulation" className="nav-link">
+              <div className="nav-card">
+                <span>DFASimulation</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/NFASimulation" className="nav-link">
+              <div className="nav-card">
+                <span>NFASimulation</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/TuringMachineSimulation" className="nav-link">
+              <div className="nav-card">
+                <span>TuringMachineSimulation</span>
+              </div>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/PDASimulation" className="nav-link">
+              <div className="nav-card">
+                <span>PDASimulation</span>
+              </div>
+            </a>
+          </li>
         </ul>
       </nav>
       <main className="main-content">
