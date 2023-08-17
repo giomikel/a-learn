@@ -28,7 +28,7 @@ function postfix(expression){
 						chr_stack.push(expression[i]);
 		    		}else{
 			      	 while(chr_stack.length !== 0 && chr_stack[chr_stack.length - 1]==='*'){
-			    			result+=chr_stack[stack.length - 1];
+			    			result+=chr_stack[chr_stack.length - 1];
 			    			chr_stack.pop();
 			    		}
 			    		chr_stack.push(expression[i]);
