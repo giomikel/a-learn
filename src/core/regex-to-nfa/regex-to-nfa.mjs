@@ -46,12 +46,12 @@ function postfix(expression){
 			    		chr_stack.push(expression[i]);
 			    	
 				   }
-			    }else if(expression[i]=='|'){
-			    	if(chr_stack[chr_stack.length - 1]=='('){
+			    }else if(expression[i]==='|'){
+			    	if(chr_stack[chr_stack.length - 1]==='('){
 			    		chr_stack.push(expression[i]);
 			    	
 			    	}else{
-			    		while(chr_stack.length !== 0 && chr_stack[chr_stack.length - 1]!='('){
+			    		while(chr_stack.length !== 0 && chr_stack[chr_stack.length - 1]!=='('){
 			    			result+=chr_stack[chr_stack.length - 1];
 			    			chr_stack.pop();
 			    		}
@@ -59,7 +59,7 @@ function postfix(expression){
 			    	
 			    	}
 			    }else{
-			    	while(chr_stack[chr_stack.length - 1]!='('){
+			    	while(chr_stack[chr_stack.length - 1]!=='('){
 			    		
 			    		result+=chr_stack[chr_stack.length - 1];
 			    		chr_stack.pop();
@@ -187,7 +187,7 @@ function unification(){
 	   if(!contains(first_aut.eIndex, 0)){
 		   first_aut.eIndex.push(0);
 		   for(let i=0; i<second_aut.eIndex.length; i++){
-				  if(second_aut.eIndex[i]!=first_aut.n-1){
+				  if(second_aut.eIndex[i]!==first_aut.n-1){
 				     first_aut.eIndex.push(second_aut.eIndex[i]);
 				  }
 		   }
