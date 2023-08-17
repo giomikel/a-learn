@@ -9,7 +9,6 @@ class PDA {
         this.inputAlphabet = this.getInputAlphabetFromTransitions(transitions).sort((a, b) => a.localeCompare(b)); // Array of input alphabet symbols
         this.stackAlphabet = this.getStackAlphabetFromTransitions(transitions).sort((a, b) => a.localeCompare(b)); // Array of stack alphabet symbols
         this.startState = 0; // Start state
-        this.stack = []; // The stack used in the PDA
     }
 
     toString() {
@@ -17,8 +16,7 @@ class PDA {
 Transitions: ${this.transitions.map(t => t.toString()).join('\n')}
 Accept States: ${this.acceptStates.toString()}
 Start State: ${this.startState}
-Alphabet: ${this.alphabet.toString()}
-Stack: ${this.stack.toString()}`;
+Alphabet: ${this.alphabet.toString()}`;
     }
 
     sortTransitions() {
