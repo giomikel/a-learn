@@ -3,8 +3,6 @@ import "../css/RegexToNFA.css";
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import regexToNFA from '../core/regex-to-nfa/regex-to-nfa.mjs';
-import { Transition } from '../core/structures/fsm-transition.mjs';
-import { FiniteStateMachine } from '../core/structures/fsm.mjs';
 
 
 function FSMVisualization({ fsm }) {
@@ -176,7 +174,10 @@ function FSMVisualization({ fsm }) {
 
       circle.attr('transform', function (d) {
         return 'translate(' + d.x + ',' + d.y + ')';
-      });
+      })
+      .style('fill', function(d) {
+        return fsm.acceptStates.includes(parseInt(d.name.substring(1))) ? 'green' : 'gray';
+      });;
 
       textGroup.attr('transform', function (d) {
         return 'translate(' + d.x + ',' + d.y + ')';
@@ -184,7 +185,7 @@ function FSMVisualization({ fsm }) {
 
     }
    
-  }, [fsm.alphabet, fsm.transitions]);
+  }, [fsm.alphabet, fsm.transitions, fsm.acceptStates]);
 
   return (
     <svg ref={svgRef} className="fsm-container">
@@ -193,22 +194,7 @@ function FSMVisualization({ fsm }) {
 }
 
 function generateNFAFromRegex(regex) {
-  // return regexToNFA(regex);
-  const resultStates = [0, 1, 2];
-    const resultTransitions = [
-        new Transition(0, 'a', 1),
-        new Transition(0, 'b', 2),
-        new Transition(1, 'a', 1),
-        new Transition(1, 'b', 2),
-        new Transition(2, 'a', 2),
-        new Transition(2, 'b', 2),
-        new Transition(2, 'l', 2),
-        new Transition(2, 'c', 2),
-        new Transition(2, 'k', 2)
-    ];
-    const resultAcceptStates = [2];
-
-  return new FiniteStateMachine(resultStates, resultTransitions, resultAcceptStates);
+  return regexToNFA(regex);
 }
 
 
