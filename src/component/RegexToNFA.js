@@ -19,6 +19,7 @@ function FSMVisualization({ fsm }) {
         source: transition.fromState,
         target: transition.toState,
         type: transition.symbol,
+        symbol: transition.symbol,
     }));
 
 
@@ -94,6 +95,13 @@ function FSMVisualization({ fsm }) {
       .attr('class', function (d) { return 'link ' + d.type; })
       .attr('marker-end', function (d) { return 'url(#' + d.type + ')'; });
 
+    linkGroup
+      .append('text')
+      .attr('class', 'edge-label')
+      .attr('text-anchor', 'middle')
+      .style('font-size', '12px')
+      .text(function (d) { return d.symbol; });
+
     const circle = svg
       .selectAll('.node')
       .data(d3.values(nodes))
@@ -124,6 +132,12 @@ function FSMVisualization({ fsm }) {
 
     function tick() {
       linkGroup.selectAll('.link').attr('d', function (d) {
+        if (d.source === d.target) {
+          const r = 60 / d.linknum;
+          return `M ${d.source.x},${d.source.y - 6}
+                  A ${r},${r} 0 1,1 ${d.source.x + 6},${d.source.y}`;
+        }
+
         const dr = 75 / d.linknum; 
         return (
           'M' +
@@ -139,7 +153,21 @@ function FSMVisualization({ fsm }) {
           ',' +
           d.target.y
         );
+        
       });
+
+      linkGroup.selectAll('.edge-label').attr('transform', function (d) {
+        const textPositionFraction = 0.5;
+        const path = d3.select(this.parentNode).select('.link').node();
+        const pathLength = path.getTotalLength();
+        const start = pathLength * textPositionFraction;
+        const { x, y } = path.getPointAtLength(start);
+        return `translate(${x}, ${y})`;
+      })
+      .attr('text-anchor', 'middle')
+      .attr('dy', 0) 
+      .attr('stroke', 'blue') 
+      .style('fill', 'white'); 
 
       circle.attr('transform', function (d) {
         return 'translate(' + d.x + ',' + d.y + ')';
@@ -148,6 +176,7 @@ function FSMVisualization({ fsm }) {
       textGroup.attr('transform', function (d) {
         return 'translate(' + d.x + ',' + d.y + ')';
       });
+
     }
    
   }, [fsm.alphabet, fsm.transitions]);
