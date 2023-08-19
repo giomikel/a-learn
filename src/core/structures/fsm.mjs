@@ -48,14 +48,14 @@ function getStartStateFromStates(states) {
 }
 
 function determineFSMIsDFA(states, transitions, alphabet) {
-    if (transitions.some((transition) => transition.symbol == EPSILON_SYMBOL)) {
+    if (transitions.some((transition) => transition.symbol === EPSILON_SYMBOL)) {
         return false; // Epsilon transitions are not allowed in DFAs
     }
 
     for (const state of states) {
         for (const symbol of alphabet) {
             const hasTransition = transitions.some((transition) => {
-                return transition.fromState == state && transition.symbol == symbol;
+                return transition.fromState === state && transition.symbol === symbol;
             });
             if (!hasTransition) {
                 return false; // If any state doesnt have a transition for any symbol then its not DFA
@@ -66,7 +66,7 @@ function determineFSMIsDFA(states, transitions, alphabet) {
     for (const state of states) {
         const symbolsWithMultipleTransitions = new Set();
         for (const transition of transitions) {
-            if (transition.fromState == state) {
+            if (transition.fromState === state) {
                 if (symbolsWithMultipleTransitions.has(transition.symbol)) {
                     return false; // If a state has multiple transitions with the same symbol its not a DFA
                 } else {
