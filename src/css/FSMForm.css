@@ -1,0 +1,61 @@
+.form-container {
+  display: inline-block;
+  vertical-align: top;
+  width: 20%;
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.accept-states {
+  margin-bottom: 20px;
+}
+
+.accept-states-list {
+  list-style: none;
+  padding: 0;
+}
+
+.accept-state-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.accept-state-item button {
+  margin-left: 10px;
+}
+
+.nfa-visualization-scroll-container {
+  overflow: auto;
+  max-width: 100%;
+  max-height: 95vh;
+  flex: 1;
+}
+
+.nfa-visualization-container {
+  width: 5000px;
+  height: 4000px;
+  flex: 1;
+}
+
+.container {
+  display: flex;
+}

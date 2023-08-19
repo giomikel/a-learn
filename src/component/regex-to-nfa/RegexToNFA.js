@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../../css/RegexToNFA.css";
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import regexToNFA from '../../core/regex-to-nfa/regex-to-nfa.mjs';
 import validateExpression from '../../core/regex-to-nfa/regex-validator.mjs';
 import FSMVisualization from '../utils/FSMVisualization.js'
@@ -30,7 +30,7 @@ function RegexToNFA() {
     setNFA(null);
     setValidationError('');
   }, [regex]);
-  
+
   return (
     <div className="regex-to-nfa-container">
       <h2 className="section-title">Regex to NFA</h2>
@@ -47,7 +47,7 @@ function RegexToNFA() {
         <button onClick={handleGenerateNFA}>Generate NFA</button>
       </div>
       {validationError && <p className="error-message">{validationError}</p>}
-      <div className="nfa-visualization-scroll-container">
+      <div className="nfa-visualization-scroll-container" id='nfa-visualization-scroll-container'>
         <div className="nfa-visualization-container">
           {nfa && <FSMVisualization fsm={nfa} />}
         </div>
