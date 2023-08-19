@@ -6,6 +6,7 @@ import { FiniteStateMachine } from '../../core/structures/fsm.mjs'
 import { Transition } from '../../core/structures/fsm-transition.mjs'
 import { EPSILON_SYMBOL } from '../../core/constants.mjs';
 import FSMVisualization from './FSMVisualization';
+import { convertNFAToDFA } from '../../core/nfa-to-dfa/nfa-to-dfa.mjs';
 
 function FSMForm() {
   const [numStates, setNumStates] = useState(1);
@@ -48,7 +49,10 @@ function FSMForm() {
     });
 
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
-    setDFA(fsm);
+    const dfa = convertNFAToDFA(fsm);
+    // console.log(fsm);
+    // console.log(dfa);
+    setDFA(dfa);
   };
 
   useEffect(() => {
