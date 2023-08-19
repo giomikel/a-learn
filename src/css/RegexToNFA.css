@@ -7,14 +7,12 @@
     margin: 20px;
   }
   
-  /* Section title */
   .section-title {
     color: #007bff;
     font-size: 24px;
     margin-bottom: 10px;
   }
   
-  /* Section description */
   .section-description {
     color: #555;
     font-size: 16px;
@@ -57,6 +55,6 @@
   }
   
   .nfa-visualization-container {
-    width: 2000px;
-    height: 1600px;
+    width: 5000px;
+    height: 4000px;
   }
