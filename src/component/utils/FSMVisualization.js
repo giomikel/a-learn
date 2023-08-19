@@ -1,6 +1,11 @@
 import { React, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
+function getParamsByFSMType(fsm){
+  if (fsm.isDFA) return [-1200, 180, 600];
+  return [-300, 60, 75];
+}
+
 function FSMVisualization({ fsm }) {
   const svgRef = useRef(null);
 
@@ -80,11 +85,13 @@ function FSMVisualization({ fsm }) {
     const w = 5000,
       h = 4000;
 
+    let params = getParamsByFSMType(fsm);
+
     d3
       .forceSimulation()
       .nodes(d3.values(nodes))
-      .force('link', d3.forceLink(links).id(function (d) { return d.name; }).distance(60))
-      .force('charge', d3.forceManyBody().strength(-300))
+      .force('link', d3.forceLink(links).id(function (d) { return d.name; }).distance(params[1]))
+      .force('charge', d3.forceManyBody().strength(params[0]))
       .force('center', d3.forceCenter(w / 2, h / 2))
       .on('tick', tick)
       .restart();
@@ -175,7 +182,7 @@ function FSMVisualization({ fsm }) {
                     A ${r},${r} 0 1,1 ${d.source.x + 6},${d.source.y}`;
         }
 
-        const dr = 75 / d.linknum;
+        const dr = params[2] / d.linknum;
         return (
           'M' +
           d.source.x +
@@ -225,7 +232,7 @@ function FSMVisualization({ fsm }) {
 
     }
 
-  }, [fsm.alphabet, fsm.transitions, fsm.acceptStates]);
+  }, [fsm, fsm.alphabet, fsm.transitions, fsm.acceptStates]);
 
   return (
     <svg ref={svgRef} className="fsm-container">
