@@ -2,11 +2,30 @@ import { React, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 function FSMVisualization({ fsm }) {
-    const svgRef = useRef(null); 
+    const svgRef = useRef(null);
+    
+    useEffect(() => {
+        const scrollContainer = document.querySelector('.nfa-visualization-scroll-container');
+        
+        const centerScroll = () => {
+          const scrollLeft = 2500 - window.innerWidth/2;
+          const scrollTop = 2000 - window.innerHeight/2;
+          scrollContainer.scrollLeft = scrollLeft;
+          scrollContainer.scrollTop = scrollTop;
+        };
+    
+        centerScroll();
+        window.addEventListener('resize', centerScroll);
+    
+        return () => {
+          window.removeEventListener('resize', centerScroll);
+        };
+      }, []);
+
   
     useEffect(() => {
-      const width = 2000;
-      const height = 1600;
+      const width = 5000;
+      const height = 4000;
   
       const svg = d3.select(svgRef.current) 
         .attr('width', width)
@@ -55,8 +74,8 @@ function FSMVisualization({ fsm }) {
           symbols.add(element.symbol);
       });
   
-      const w = 2000,
-        h = 1600;
+      const w = 5000,
+        h = 4000;
   
       d3
         .forceSimulation()
