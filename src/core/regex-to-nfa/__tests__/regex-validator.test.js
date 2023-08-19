@@ -1,4 +1,4 @@
-import validateExpression from "../regex-validator.mjs";
+import validateExpression from "../../utils/regex-validator.mjs"
 
 test('properly validates regular expression', () => {
     expect(validateExpression("(1or0|(y)*)*")).toEqual(true)
@@ -39,4 +39,3 @@ test('properly validates regular expression', () => {
     expect(validateExpression("(1or0|(((y)*))*")).toEqual(false);
     expect(validateExpression("(l)(m)(n)(j)1or0|y)*)*")).toEqual(false);
 })
-

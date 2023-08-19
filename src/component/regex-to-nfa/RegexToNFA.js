@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../../css/RegexToNFA.css";
 import { useEffect } from 'react';
 import regexToNFA from '../../core/regex-to-nfa/regex-to-nfa.mjs';
-import validateExpression from '../../core/regex-to-nfa/regex-validator.mjs';
+import validateExpression from '../../core/utils/regex-validator.mjs';
 import FSMVisualization from '../utils/FSMVisualization.js'
 
 function generateNFAFromRegex(regex) {
