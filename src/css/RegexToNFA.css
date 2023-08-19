@@ -43,3 +43,8 @@
     stroke-width: 3px;
     stroke-opacity: .8;
   }
+
+  .triangle-marker {
+    fill: yellow;
+    stroke: black;
+  }

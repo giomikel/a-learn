@@ -54,6 +54,11 @@ function FSMVisualization({ fsm }) {
       link.target = nodes[link.target] || (nodes[link.target] = { name: 'q'+link.target });
     });
 
+    const symbols = new Set();
+    fsm.transitions.forEach((element) => {
+        symbols.add(element.symbol);
+    });
+
     const w = 600,
       h = 600;
 
@@ -69,7 +74,7 @@ function FSMVisualization({ fsm }) {
     svg
       .append('defs')
       .selectAll('marker')
-      .data(fsm.alphabet)
+      .data(Array.from(symbols))
       .enter()
       .append('marker')
       .attr('id', String)
@@ -108,6 +113,19 @@ function FSMVisualization({ fsm }) {
       .append('circle')
       .attr('class', 'node')
       .attr('r', 6);
+
+    const triangleMarkers = svg
+      .selectAll('.triangle-marker')
+      .data([0])
+      .enter()
+      .append('path')
+      .attr('class', 'triangle-marker')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('transform', function (d) {
+        const node = nodes[d];
+        return 'translate(' + node.x + ',' + node.y + ')';
+      })
+      .attr('marker-end', 'url(#triangle-marker)');
 
     const textGroup = svg
       .selectAll('.text-group')
@@ -175,9 +193,15 @@ function FSMVisualization({ fsm }) {
       })
       .style('fill', function(d) {
         return fsm.acceptStates.includes(parseInt(d.name.substring(1))) ? 'green' : 'gray';
-      });;
+      });
 
-      textGroup.attr('transform', function (d) {
+      triangleMarkers.attr('transform', function (d) {
+        const node = nodes[d];
+        let y = node.y + 8;
+        return 'translate(' + node.x + ',' + y + ')';
+      });
+
+      textGroup.attr('transform', function (d){
         return 'translate(' + d.x + ',' + d.y + ')';
       });
 
