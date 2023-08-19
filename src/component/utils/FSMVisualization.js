@@ -5,13 +5,13 @@ function FSMVisualization({ fsm }) {
   const svgRef = useRef(null);
 
   useEffect(() => {
-    const scrollContainer = document.querySelector('.nfa-visualization-scroll-container');
+    const scrollContainer = document.querySelector('.fsm-visualization-scroll-container');
 
     const centerScroll = () => {
-      const div = document.getElementById('nfa-visualization-scroll-container');
+      const div = document.getElementById('fsm-visualization-scroll-container');
 
-      const scrollLeft = 2500 - div.offsetWidth / 2;
-      const scrollTop = 2000 - div.offsetHeight / 2;
+      const scrollLeft = 2500 - (div ? div.offsetWidth : window.innerWidth) / 2;
+      const scrollTop = 2000 - (div ? div.offsetHeight : window.innerHeight) / 2;
       scrollContainer.scrollLeft = scrollLeft;
       scrollContainer.scrollTop = scrollTop;
     };

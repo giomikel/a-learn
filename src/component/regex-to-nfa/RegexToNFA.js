@@ -47,8 +47,8 @@ function RegexToNFA() {
         <button onClick={handleGenerateNFA}>Generate NFA</button>
       </div>
       {validationError && <p className="error-message">{validationError}</p>}
-      <div className="nfa-visualization-scroll-container" id='nfa-visualization-scroll-container'>
-        <div className="nfa-visualization-container">
+      <div className="fsm-visualization-scroll-container" id='fsm-visualization-scroll-container'>
+        <div className="fsm-visualization-container">
           {nfa && <FSMVisualization fsm={nfa} />}
         </div>
       </div>

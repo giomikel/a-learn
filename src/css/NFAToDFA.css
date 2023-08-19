@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.nfa-visualization-scroll-container {
+.fsm-visualization-scroll-container {
   overflow: auto;
   flex: 7;
   height: 100%;

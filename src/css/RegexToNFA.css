@@ -47,14 +47,14 @@
     stroke: black;
   }
 
-  .nfa-visualization-scroll-container {
+  .fsm-visualization-scroll-container {
     overflow: auto;
     max-width: 100%;
     max-height: 70vh;
     display: flex;
   }
   
-  .nfa-visualization-container {
+  .fsm-visualization-container {
     width: 5000px;
     height: 4000px;
   }

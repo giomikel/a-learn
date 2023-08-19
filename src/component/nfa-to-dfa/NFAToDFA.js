@@ -66,8 +66,8 @@ function NFAToDFA() {
           />
           <button onClick={handleCreateFSM}>Create FSM</button>
         </div>
-        <div className="nfa-visualization-scroll-container" id='nfa-visualization-scroll-container'>
-          <div className="nfa-visualization-container">
+        <div className="fsm-visualization-scroll-container" id='fsm-visualization-scroll-container'>
+          <div className="fsm-visualization-container">
             {dfa && <FSMVisualization fsm={dfa} />}
           </div>
         </div>
