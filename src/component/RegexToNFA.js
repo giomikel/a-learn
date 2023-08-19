@@ -3,6 +3,9 @@ import "../css/RegexToNFA.css";
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import regexToNFA from '../core/regex-to-nfa/regex-to-nfa.mjs';
+import { Transition } from '../core/structures/fsm-transition.mjs';
+import { FiniteStateMachine } from '../core/structures/fsm.mjs';
+
 
 function FSMVisualization({ fsm }) {
   const svgRef = useRef(null); 
@@ -131,9 +134,11 @@ function FSMVisualization({ fsm }) {
       .text(function (d) { return d.name; });
 
     function tick() {
+      let selfEdgeRadiusMap = new Map();
       linkGroup.selectAll('.link').attr('d', function (d) {
         if (d.source === d.target) {
-          const r = 60 / d.linknum;
+          const r = selfEdgeRadiusMap.has(d.source) ? selfEdgeRadiusMap.get(d.source) : 20;
+          selfEdgeRadiusMap.set(d.source, r + 5);
           return `M ${d.source.x},${d.source.y - 6}
                   A ${r},${r} 0 1,1 ${d.source.x + 6},${d.source.y}`;
         }
@@ -188,7 +193,22 @@ function FSMVisualization({ fsm }) {
 }
 
 function generateNFAFromRegex(regex) {
-  return regexToNFA(regex);
+  // return regexToNFA(regex);
+  const resultStates = [0, 1, 2];
+    const resultTransitions = [
+        new Transition(0, 'a', 1),
+        new Transition(0, 'b', 2),
+        new Transition(1, 'a', 1),
+        new Transition(1, 'b', 2),
+        new Transition(2, 'a', 2),
+        new Transition(2, 'b', 2),
+        new Transition(2, 'l', 2),
+        new Transition(2, 'c', 2),
+        new Transition(2, 'k', 2)
+    ];
+    const resultAcceptStates = [2];
+
+  return new FiniteStateMachine(resultStates, resultTransitions, resultAcceptStates);
 }
 
 
