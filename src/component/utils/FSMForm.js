@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Dropdown from './Dropdown';
 import TransitionCreator from './FSMTransitionCreator';
 import '../../css/FSMForm.css';
-import { FiniteStateMachine } from '../../core/structures/fsm.mjs'
-import { Transition } from '../../core/structures/fsm-transition.mjs'
-import { EPSILON_SYMBOL } from '../../core/constants.mjs';
-import FSMVisualization from './FSMVisualization';
-import { convertNFAToDFA } from '../../core/nfa-to-dfa/nfa-to-dfa.mjs';
 
-function FSMForm() {
-  const [numStates, setNumStates] = useState(1);
-  const [selectedAcceptState, setSelectedAcceptState] = useState("");
-  const [acceptStates, setAcceptStates] = useState([]);
-  const [transitions, setTransitions] = useState([]);
-  const [resetForm, setResetForm] = useState(false);
-  const [dfa, setDFA] = useState(null);
+function FSMForm(props) {
 
-  const states = Array.from({ length: numStates }, (_, i) => i);
+  const {
+    numStates,
+    setNumStates,
+    selectedAcceptState,
+    setSelectedAcceptState,
+    acceptStates,
+    setAcceptStates,
+    transitions,
+    setTransitions,
+    setResetForm,
+    states,
+  } = props;
 
   const handleNumStatesChange = (value) => {
     setNumStates(parseInt(value, 10));
@@ -39,78 +39,40 @@ function FSMForm() {
     setAcceptStates(updatedAcceptStates);
   };
 
-  const handleCreateFSM = () => {
-    const transitionObjects = transitions.map((transition) => {
-      return new Transition(parseInt(transition.source, 10), transition.symbol === '' ? EPSILON_SYMBOL : transition.symbol, parseInt(transition.destination, 10));
-    });
-
-    const acceptStatesParsed = acceptStates.map((acceptState) => {
-      return parseInt(acceptState, 10)
-    });
-
-    const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
-    const dfa = convertNFAToDFA(fsm);
-    // console.log(fsm);
-    // console.log(dfa);
-    setDFA(dfa);
-  };
-
-  useEffect(() => {
-    if (resetForm) {
-      setSelectedAcceptState("");
-      setAcceptStates([]);
-      setTransitions([]);
-      setResetForm(false);
-      setDFA(null);
-    }
-  }, [resetForm]);
-
-  useEffect(() => {
-    setDFA(null);
-  }, [transitions, acceptStates]);
-
   return (
-    <div className='container'>
-      <div className="form-container">
-        <h2 className="form-title">Finite State Machine</h2>
-        <div className="input-group">
-          <label className="input-label">Select the number of states:</label>
-          <Dropdown
-            options={Array.from({ length: 100 }, (_, i) => i + 1)}
-            selectedOption={numStates}
-            onSelect={handleNumStatesChange}
-          />
-        </div>
-        <div className="input-group">
-          <label className="input-label">Select Accept State:</label>
-          <Dropdown
-            options={['Select accept state', ...states]}
-            selectedOption={selectedAcceptState}
-            onSelect={handleAcceptStateChange}
-          />
-          <button onClick={handleAddAcceptState}>Select</button>
-        </div>
-        <div className="accept-states">
-          <h3>Selected Accept States:</h3>
-          <ul className="accept-states-list">
-            {acceptStates.map((state) => (
-              <li key={state} className="accept-state-item">
-                State {state}
-                <button onClick={() => handleRemoveAcceptState(state)}>Remove</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="input-group">
-          <label className="input-label">Define transitions:</label>
-          <TransitionCreator states={states} transitions={transitions} setTransitions={setTransitions} />
-        </div>
-        <button onClick={handleCreateFSM}>Create FSM</button>
+    <div className="form-container">
+      <h2 className="form-title">Finite State Machine</h2>
+      <div className="input-group">
+        <label className="input-label">Select the number of states:</label>
+        <Dropdown
+          options={Array.from({ length: 100 }, (_, i) => i + 1)}
+          selectedOption={numStates}
+          onSelect={handleNumStatesChange}
+        />
       </div>
-      <div className="nfa-visualization-scroll-container" id='nfa-visualization-scroll-container'>
-        <div className="nfa-visualization-container">
-          {dfa && <FSMVisualization fsm={dfa} />}
-        </div>
+      <div className="input-group">
+        <label className="input-label">Select Accept State:</label>
+        <Dropdown
+          options={['Select accept state', ...states]}
+          selectedOption={selectedAcceptState}
+          onSelect={handleAcceptStateChange}
+        />
+        <button onClick={handleAddAcceptState}>Select</button>
+      </div>
+      <div className="accept-states">
+        <h3>Selected Accept States:</h3>
+        <ul className="accept-states-list">
+          {acceptStates.map((state) => (
+            <li key={state} className="accept-state-item">
+              State {state}
+              <button onClick={() => handleRemoveAcceptState(state)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="input-group">
+        <label className="input-label">Define transitions:</label>
+        <TransitionCreator states={states} transitions={transitions} setTransitions={setTransitions} />
       </div>
     </div>
   );
