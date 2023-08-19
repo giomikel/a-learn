@@ -38,7 +38,7 @@ function FSMForm() {
 
   const handleCreateFSM = () => {
     const transitionObjects = transitions.map((transition) => {
-      return new Transition(parseInt(transition.source, 10), transition.symbol == '' ? EPSILON_SYMBOL : transition.symbol, parseInt(transition.destination, 10));
+      return new Transition(parseInt(transition.source, 10), transition.symbol === '' ? EPSILON_SYMBOL : transition.symbol, parseInt(transition.destination, 10));
     });
 
     const acceptStatesParsed = acceptStates.map((acceptState) => {
