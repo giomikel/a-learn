@@ -5,6 +5,7 @@ import '../../css/FSMForm.css';
 import { FiniteStateMachine } from '../../core/structures/fsm.mjs'
 import { Transition } from '../../core/structures/fsm-transition.mjs'
 import { EPSILON_SYMBOL } from '../../core/constants.mjs';
+import FSMVisualization from './FSMVisualization';
 
 function FSMForm() {
   const [numStates, setNumStates] = useState(1);
@@ -12,6 +13,7 @@ function FSMForm() {
   const [acceptStates, setAcceptStates] = useState([]);
   const [transitions, setTransitions] = useState([]);
   const [resetForm, setResetForm] = useState(false);
+  const [dfa, setDFA] = useState(null);
 
   const states = Array.from({ length: numStates }, (_, i) => i);
 
@@ -46,7 +48,7 @@ function FSMForm() {
     });
 
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
-    console.log(fsm);
+    setDFA(fsm);
   };
 
   useEffect(() => {
@@ -55,45 +57,57 @@ function FSMForm() {
       setAcceptStates([]);
       setTransitions([]);
       setResetForm(false);
+      setDFA(null);
     }
   }, [resetForm]);
 
+  useEffect(() => {
+    setDFA(null);
+  }, [transitions, acceptStates]);
+
   return (
-    <div className="form-container">
-      <h2 className="form-title">Finite State Machine</h2>
-      <div className="input-group">
-        <label className="input-label">Select the number of states:</label>
-        <Dropdown
-          options={Array.from({ length: 100 }, (_, i) => i + 1)}
-          selectedOption={numStates}
-          onSelect={handleNumStatesChange}
-        />
+    <div className='container'>
+      <div className="form-container">
+        <h2 className="form-title">Finite State Machine</h2>
+        <div className="input-group">
+          <label className="input-label">Select the number of states:</label>
+          <Dropdown
+            options={Array.from({ length: 100 }, (_, i) => i + 1)}
+            selectedOption={numStates}
+            onSelect={handleNumStatesChange}
+          />
+        </div>
+        <div className="input-group">
+          <label className="input-label">Select Accept State:</label>
+          <Dropdown
+            options={['Select accept state', ...states]}
+            selectedOption={selectedAcceptState}
+            onSelect={handleAcceptStateChange}
+          />
+          <button onClick={handleAddAcceptState}>Select</button>
+        </div>
+        <div className="accept-states">
+          <h3>Selected Accept States:</h3>
+          <ul className="accept-states-list">
+            {acceptStates.map((state) => (
+              <li key={state} className="accept-state-item">
+                State {state}
+                <button onClick={() => handleRemoveAcceptState(state)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="input-group">
+          <label className="input-label">Define transitions:</label>
+          <TransitionCreator states={states} transitions={transitions} setTransitions={setTransitions} />
+        </div>
+        <button onClick={handleCreateFSM}>Create FSM</button>
       </div>
-      <div className="input-group">
-        <label className="input-label">Select Accept State:</label>
-        <Dropdown
-          options={['Select accept state', ...states]}
-          selectedOption={selectedAcceptState}
-          onSelect={handleAcceptStateChange}
-        />
-        <button onClick={handleAddAcceptState}>Select</button>
+      <div className="nfa-visualization-scroll-container" id='nfa-visualization-scroll-container'>
+        <div className="nfa-visualization-container">
+          {dfa && <FSMVisualization fsm={dfa} />}
+        </div>
       </div>
-      <div className="accept-states">
-        <h3>Selected Accept States:</h3>
-        <ul className="accept-states-list">
-          {acceptStates.map((state) => (
-            <li key={state} className="accept-state-item">
-              State {state}
-              <button onClick={() => handleRemoveAcceptState(state)}>Remove</button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="input-group">
-        <label className="input-label">Define transitions:</label>
-        <TransitionCreator states={states} transitions={transitions} setTransitions={setTransitions} />
-      </div>
-      <button onClick={handleCreateFSM}>Create FSM</button>
     </div>
   );
 }
