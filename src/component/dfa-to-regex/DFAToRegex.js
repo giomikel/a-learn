@@ -3,10 +3,10 @@ import FSMForm from '../utils/FSMForm'
 import { Transition } from '../../core/structures/fsm-transition.mjs';
 import { FiniteStateMachine } from '../../core/structures/fsm.mjs'
 import { EPSILON_SYMBOL } from '../../core/constants.mjs';
-import { convertNFAToRegex } from '../../core/nfa-to-regex/nfa-to-regex.mjs'
-import '../../css/NFAToRegex.css'
+import { convertDFAToRegex } from '../../core/dfa-to-regex/dfa-to-regex.mjs'
+import '../../css/DFAToRegex.css'
 
-function NFAToRegex() {
+function DFAToRegex() {
   const [numStates, setNumStates] = useState(1);
   const [selectedAcceptState, setSelectedAcceptState] = useState("");
   const [acceptStates, setAcceptStates] = useState([]);
@@ -26,12 +26,16 @@ function NFAToRegex() {
     });
 
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
-
-    const convertedRegex = convertNFAToRegex(fsm);
-    const resultRegex = convertedRegex == null ? "This Finite State Machine cannot be converted to Regex" : convertedRegex;
+    let result;
+    if (!fsm.isDFA) {
+      result = "This Finite State Machine is not a DFA";
+    } else {
+      const convertedRegex = convertDFAToRegex(fsm);
+      result = convertedRegex == null ? "This Finite State Machine cannot be converted to Regex" : convertedRegex;
+    }
     // console.log(fsm);
     // console.log(convertedRegex);
-    setRegex(resultRegex);
+    setRegex(result);
   };
 
   useEffect(() => {
@@ -50,7 +54,7 @@ function NFAToRegex() {
 
   return (
     <div className='container'>
-      <h1>NFA to Regex Conversion</h1>
+      <h1>DFA To Regex</h1>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
@@ -79,4 +83,4 @@ function NFAToRegex() {
   );
 }
 
-export default NFAToRegex;
+export default DFAToRegex;
