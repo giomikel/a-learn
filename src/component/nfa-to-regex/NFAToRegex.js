@@ -3,17 +3,16 @@ import FSMForm from '../utils/FSMForm'
 import { Transition } from '../../core/structures/fsm-transition.mjs';
 import { FiniteStateMachine } from '../../core/structures/fsm.mjs'
 import { EPSILON_SYMBOL } from '../../core/constants.mjs';
-import FSMVisualization from '../utils/FSMVisualization';
-import { convertNFAToDFA } from '../../core/nfa-to-dfa/nfa-to-dfa.mjs';
-import '../../css/NFAToDFA.css'
+import { convertNFAToRegex } from '../../core/nfa-to-regex/nfa-to-regex.mjs'
+import '../../css/NFAToRegex.css'
 
-function NFAToDFA() {
+function NFAToRegex() {
   const [numStates, setNumStates] = useState(1);
   const [selectedAcceptState, setSelectedAcceptState] = useState("");
   const [acceptStates, setAcceptStates] = useState([]);
   const [transitions, setTransitions] = useState([]);
   const [resetForm, setResetForm] = useState(false);
-  const [dfa, setDFA] = useState(null);
+  const [regex, setRegex] = useState("");
 
   const states = Array.from({ length: numStates }, (_, i) => i);
 
@@ -27,10 +26,12 @@ function NFAToDFA() {
     });
 
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
-    const dfa = convertNFAToDFA(fsm);
+
+    const convertedRegex = convertNFAToRegex(fsm);
+    const resultRegex = convertedRegex == null ? "This Finite State Machine cannot be converted to Regex" : convertedRegex;
     // console.log(fsm);
-    // console.log(dfa);
-    setDFA(dfa);
+    // console.log(convertedRegex);
+    setRegex(resultRegex);
   };
 
   useEffect(() => {
@@ -39,17 +40,17 @@ function NFAToDFA() {
       setAcceptStates([]);
       setTransitions([]);
       setResetForm(false);
-      setDFA(null);
+      setRegex("");
     }
   }, [resetForm]);
 
   useEffect(() => {
-    setDFA(null);
+    setRegex("");
   }, [transitions, acceptStates]);
 
   return (
     <div className='container'>
-      <h1>NFA to DFA Conversion</h1>
+      <h1>NFA to Regex Conversion</h1>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
@@ -64,16 +65,18 @@ function NFAToDFA() {
             setResetForm={setResetForm}
             states={states}
           />
-          <button onClick={handleCreateFSM}>Create FSM</button>
-        </div>
-        <div className="fsm-visualization-scroll-container" id='fsm-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
-          <div className="fsm-visualization-container">
-            {dfa && <FSMVisualization fsm={dfa} />}
+          <div className="center-button">
+            <button onClick={handleCreateFSM}>Create FSM</button>
           </div>
+        </div>
+        <div className="regex-container">
+          <pre className="regex-pattern">
+            {regex}
+          </pre>
         </div>
       </div>
     </div>
   );
 }
 
-export default NFAToDFA;
+export default NFAToRegex;

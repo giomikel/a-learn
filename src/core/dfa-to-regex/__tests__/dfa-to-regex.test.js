@@ -1,3 +1,4 @@
+import { EPSILON_SYMBOL } from "../../constants.mjs";
 import { Transition } from "../../structures/fsm-transition.mjs";
 import { FiniteStateMachine } from "../../structures/fsm.mjs";
 import { convertDFAToRegex } from "../dfa-to-regex.mjs";
@@ -13,7 +14,7 @@ test('test dfa to regex conversion - 1', () => {
     const acceptStates = [1];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("ab*");
+    expect(result).toEqual("a(b)*");
 })
 
 test('test dfa to regex conversion - 2', () => {
@@ -27,7 +28,7 @@ test('test dfa to regex conversion - 2', () => {
     const acceptStates = [2];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("ab*a");
+    expect(result).toEqual("a(b)*a");
 })
 
 test('test dfa to regex conversion - 3', () => {
@@ -43,7 +44,7 @@ test('test dfa to regex conversion - 3', () => {
     const acceptStates = [2];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("(ab*a)|dc");
+    expect(result).toEqual("(a(b)*a)|dc");
 })
 
 test('test dfa to regex conversion - 4', () => {
@@ -60,7 +61,7 @@ test('test dfa to regex conversion - 4', () => {
     const acceptStates = [1, 4];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("ab*|(dv)");
+    expect(result).toEqual("a(b)*|(dv)");
 })
 
 test('test dfa to regex conversion - 5', () => {
@@ -100,7 +101,7 @@ test('test dfa to regex conversion - 6', () => {
     const acceptStates = [1];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("a|tb|ka|(p|kv)v*d|lc");
+    expect(result).toEqual("a|tb|ka|(p|kv)(v)*d|lc");
 })
 
 test('test dfa to regex conversion - 7', () => {
@@ -122,7 +123,7 @@ test('test dfa to regex conversion - 7', () => {
     const acceptStates = [2, 4];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("t|(p|kv)v*");
+    expect(result).toEqual("t|(p|kv)(v)*");
 })
 
 test('test dfa to regex conversion - 8', () => {
@@ -168,5 +169,5 @@ test('test dfa to regex conversion - 8', () => {
     const acceptStates = [0, 19];
     
     const result = convertDFAToRegex(new FiniteStateMachine(states, transitions, acceptStates));
-    expect(result).toEqual("#|(((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)l)w)g)((lw)g)*a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)7|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)l)w)g)((lw)g)*7)i)f)(((7|((lw)g)((lw)g)*7)i)f)*(a|((lw)g)((lw)g)*a))a)(((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)l)w)g)((lw)g)*a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)7|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|ii*o)l)w)g)((lw)g)*7)i)f)(((7|((lw)g)((lw)g)*7)i)f)*(a|((lw)g)((lw)g)*a))a)*");
+    expect(result).toEqual(`${EPSILON_SYMBOL}|(((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)l)w)g)((lw)g)*a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)7|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)l)w)g)((lw)g)*7)i)f)(((7|((lw)g)((lw)g)*7)i)f)*(a|((lw)g)((lw)g)*a))a)(((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)l)w)g)((lw)g)*a|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)7|((((o|(((8z)6)k)o|((7o)4)((7o)4)*o|(5h)o|i(i)*o)l)w)g)((lw)g)*7)i)f)(((7|((lw)g)((lw)g)*7)i)f)*(a|((lw)g)((lw)g)*a))a)*`);
 })
