@@ -1,6 +1,6 @@
 import React from 'react';
 import RegexToNFA from './component/regex-to-nfa/RegexToNFA';
-import NFAToRegex from './component/NFAToRegex';
+import NFAToRegex from './component/nfa-to-regex/NFAToRegex';
 import NFAToDFA from './component/nfa-to-dfa/NFAToDFA';
 import RegexToDFA from './component/regex-to-dfa/RegexToDFA';
 import Home from './component/Home'

@@ -1,4 +1,4 @@
-const EPSILON_SYMBOL = '#';
+const EPSILON_SYMBOL = 'ε';
 const EPSILON_IN_CFG = '';
 const NON_TERMINAL_SYMBOLS_LIMIT = 25;
 const DOLLAR_SYMBOL = '$';
