@@ -48,7 +48,8 @@ function convertNFAToRegex(nfa) {
             nfa.transitions = nfa.transitions.filter(t => !stateTransitions.has(t));
             nextStateToDelete += 1;
         }
-        return nfa.transitions.filter(t => t.fromState === nfa.startState && t.toState === nfa.states.length - 1)[0].symbol;
+        const res = nfa.transitions.filter(t => t.fromState === nfa.startState && t.toState === nfa.states.length - 1);
+        return res.length === 1 ? res[0].symbol : null;
     }
 
     function buildRegularExpressionForTransitionPair(stateTransitions, nfa, newTransitionsToPush, incomingTransition, outgoingTransition, nextStateToDelete) {
@@ -130,8 +131,10 @@ function convertNFAToRegex(nfa) {
 
     nfa = addNewStartAndFinalStates(nfa);
     let regex = buildRegularExpression(nfa);
-    regex = removeRedundantParentheses(regex);
-    regex = removeEnclosingParentheses(regex);
+    if (regex != null) {
+        regex = removeRedundantParentheses(regex);
+        regex = removeEnclosingParentheses(regex);
+    }
     return regex;
 }
 
