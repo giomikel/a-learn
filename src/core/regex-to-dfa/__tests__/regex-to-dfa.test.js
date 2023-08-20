@@ -1,5 +1,5 @@
 import { convertRegexToDFA } from "../regex-to-dfa.mjs"
-import validateExpression from "../../regex-to-nfa/regex-validator.mjs";
+import validateExpression from "../../utils/regex-validator.mjs";
 import { Transition } from "../../structures/fsm-transition.mjs";
 import { EPSILON_SYMBOL } from "../../constants.mjs";
 

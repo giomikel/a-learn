@@ -1,41 +1,41 @@
 import React, { useState } from 'react';
-import "../../css/RegexToNFA.css";
+import "../../css/RegexToDFA.css";
 import { useEffect } from 'react';
-import regexToNFA from '../../core/regex-to-nfa/regex-to-nfa.mjs';
+import { convertRegexToDFA } from '../../core/regex-to-dfa/regex-to-dfa.mjs';
 import validateExpression from '../../core/utils/regex-validator.mjs';
 import FSMVisualization from '../utils/FSMVisualization.js'
 
-function generateNFAFromRegex(regex) {
-  return regexToNFA(regex);
+function generateDFAFromRegex(regex) {
+  return convertRegexToDFA(regex);
 }
 
 
-function RegexToNFA() {
+function RegexToDFA() {
   const [regex, setRegex] = useState('');
-  const [nfa, setNFA] = useState(null);
+  const [dfa, setDFA] = useState(null);
   const [validationError, setValidationError] = useState('');
 
-  const handleGenerateNFA = () => {
+  const handleGenerateDFA = () => {
     if (!validateExpression(regex)) {
       setValidationError('Invalid regex. Please enter a valid regular expression.');
-      setNFA(null);
+      setDFA(null);
     } else {
       setValidationError('');
-      const generatedNFA = generateNFAFromRegex(regex);
-      setNFA(generatedNFA);
+      const generatedDFA = generateDFAFromRegex(regex);
+      setDFA(generatedDFA);
     }
   };
 
   useEffect(() => {
-    setNFA(null);
+    setDFA(null);
     setValidationError('');
   }, [regex]);
 
   return (
-    <div className="regex-to-nfa-container">
-      <h2 className="section-title">Regex to NFA</h2>
+    <div className="regex-to-dfa-container">
+      <h2 className="section-title">Regex to DFA</h2>
       <p className="section-description">
-        Convert Regular Expression to Non-Deterministic Finite Automata (NFA).
+        Convert Regular Expression to Deterministic Finite Automata (DFA).
       </p>
       <div className="input-container">
         <input
@@ -44,16 +44,16 @@ function RegexToNFA() {
           onChange={(e) => setRegex(e.target.value)}
           placeholder="Enter regex..."
         />
-        <button onClick={handleGenerateNFA}>Generate NFA</button>
+        <button onClick={handleGenerateDFA}>Generate DFA</button>
       </div>
       {validationError && <p className="error-message">{validationError}</p>}
       <div className="fsm-visualization-scroll-container" id='fsm-visualization-scroll-container'>
         <div className="fsm-visualization-container">
-          {nfa && <FSMVisualization fsm={nfa} />}
+          {dfa && <FSMVisualization fsm={dfa} />}
         </div>
       </div>
     </div>
   )
 }
 
-export default RegexToNFA;
+export default RegexToDFA;
