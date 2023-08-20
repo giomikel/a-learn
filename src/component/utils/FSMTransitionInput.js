@@ -8,19 +8,15 @@ function TransitionInput({
   destination,
   symbol,
   onChange,
-  defaultSource,
-  defaultDestination,
   templateEditable
 }) {
-  const [selectedSource, setSelectedSource] = useState(source || defaultSource);
-  const [selectedDestination, setSelectedDestination] = useState(
-    destination || defaultDestination
-  );
+  const [selectedSource, setSelectedSource] = useState(source);
+  const [selectedDestination, setSelectedDestination] = useState(destination);
 
   useEffect(() => {
-    setSelectedSource(source || defaultSource);
-    setSelectedDestination(destination || defaultDestination);
-  }, [source, destination, defaultSource, defaultDestination]);
+    setSelectedSource(source);
+    setSelectedDestination(destination);
+  }, [source, destination]);
 
   const handleInputChange = (e, field) => {
     if (!templateEditable) {
