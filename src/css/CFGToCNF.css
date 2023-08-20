@@ -1,0 +1,22 @@
+.cfg-to-cnf-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Section title */
+  .section-title {
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Section description */
+  .section-description {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+  }
