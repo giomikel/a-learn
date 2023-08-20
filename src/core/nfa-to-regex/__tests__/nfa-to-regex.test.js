@@ -37,7 +37,7 @@ test('test nfa to regex conversion 2', () => {
         acceptStates
     );
     const result = convertNFAToRegex(nfa);
-    expect(result).toEqual('(a*b)(a|b)*');
+    expect(result).toEqual('((a)*b)(a|b)*');
 })
 
 test('test nfa to regex conversion 3', () => {
@@ -112,5 +112,5 @@ test('test nfa to regex conversion 6', () => {
         acceptStates
     );
     const result = convertNFAToRegex(nfa);
-    expect(result).toEqual('(b*)(cb*)*|((b*)(cb*)*a)(b(cb*)*a)*(b(cb*)*)');
+    expect(result).toEqual('((b)*)(c(b)*)*|(((b)*)(c(b)*)*a)(b(c(b)*)*a)*(b(c(b)*)*)');
 })

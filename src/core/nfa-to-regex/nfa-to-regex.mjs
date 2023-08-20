@@ -88,7 +88,7 @@ function convertNFAToRegex(nfa) {
     }
 
     function removeRedundantParentheses(regex) {
-        regex = regex.replace(/\(([^()|*])\)/g, '$1');
+        regex = regex.replace(/\(([^()|*])\)(?!\*)/g, '$1');
         regex = regex.replace(/\(\*\)/g, '');
         regex = regex.replace(/\(\)/g, '');
         regex = regex.replace(/(?<![)\w])\*/g, '');
