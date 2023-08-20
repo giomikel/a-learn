@@ -28,7 +28,7 @@ function NFAToRegex() {
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
 
     const convertedRegex = convertNFAToRegex(fsm);
-    const resultRegex = convertedRegex == null ? "Couldn't Convert To Regex" : convertedRegex;
+    const resultRegex = convertedRegex == null ? "This Finite State Machine cannot be converted to Regex" : convertedRegex;
     // console.log(fsm);
     // console.log(convertedRegex);
     setRegex(resultRegex);
