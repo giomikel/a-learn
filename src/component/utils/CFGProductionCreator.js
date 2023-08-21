@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProductionInput from './CFGProductionInput.js';
 import { EPSILON_IN_CFG } from '../../core/constants.mjs';
 
-function ProductionCreator({ alphabet, productions, setProductions }) {
+function ProductionCreator({selectedStartSymbol, alphabet, productions, setProductions }) {
   const [template, setTemplate] = useState({ variable: 'S', expression: EPSILON_IN_CFG});
 
   const addProduction = () => {
@@ -12,10 +12,20 @@ function ProductionCreator({ alphabet, productions, setProductions }) {
         transition.expression === template.expression
     );
 
-    if (!isDuplicate) {
+    let isIsolatedVariable = selectedStartSymbol !== template.variable;
+    for (let element of productions) {
+        if(element.expression.includes(template.variable)){
+          isIsolatedVariable = false;
+          break;
+        }
+    }
+
+    if (!isDuplicate && !isIsolatedVariable) {
       const newProduction = { ...template, editable: false };
       setProductions([...productions, newProduction]);
-    } else {
+    } else if (!isDuplicate){
+      alert('This production has isolated variable.');
+    }else {
       alert('This production already exists.');
     }
   };

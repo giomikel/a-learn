@@ -30,7 +30,7 @@ function CFGForm(props) {
       </div>
       <div className="input-group">
         <label className="input-label">Define productions:</label>
-        <ProductionCreator alphabet={alphabet} productions={productions} setProductions={setProductions} />
+        <ProductionCreator selectedStartSymbol={selectedStartSymbol} alphabet={alphabet} productions={productions} setProductions={setProductions} />
       </div>
     </div>
   );
