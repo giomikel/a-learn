@@ -2,10 +2,10 @@ class CNF {
     constructor(productionRules, startSymbol){
         this.productionRules = new Map(productionRules);
         this.startSymbol = startSymbol;
-        this.productionRules.set(this.startSymbol, this.productionRules.get(this.startSymbol).map((char) =>  char === ''? 'ε': char));
     }
 
     printRule(key, value) {
+        value = value.map((char) =>  char === ''? 'ε': char);
         return `${key} -> ${value.join(' | ')}`;
     }
 
