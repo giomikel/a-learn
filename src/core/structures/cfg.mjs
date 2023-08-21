@@ -22,9 +22,6 @@ class CFG {
     }
   
     setStartSymbol(startSymbol) {
-      if (!this.nonTerminals.has(startSymbol)) {
-        throw new Error("Start symbol must be a non-terminal in the grammar.");
-      }
       this.startSymbol = startSymbol;
     }
   }
