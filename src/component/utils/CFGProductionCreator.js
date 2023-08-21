@@ -20,10 +20,12 @@ function ProductionCreator({selectedStartSymbol, alphabet, productions, setProdu
         }
     }
 
-    if (!isDuplicate && !isIsolatedVariable) {
+    if (!isDuplicate && !isIsolatedVariable && template.variable !== template.expression) {
       const newProduction = { ...template, editable: false };
       setProductions([...productions, newProduction]);
-    } else if (!isDuplicate){
+    } else if (!isDuplicate && !isIsolatedVariable){
+      alert('Variable and expression should not be the same.');
+    }else if(!isDuplicate){
       alert('This production has isolated variable.');
     }else {
       alert('This production already exists.');
