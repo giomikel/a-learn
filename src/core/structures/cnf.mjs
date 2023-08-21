@@ -1,3 +1,5 @@
+import { EPSILON_SYMBOL } from "../constants.mjs";
+
 class CNF {
     constructor(productionRules, startSymbol){
         this.productionRules = new Map(productionRules);
@@ -5,7 +7,7 @@ class CNF {
     }
 
     printRule(key, value) {
-        value = value.map((char) =>  char === ''? 'ε': char);
+        value = value.map((char) =>  char === ''? EPSILON_SYMBOL: char);
         return `${key} -> ${value.join(' | ')}`;
     }
 
