@@ -36,3 +36,9 @@
     height: 100%;
     max-height: 90vh;
   }
+
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 8px;
+  }
