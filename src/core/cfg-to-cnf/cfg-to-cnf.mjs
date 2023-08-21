@@ -33,9 +33,9 @@ class CNFConverter {
   getUpdatedStateList(state, epsilonProductions) {
     let num = 0;
     let stateList = state.split('');
-    stateList.map(Symbol => {if (epsilonProductions.includes(Symbol)) num++;});
+    stateList.forEach((Symbol) => {if (epsilonProductions.includes(Symbol)) num++;});
     if (num > 4) {
-      throw new Error("Number of nullable elements in single state is out of limit.");
+        throw new Error("Number of nullable elements in single state is out of limit.");
     }
     if(num === 0) return [state];
     return this.generateAllStateCombinations(state, epsilonProductions);
@@ -120,7 +120,7 @@ class CNFConverter {
 
   removeSelfProductions(){
     for (let rule of this.cfg.productionRules){
-          this.cfg.productionRules.set(rule[0], this.cfg.productionRules.get(rule[0]).filter((el) => el != rule[0]));
+          this.cfg.productionRules.set(rule[0], this.cfg.productionRules.get(rule[0]).filter((el) => el !== rule[0]));
     }
   }
 
