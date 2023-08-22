@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TransitionInput from './FSMTransitionInput';
 
 function TransitionCreator({ states, transitions, setTransitions }) {
   const [template, setTemplate] = useState({ source: '0', destination: '0', symbol: '' });
+
+  useEffect(() => {
+    setTemplate({ source: '0', destination: '0', symbol: '' });
+  }, [states]);
 
   const addTransition = () => {
     const isDuplicate = transitions.some(
