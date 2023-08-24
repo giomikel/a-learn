@@ -2,13 +2,13 @@ import { React, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import { DFA_TYPE, PDA_TYPE } from '../../core/constants.mjs';
 
-function getParamsByGraphType(graph){
+function getParamsByGraphType(graph) {
   if (graph.getType() === DFA_TYPE) return [-1200, 180, 600, 5];
   if (graph.getType() === PDA_TYPE) return [-1200, 200, 600, 8]
   return [-300, 60, 75, 5];
 }
 
-function GraphVisualization({ graph }) {
+function GraphVisualization({ graph, currentNodes = [] }) {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -39,6 +39,8 @@ function GraphVisualization({ graph }) {
     const svg = d3.select(svgRef.current)
       .attr('width', width)
       .attr('height', height);
+
+    svg.selectAll('*').remove();
 
     const links = graph.transitions.map(transition => ({
       source: transition.fromState,
@@ -104,7 +106,7 @@ function GraphVisualization({ graph }) {
       .data(Array.from(symbols))
       .enter()
       .append('marker')
-      .attr('id', function(d, i) { return 'marker-' + i; })
+      .attr('id', function (d, i) { return 'marker-' + i; })
       .attr('viewBox', '0 -5 10 10')
       .attr('refX', 15)
       .attr('refY', -1.5)
@@ -125,7 +127,7 @@ function GraphVisualization({ graph }) {
       .append('path')
       .attr('class', function (d) { return 'link ' + d.type; })
       .attr('marker-end', function (d, i) { return 'url(#marker-' + i + ')'; });
-      
+
     linkGroup
       .append('text')
       .attr('class', 'edge-label')
@@ -139,7 +141,10 @@ function GraphVisualization({ graph }) {
       .enter()
       .append('circle')
       .attr('class', 'node')
-      .attr('r', 6);
+      .attr('r', 6)
+      .style('fill', function (d) {
+        return currentNodes.includes(parseInt(d.name.substring(1))) ? 'blue' : 'grey';
+      });
 
     const triangleMarkers = svg
       .selectAll('.triangle-marker')
@@ -173,6 +178,27 @@ function GraphVisualization({ graph }) {
       .attr('x', 8)
       .attr('y', '.31em')
       .text(function (d) { return d.name; });
+
+    const circles = svg.selectAll('.node');
+
+    circles.style('fill', function (d) {
+      const isCurrentNode = currentNodes.includes(parseInt(d.name.substring(1)));
+      return isCurrentNode ? 'blue' : 'grey'
+    });
+
+    const acceptStateNodes = Array.from(d3.values(nodes)).filter((d) => {
+      return graph.acceptStates.includes(parseInt(d.name.substring(1)));
+    });
+
+    const outer = svg
+      .selectAll('.outer')
+      .data(acceptStateNodes)
+      .enter()
+      .append('circle')
+      .attr('r', 10)
+      .style('fill', 'none')
+      .style('stroke', 'black')
+      .style('stroke-width', 2);
 
     function tick() {
       let selfEdgeRadiusMap = new Map();
@@ -218,14 +244,20 @@ function GraphVisualization({ graph }) {
       circle.attr('transform', function (d) {
         return 'translate(' + d.x + ',' + d.y + ')';
       })
-        .style('fill', function (d) {
-          return graph.acceptStates.includes(parseInt(d.name.substring(1))) ? 'green' : 'gray';
-        });
+
+      outer.attr('transform', function (d) {
+        return 'translate(' + d.x + ',' + d.y + ')';
+      })
+      // .style('fill', function (d) {
+      //   const isCurrentNode = currentNodes.includes(parseInt(d.name.substring(1)));
+      //   return isCurrentNode ? 'blue' : 'grey'
+      // });
 
       triangleMarkers.attr('transform', function (d) {
         const node = nodes[d];
-        let y = node.y + 8;
-        return 'translate(' + node.x + ',' + y + ')';
+        let x = node.x - 17;
+        let y = node.y;
+        return 'translate(' + x + ',' + y + ')';
       });
 
       textGroup.attr('transform', function (d) {
@@ -234,7 +266,7 @@ function GraphVisualization({ graph }) {
 
     }
 
-  }, [graph, graph.transitions, graph.acceptStates]);
+  }, [graph, graph.transitions, graph.acceptStates, currentNodes]);
 
   return (
     <svg ref={svgRef} className="graph-container">

@@ -1,5 +1,4 @@
 import { findEpsilonClosures } from "../nfa-to-dfa/nfa-to-dfa.mjs";
-import { EPSILON_SYMBOL } from "../constants.mjs";
 
 class NFASimulator {
     constructor(nfa) {
@@ -26,7 +25,7 @@ class NFASimulator {
             const nextStates = [];
 
             for (const state of this.currentStates) {
-                const transitions = this.nfa.transitions.filter(transition => transition.fromState == state && transition.symbol == symbol);
+                const transitions = this.nfa.transitions.filter(transition => transition.fromState === state && transition.symbol === symbol);
                 nextStates.push(...findEpsilonClosures(transitions.map(t => t.toState), this.nfa.transitions));
             }
 
