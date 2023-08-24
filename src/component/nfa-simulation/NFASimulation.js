@@ -20,6 +20,7 @@ function NFASimulation() {
   const [simulator, setSimulator] = useState(null);
   const [currentNodes, setCurrentNodes] = useState([]);
   const [step, setStep] = useState(0);
+  const [resultText, setResultText] = useState('');
 
   const states = Array.from({ length: numStates }, (_, i) => i);
 
@@ -40,6 +41,7 @@ function NFASimulation() {
     setCurrentNodes(nfaSimulator.currentStates);
     setInput('');
     setStep(0);
+    setResultText('');
 
     const graph = fsm.toGraph();
 
@@ -81,6 +83,16 @@ function NFASimulation() {
     }
   };
 
+  const getResultColor = () => {
+    if (resultText === 'Accepts') {
+      return 'accepts-text';
+    } else if (resultText === 'Rejects') {
+      return 'rejects-text';
+    } else {
+      return '';
+    }
+  }
+
   useEffect(() => {
     if (resetForm) {
       setSelectedAcceptState("");
@@ -88,13 +100,31 @@ function NFASimulation() {
       setTransitions([]);
       setResetForm(false);
       setGraph(null);
+      setResultText('');
     }
   }, [resetForm]);
 
   useEffect(() => {
     setGraph(null);
     setSimulator(null);
+    setInput('');
+    setSimulationStatus('Idle');
+    setCurrentNodes([]);
+    setStep(0);
+    setResultText('');
   }, [transitions, acceptStates]);
+
+  useEffect(() => {
+    if (simulationStatus === 'Simulation Complete') {
+      if (simulator.isInAcceptStates() && input.length === 0) {
+        setResultText('Accepts');
+      } else {
+        setResultText('Rejects');
+      }
+    } else {
+      setResultText('');
+    }
+  }, [simulationStatus]);
 
   return (
     <div className='container'>
@@ -129,7 +159,8 @@ function NFASimulation() {
               <p>Current Input: {input}</p>
               <p>Step: {step}</p>
               <p>Simulation Status: {simulationStatus}</p>
-              <p>Current States: {currentNodes.join(', ')}</p>
+              <p>Current States: {currentNodes && currentNodes.join(', ')}</p>
+              <p className={getResultColor()}>{resultText}</p>
             </div>
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>

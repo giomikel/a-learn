@@ -27,3 +27,11 @@
   width: 5000px;
   height: 4000px;
 }
+
+.accepts-text {
+  color: green;
+}
+
+.rejects-text {
+  color: red;
+}
