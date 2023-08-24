@@ -7,6 +7,7 @@ import CFGToCNF from './component/cfg-to-cnf/CFGToCNF';
 import DFAToRegex from './component/dfa-to-regex/DFAToRegex';
 import CFGToPDA from './component/cfg-to-pda/CFGToPDA';
 import NFASimulation from './component/nfa-simulation/NFASimulation'
+import DFASimulation from './component/dfa-simulation/DFASimulation';
 import Home from './component/Home'
 import { Routes, Route } from 'react-router-dom'
 
