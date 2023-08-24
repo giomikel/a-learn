@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.fsm-visualization-scroll-container {
+.graph-visualization-scroll-container {
   overflow: auto;
   flex: 7;
   height: 100%;

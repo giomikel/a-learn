@@ -3,7 +3,7 @@ import "../../css/RegexToDFA.css";
 import { useEffect } from 'react';
 import { convertRegexToDFA } from '../../core/regex-to-dfa/regex-to-dfa.mjs';
 import validateExpression from '../../core/utils/regex-validator.mjs';
-import FSMVisualization from '../utils/FSMVisualization.js'
+import GraphVisualization from '../utils/GraphVisualization';
 
 function generateDFAFromRegex(regex) {
   return convertRegexToDFA(regex);
@@ -12,22 +12,23 @@ function generateDFAFromRegex(regex) {
 
 function RegexToDFA() {
   const [regex, setRegex] = useState('');
-  const [dfa, setDFA] = useState(null);
+  const [graph, setGraph] = useState(null);
   const [validationError, setValidationError] = useState('');
 
   const handleGenerateDFA = () => {
     if (!validateExpression(regex)) {
       setValidationError('Invalid regex. Please enter a valid regular expression.');
-      setDFA(null);
+      setGraph(null);
     } else {
       setValidationError('');
       const generatedDFA = generateDFAFromRegex(regex);
-      setDFA(generatedDFA);
+      const graph = generatedDFA.toGraph();
+      setGraph(graph);
     }
   };
 
   useEffect(() => {
-    setDFA(null);
+    setGraph(null);
     setValidationError('');
   }, [regex]);
 
@@ -47,9 +48,9 @@ function RegexToDFA() {
         <button onClick={handleGenerateDFA}>Generate DFA</button>
       </div>
       {validationError && <p className="error-message">{validationError}</p>}
-      <div className="fsm-visualization-scroll-container" id='fsm-visualization-scroll-container'>
-        <div className="fsm-visualization-container">
-          {dfa && <FSMVisualization fsm={dfa} />}
+      <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container'>
+        <div className="graph-visualization-container">
+          {graph && <GraphVisualization graph={graph} />}
         </div>
       </div>
     </div>
