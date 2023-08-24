@@ -24,6 +24,7 @@ function App() {
         <Route path="/DFAToRegex" element={<DFAToRegex />} />
         <Route path="/CFGToPDA" element={<CFGToPDA />} />
         <Route path="/NFASimulation" element={<NFASimulation />} />
+        <Route path="/DFASimulation" element={<DFASimulation />} />
       </Routes>
     </div>
   );
