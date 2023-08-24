@@ -1,0 +1,43 @@
+.side-by-side-container {
+    display: flex;
+    height: 90vh;
+  }
+  
+  .fsm-form {
+    flex: 3;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .simulation-view {
+    flex: 7;
+    display: block;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+  
+  .graph-visualization-scroll-container {
+    overflow: auto;
+    height: 80%;
+    max-width: 100%;
+    max-height: 70vh;
+  }
+  
+  .graph-visualization-container {
+    width: 5000px;
+    height: 4000px;
+  }
+
+  .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
+  .accepts-text {
+    color: green;
+  }
+  
+  .rejects-text {
+    color: red;
+  }

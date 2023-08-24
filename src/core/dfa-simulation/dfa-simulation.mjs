@@ -23,6 +23,7 @@ class DFASimulator {
                 return true;
             } else {
                 this.failure = true;
+                this.currentState = null;
             }
         }
         return false;  

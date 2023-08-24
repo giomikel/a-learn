@@ -3,9 +3,9 @@ import FSMForm from '../utils/FSMForm';
 import { Transition } from '../../core/structures/fsm-transition.mjs';
 import { FiniteStateMachine } from '../../core/structures/fsm.mjs';
 import { EPSILON_SYMBOL } from '../../core/constants.mjs';
-import { NFASimulator } from '../../core/nfa-simulation/nfa-simulation.mjs';
+import { DFASimulator } from '../../core/dfa-simulation/dfa-simulation.mjs';
 import GraphVisualization from '../utils/GraphVisualization';
-import '../../css/NFASimulation.css';
+import '../../css/DFASimulation.css';
 
 function NFASimulation() {
 
@@ -18,8 +18,9 @@ function NFASimulation() {
   const [input, setInput] = useState('');
   const [simulationStatus, setSimulationStatus] = useState('Idle');
   const [simulator, setSimulator] = useState(null);
-  const [currentNodes, setCurrentNodes] = useState([]);
+  const [currentNode, setCurrentNode] = useState([]);
   const [step, setStep] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   const [resultText, setResultText] = useState('');
 
   const states = Array.from({ length: numStates }, (_, i) => i);
@@ -35,17 +36,22 @@ function NFASimulation() {
 
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
 
-    const nfaSimulator = new NFASimulator(fsm);
+    if (!fsm.isDFA) {
+        setErrorMessage("This Finite State Machine is not a DFA"); 
+        setGraph(null); 
+    } else {
+        const dfaSimulator = new DFASimulator(fsm);
 
-    setSimulator(nfaSimulator);
-    setCurrentNodes(nfaSimulator.currentStates);
-    setInput('');
-    setStep(0);
-    setResultText('');
-
-    const graph = fsm.toGraph();
-
-    setGraph(graph);
+        setSimulator(dfaSimulator);
+        setCurrentNode(dfaSimulator.currentState);
+        setInput('');
+        setStep(0);
+    
+        const graph = fsm.toGraph();
+    
+        setGraph(graph);
+        setErrorMessage(""); 
+    }
   };
 
   const handleInputChange = (event) => {
@@ -60,7 +66,7 @@ function NFASimulation() {
     if (simulator) {
       const result = simulator.step();
       setSimulationStatus(result ? 'Simulating' : 'Simulation Complete');
-      setCurrentNodes(simulator.currentStates);
+      setCurrentNode(simulator.currentState);
       setInput((prevInput) => result ? prevInput.substring(1) : prevInput);
       if (result)
         setStep(step + 1);
@@ -72,7 +78,7 @@ function NFASimulation() {
       setSimulationStatus('Simulating');
       const simulateInterval = setInterval(() => {
         const result = simulator.step();
-        setCurrentNodes(simulator.currentStates);
+        setCurrentNode(simulator.currentState);
         setStep((prevStep) => result ? prevStep + 1 : prevStep);
         setInput((prevInput) => result ? prevInput.substring(1) : prevInput);
         if (!result) {
@@ -100,23 +106,13 @@ function NFASimulation() {
       setTransitions([]);
       setResetForm(false);
       setGraph(null);
-      setResultText('');
+      setErrorMessage("");
     }
   }, [resetForm]);
 
   useEffect(() => {
-    setGraph(null);
-    setSimulator(null);
-    setInput('');
-    setSimulationStatus('Idle');
-    setCurrentNodes([]);
-    setStep(0);
-    setResultText('');
-  }, [transitions, acceptStates]);
-
-  useEffect(() => {
     if (simulationStatus === 'Simulation Complete') {
-      if (simulator.isInAcceptStates() && input.length === 0) {
+      if (simulator.isAcceptState() && input.length === 0) {
         setResultText('Accepts');
       } else {
         setResultText('Rejects');
@@ -126,9 +122,20 @@ function NFASimulation() {
     }
   }, [simulationStatus, input.length, simulator]);
 
+  useEffect(() => {
+    setGraph(null);
+    setSimulator(null);
+    setErrorMessage("");
+    setInput('');
+    setSimulationStatus('Idle');
+    setCurrentNode([]);
+    setStep(0);
+
+  }, [transitions, acceptStates]);
+
   return (
     <div className='container'>
-      <h1>NFA Simulation</h1>
+      <h1>DFA Simulation</h1>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
@@ -144,6 +151,7 @@ function NFASimulation() {
             states={states}
           />
           <button onClick={handleCreateFSM}>Create FSM</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
         </div>
         <div className='simulation-view'>
           <div className="simulation-controls">
@@ -159,13 +167,13 @@ function NFASimulation() {
               <p>Current Input: {input}</p>
               <p>Step: {step}</p>
               <p>Simulation Status: {simulationStatus}</p>
-              <p>Current States: {currentNodes && currentNodes.join(', ')}</p>
+              <p>Current State: {currentNode}</p>
               <p className={getResultColor()}>{resultText}</p>
             </div>
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
-              {graph && <GraphVisualization graph={graph} currentNodes={currentNodes} />}
+              {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null? []:[currentNode]} />}
             </div>
           </div>
         </div>

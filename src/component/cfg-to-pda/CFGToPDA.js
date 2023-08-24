@@ -23,7 +23,6 @@ function CFGToPDA() {
         const graph = pda.toGraph();
 
         setGraph(graph);
-        console.log(graph);
         setErrorMessage(""); 
       }catch (error) {
         
