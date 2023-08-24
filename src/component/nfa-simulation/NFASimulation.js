@@ -124,7 +124,7 @@ function NFASimulation() {
     } else {
       setResultText('');
     }
-  }, [simulationStatus]);
+  }, [simulationStatus, input.length, simulator]);
 
   return (
     <div className='container'>
