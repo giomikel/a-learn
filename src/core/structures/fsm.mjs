@@ -1,4 +1,6 @@
 import { EPSILON_SYMBOL } from '../constants.mjs';
+import Graph from './graph.js';
+import { DFA_TYPE, NFA_TYPE } from '../constants.mjs';
 
 class FiniteStateMachine {
     constructor(states, transitions, acceptStates) {
@@ -31,6 +33,10 @@ Start State: ${this.startState.toString()}`;
                 return 0;
             }
         });
+    }
+
+    toGraph(){
+        return new Graph(this.states, this.transitions, this.acceptStates, this.isDFA? DFA_TYPE:NFA_TYPE, this.startState);
     }
 }
 
