@@ -255,8 +255,9 @@ function GraphVisualization({ graph, currentNodes = [] }) {
 
       triangleMarkers.attr('transform', function (d) {
         const node = nodes[d];
-        let y = node.y + 8;
-        return 'translate(' + node.x + ',' + y + ')';
+        let x = node.x - 17;
+        let y = node.y;
+        return 'translate(' + x + ',' + y + ')';
       });
 
       textGroup.attr('transform', function (d) {

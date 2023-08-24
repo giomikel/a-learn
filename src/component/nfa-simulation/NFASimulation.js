@@ -129,7 +129,7 @@ function NFASimulation() {
               <p>Current Input: {input}</p>
               <p>Step: {step}</p>
               <p>Simulation Status: {simulationStatus}</p>
-              <p>Current States: {currentNodes}</p>
+              <p>Current States: {currentNodes.join(', ')}</p>
             </div>
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
