@@ -1,5 +1,3 @@
-import { EPSILON_SYMBOL } from '../constants.mjs';
-
 class Graph {
     constructor(states, transitions, acceptStates, type, startState) {
         this.states = states;  
