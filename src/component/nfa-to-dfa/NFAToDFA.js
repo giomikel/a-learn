@@ -3,7 +3,7 @@ import FSMForm from '../utils/FSMForm'
 import { Transition } from '../../core/structures/fsm-transition.mjs';
 import { FiniteStateMachine } from '../../core/structures/fsm.mjs'
 import { EPSILON_SYMBOL } from '../../core/constants.mjs';
-import FSMVisualization from '../utils/FSMVisualization';
+import GraphVisualization from '../utils/GraphVisualization';
 import { convertNFAToDFA } from '../../core/nfa-to-dfa/nfa-to-dfa.mjs';
 import '../../css/NFAToDFA.css'
 
@@ -13,7 +13,7 @@ function NFAToDFA() {
   const [acceptStates, setAcceptStates] = useState([]);
   const [transitions, setTransitions] = useState([]);
   const [resetForm, setResetForm] = useState(false);
-  const [dfa, setDFA] = useState(null);
+  const [graph, setGraph] = useState(null);
 
   const states = Array.from({ length: numStates }, (_, i) => i);
 
@@ -28,9 +28,9 @@ function NFAToDFA() {
 
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
     const dfa = convertNFAToDFA(fsm);
-    // console.log(fsm);
-    // console.log(dfa);
-    setDFA(dfa);
+    const graph = dfa.toGraph();
+
+    setGraph(graph);
   };
 
   useEffect(() => {
@@ -39,12 +39,12 @@ function NFAToDFA() {
       setAcceptStates([]);
       setTransitions([]);
       setResetForm(false);
-      setDFA(null);
+      setGraph(null);
     }
   }, [resetForm]);
 
   useEffect(() => {
-    setDFA(null);
+    setGraph(null);
   }, [transitions, acceptStates]);
 
   return (
@@ -66,9 +66,9 @@ function NFAToDFA() {
           />
           <button onClick={handleCreateFSM}>Create FSM</button>
         </div>
-        <div className="fsm-visualization-scroll-container" id='fsm-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
+        <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
           <div className="fsm-visualization-container">
-            {dfa && <FSMVisualization fsm={dfa} />}
+            {graph && <GraphVisualization graph={graph} />}
           </div>
         </div>
       </div>

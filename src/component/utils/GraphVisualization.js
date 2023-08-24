@@ -1,19 +1,21 @@
 import { React, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import { DFA_TYPE, PDA_TYPE } from '../../core/constants.mjs';
 
-function getParamsByFSMType(fsm){
-  if (fsm.isDFA) return [-1200, 180, 600];
-  return [-300, 60, 75];
+function getParamsByGraphType(graph){
+  if (graph.getType() === DFA_TYPE) return [-1200, 180, 600, 5];
+  if (graph.getType() === PDA_TYPE) return [-1200, 200, 600, 8]
+  return [-300, 60, 75, 5];
 }
 
-function FSMVisualization({ fsm }) {
+function GraphVisualization({ graph }) {
   const svgRef = useRef(null);
 
   useEffect(() => {
-    const scrollContainer = document.querySelector('.fsm-visualization-scroll-container');
+    const scrollContainer = document.querySelector('.graph-visualization-scroll-container');
 
     const centerScroll = () => {
-      const div = document.getElementById('fsm-visualization-scroll-container');
+      const div = document.getElementById('graph-visualization-scroll-container');
 
       const scrollLeft = 2500 - (div ? div.offsetWidth : window.innerWidth) / 2;
       const scrollTop = 2000 - (div ? div.offsetHeight : window.innerHeight) / 2;
@@ -38,7 +40,7 @@ function FSMVisualization({ fsm }) {
       .attr('width', width)
       .attr('height', height);
 
-    const links = fsm.transitions.map(transition => ({
+    const links = graph.transitions.map(transition => ({
       source: transition.fromState,
       target: transition.toState,
       type: transition.symbol,
@@ -78,14 +80,14 @@ function FSMVisualization({ fsm }) {
     });
 
     const symbols = new Set();
-    fsm.transitions.forEach((element) => {
+    graph.transitions.forEach((element) => {
       symbols.add(element.symbol);
     });
 
     const w = 5000,
       h = 4000;
 
-    let params = getParamsByFSMType(fsm);
+    let params = getParamsByGraphType(graph);
 
     d3
       .forceSimulation()
@@ -102,7 +104,7 @@ function FSMVisualization({ fsm }) {
       .data(Array.from(symbols))
       .enter()
       .append('marker')
-      .attr('id', String)
+      .attr('id', function(d, i) { return 'marker-' + i; })
       .attr('viewBox', '0 -5 10 10')
       .attr('refX', 15)
       .attr('refY', -1.5)
@@ -122,8 +124,8 @@ function FSMVisualization({ fsm }) {
     linkGroup
       .append('path')
       .attr('class', function (d) { return 'link ' + d.type; })
-      .attr('marker-end', function (d) { return 'url(#' + d.type + ')'; });
-
+      .attr('marker-end', function (d, i) { return 'url(#marker-' + i + ')'; });
+      
     linkGroup
       .append('text')
       .attr('class', 'edge-label')
@@ -177,7 +179,7 @@ function FSMVisualization({ fsm }) {
       linkGroup.selectAll('.link').attr('d', function (d) {
         if (d.source === d.target) {
           const r = selfEdgeRadiusMap.has(d.source) ? selfEdgeRadiusMap.get(d.source) : 20;
-          selfEdgeRadiusMap.set(d.source, r + 5);
+          selfEdgeRadiusMap.set(d.source, r + params[3]);
           return `M ${d.source.x},${d.source.y - 6}
                     A ${r},${r} 0 1,1 ${d.source.x + 6},${d.source.y}`;
         }
@@ -217,7 +219,7 @@ function FSMVisualization({ fsm }) {
         return 'translate(' + d.x + ',' + d.y + ')';
       })
         .style('fill', function (d) {
-          return fsm.acceptStates.includes(parseInt(d.name.substring(1))) ? 'green' : 'gray';
+          return graph.acceptStates.includes(parseInt(d.name.substring(1))) ? 'green' : 'gray';
         });
 
       triangleMarkers.attr('transform', function (d) {
@@ -232,12 +234,12 @@ function FSMVisualization({ fsm }) {
 
     }
 
-  }, [fsm, fsm.alphabet, fsm.transitions, fsm.acceptStates]);
+  }, [graph, graph.transitions, graph.acceptStates]);
 
   return (
-    <svg ref={svgRef} className="fsm-container">
+    <svg ref={svgRef} className="graph-container">
     </svg>
   );
 }
 
-export default FSMVisualization;
+export default GraphVisualization;
