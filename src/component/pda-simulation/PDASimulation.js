@@ -162,11 +162,23 @@ function PDASimulation() {
             <button onClick={handleStepSimulation}>Step</button>
             <button onClick={handleSimulate}>Simulate</button>
             <div className="simulation-info">
-              <p>Current Input: {input}</p>
-              <p>Step: {step}</p>
-              <p>Simulation Status: {simulationStatus}</p>
-              <p>Current States: {currentNodes && currentNodes.join(', ')}</p>
-              <p className={getResultColor()}>{resultText}</p>
+              <div className="status">
+                <p>Current Input: {input}</p>
+                <p>Step: {step}</p>
+                <p>Simulation Status: {simulationStatus}</p>
+                <p>Current States: {currentNodes && currentNodes.join(', ')}</p>
+                <p className={getResultColor()}>{resultText}</p>
+              </div>
+              <div className="current-stacks">
+                <p>Current Stacks:</p>
+                {simulator &&
+                  Array.from(simulator.currentStacks).map(([state, stacks]) => (
+                    <div key={state} className="stack-info">
+                      <p>State {state}:&nbsp;</p>
+                      <p>{stacks.map((stack) => stack.join('')).join(', ')}</p>
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>

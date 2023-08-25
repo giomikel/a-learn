@@ -3,7 +3,7 @@
   height: 90vh;
 }
 
-.fsm-form {
+.pda-form {
   flex: 3;
   height: 100%;
   width: 100%;
@@ -34,4 +34,23 @@
 
 .rejects-text {
   color: red;
+}
+
+.simulation-info {
+  display: flex;
+}
+
+
+.current-stacks {
+  margin-left: 50px;
+}
+
+.stack-info {
+  display: flex;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.status {
+  width: 40vh;
 }
