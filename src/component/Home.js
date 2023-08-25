@@ -73,9 +73,9 @@ function Home() {
             </a>
           </li>
           <li className="nav-item">
-            <a href="/TuringMachineSimulation" className="nav-link">
+            <a href="/TMSimulation" className="nav-link">
               <div className="nav-card">
-                <span>TuringMachineSimulation</span>
+                <span>TMSimulation</span>
               </div>
             </a>
           </li>
