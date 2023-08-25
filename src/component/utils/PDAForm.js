@@ -71,7 +71,7 @@ function PDAForm(props) {
         </ul>
       </div>
       <div className="input-group">
-        <label className="input-label">Define transitions:</label>
+        <label className="input-label">Define transitions (src, inp, pop, push, dest):</label>
         <TransitionCreator states={states} transitions={transitions} setTransitions={setTransitions} />
       </div>
     </div>
