@@ -1,0 +1,56 @@
+.side-by-side-container {
+  display: flex;
+  height: 90vh;
+}
+
+.pda-form {
+  flex: 3;
+  height: 100%;
+  width: 100%;
+}
+
+.simulation-view {
+  flex: 7;
+  display: block;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.graph-visualization-scroll-container {
+  overflow: auto;
+  height: 80%;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.graph-visualization-container {
+  width: 5000px;
+  height: 4000px;
+}
+
+.accepts-text {
+  color: green;
+}
+
+.rejects-text {
+  color: red;
+}
+
+.simulation-info {
+  display: flex;
+}
+
+
+.current-stacks {
+  margin-left: 50px;
+}
+
+.stack-info {
+  display: flex;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.status {
+  width: 40vh;
+}
