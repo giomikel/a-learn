@@ -8,6 +8,7 @@ import DFAToRegex from './component/dfa-to-regex/DFAToRegex';
 import CFGToPDA from './component/cfg-to-pda/CFGToPDA';
 import NFASimulation from './component/nfa-simulation/NFASimulation'
 import DFASimulation from './component/dfa-simulation/DFASimulation';
+import PDASimulation from './component/pda-simulation/PDASimulation';
 import Home from './component/Home'
 import { Routes, Route } from 'react-router-dom'
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/CFGToPDA" element={<CFGToPDA />} />
         <Route path="/NFASimulation" element={<NFASimulation />} />
         <Route path="/DFASimulation" element={<DFASimulation />} />
+        <Route path="/PDASimulation" element={<PDASimulation />} />
       </Routes>
     </div>
   );

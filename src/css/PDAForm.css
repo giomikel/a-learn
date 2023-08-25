@@ -1,0 +1,45 @@
+.form-container {
+  vertical-align: top;
+  width: 80%;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.accept-states {
+  margin-bottom: 20px;
+}
+
+.accept-states-list {
+  list-style: none;
+  padding: 0;
+}
+
+.accept-state-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.accept-state-item button {
+  margin-left: 10px;
+}
