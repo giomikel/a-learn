@@ -37,20 +37,20 @@ function NFASimulation() {
     const fsm = new FiniteStateMachine(states, transitionObjects, acceptStatesParsed);
 
     if (!fsm.isDFA) {
-        setErrorMessage("This Finite State Machine is not a DFA"); 
-        setGraph(null); 
+      setErrorMessage("This Finite State Machine is not a DFA");
+      setGraph(null);
     } else {
-        const dfaSimulator = new DFASimulator(fsm);
+      const dfaSimulator = new DFASimulator(fsm);
 
-        setSimulator(dfaSimulator);
-        setCurrentNode(dfaSimulator.currentState);
-        setInput('');
-        setStep(0);
-    
-        const graph = fsm.toGraph();
-    
-        setGraph(graph);
-        setErrorMessage(""); 
+      setSimulator(dfaSimulator);
+      setCurrentNode(dfaSimulator.currentState);
+      setInput('');
+      setStep(0);
+
+      const graph = fsm.toGraph();
+
+      setGraph(graph);
+      setErrorMessage("");
     }
   };
 
@@ -164,16 +164,18 @@ function NFASimulation() {
             <button onClick={handleStepSimulation}>Step</button>
             <button onClick={handleSimulate}>Simulate</button>
             <div className="simulation-info">
-              <p>Current Input: {input}</p>
-              <p>Step: {step}</p>
-              <p>Simulation Status: {simulationStatus}</p>
-              <p>Current State: {currentNode}</p>
-              <p className={getResultColor()}>{resultText}</p>
+              <div className="status">
+                <p>Current Input: {input}</p>
+                <p>Step: {step}</p>
+                <p>Simulation Status: {simulationStatus}</p>
+                <p>Current State: {currentNode}</p>
+                <p className={getResultColor()}>{resultText}</p>
+              </div>
             </div>
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
-              {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null? []:[currentNode]} />}
+              {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null ? [] : [currentNode]} />}
             </div>
           </div>
         </div>
