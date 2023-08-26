@@ -16,7 +16,7 @@ class TMSimulator{
     }
 
     setPointer(input) {
-        if (input == ''){
+        if (input === ''){
            return -1;
         }
         
@@ -28,7 +28,7 @@ class TMSimulator{
             this.status = 1;
             return this.status;
         }
-
+        this.currentState = null;
         this.status = -1;
         return this.status; 
     }
@@ -40,6 +40,7 @@ class TMSimulator{
         }
 
         if (this.currentStepNum > TURING_MACHINE_MAX_STEP_NUM || !(this.currentState in this.turingMachine.transitionMap) || !(this.turingMachine.tape[this.pointer] in this.turingMachine.transitionMap[this.currentState])){
+            this.currentState = null;
             this.status = -1;
             return this.status;
         }
