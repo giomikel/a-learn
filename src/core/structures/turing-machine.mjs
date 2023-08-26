@@ -1,3 +1,7 @@
+import Graph from "./graph.js";
+import { Transition } from "./fsm-transition.mjs";
+import { TM_TYPE } from "../constants.mjs";
+
 class TuringMachine{
     constructor(transitions, numberOfStates){
        this.transitions = transitions;
@@ -42,6 +46,11 @@ class TuringMachine{
            readAlphabet.add(transition.readSymbol);
         }
         return readAlphabet;
+    }
+
+    toGraph(){
+        let transitions = this.transitions.map(t => new Transition(t.fromState, `${t.writeSymbol}, ${t.readSymbol} / ${t.move}`, t.toState));
+        return new Graph(this.states, transitions, [this.acceptState], TM_TYPE, this.startState);
     }
 }
 
