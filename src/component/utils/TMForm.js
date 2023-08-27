@@ -30,7 +30,7 @@ function TMForm(props) {
         />
       </div>
       <div className="input-group">
-        <label className="input-label">Define transitions (src, write, read, move, dest):</label>
+        <label className="input-label">Define transitions (src, read, write, move, dest):</label>
         <TransitionCreator states={states} transitions={transitions} setTransitions={setTransitions} />
       </div>
     </div>

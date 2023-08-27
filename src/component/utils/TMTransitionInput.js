@@ -6,8 +6,8 @@ function TransitionInput({
   states,
   source,
   destination,
-  writeSymbol,
   readSymbol,
+  writeSymbol,
   move,
   onChange,
   templateEditable
@@ -31,7 +31,7 @@ function TransitionInput({
       setSelectedSource(e.target.value);
     } else if (field === 'destination') {
       setSelectedDestination(e.target.value);
-    }else if (field === 'move') {
+    } else if (field === 'move') {
       setSelectedMove(e.target.value);
     }
     onChange(field, e.target.value);
@@ -49,16 +49,16 @@ function TransitionInput({
         />
         <input
           type="text"
-          value={writeSymbol}
-          onChange={(e) => handleInputChange(e, 'writeSymbol')}
+          value={readSymbol}
+          onChange={(e) => handleInputChange(e, 'readSymbol')}
           className="small-input"
           maxLength={1}
           disabled={!templateEditable}
         />
         <input
           type="text"
-          value={readSymbol}
-          onChange={(e) => handleInputChange(e, 'readSymbol')}
+          value={writeSymbol}
+          onChange={(e) => handleInputChange(e, 'writeSymbol')}
           className="small-input"
           maxLength={1}
           disabled={!templateEditable}

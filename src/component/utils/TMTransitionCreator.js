@@ -24,9 +24,9 @@ function TransitionCreator({ states, transitions, setTransitions }) {
     if (!isDuplicate && !isEmptyWriteRead) {
       const newTransition = { ...template, editable: false };
       setTransitions([...transitions, newTransition]);
-    } else if (!isDuplicate){
+    } else if (!isDuplicate) {
       alert('This transition contains empty symbol.');
-    }else {
+    } else {
       alert('This transition already exists.');
     }
   };
@@ -43,8 +43,8 @@ function TransitionCreator({ states, transitions, setTransitions }) {
         states={states}
         source={template.source}
         destination={template.destination}
-        writeSymbol={template.writeSymbol}
         readSymbol={template.readSymbol}
+        writeSymbol={template.writeSymbol}
         move={template.move}
         onChange={(field, value) => setTemplate({ ...template, [field]: value })}
         templateEditable
@@ -59,8 +59,8 @@ function TransitionCreator({ states, transitions, setTransitions }) {
             states={states}
             source={transition.source}
             destination={transition.destination}
-            writeSymbol={transition.writeSymbol}
             readSymbol={transition.readSymbol}
+            writeSymbol={transition.writeSymbol}
             move={transition.move}
             onChange={() => { }}
             disabled={!transition.editable}
