@@ -41,7 +41,7 @@ function PDAForm(props) {
 
   return (
     <div className="form-container">
-      <h2 className="form-title">Finite State Machine</h2>
+      <h2 className="form-title">Pushdown Automaton</h2>
       <div className="input-group">
         <label className="input-label">Select the number of states:</label>
         <Dropdown
