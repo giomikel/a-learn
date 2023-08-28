@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../css/TMSimulation.css';
 import TMForm from '../utils/TMForm';
 import TuringTransition from '../../core/structures/turing-transition.mjs';
@@ -13,6 +13,10 @@ function TMSimulation() {
   const [graph, setGraph] = useState(null);
   const [simulator, setSimulator] = useState(null);
   const [currentNode, setCurrentNode] = useState([]);
+  const [input, setInput] = useState('');
+  const [simulationStatus, setSimulationStatus] = useState('Idle');
+  const [step, setStep] = useState(0);
+  const [resultText, setResultText] = useState('');
 
   const handleCreateTM = () => {
     const transitionObjects = transitions.map((transition) => {
@@ -31,6 +35,9 @@ function TMSimulation() {
 
     setSimulator(tmSimulator);
     setCurrentNode(tmSimulator.currentState);
+    setInput('');
+    setStep(0);
+    setResultText('');
 
     const graph = tm.toGraph();
 
@@ -44,6 +51,7 @@ function TMSimulation() {
       setTransitions([]);
       setResetForm(false);
       setGraph(null);
+      setResultText('');
     }
   }, [resetForm]);
 
@@ -51,14 +59,42 @@ function TMSimulation() {
     setGraph(null);
     setSimulator(null);
     setCurrentNode([]);
+    setInput('');
+    setSimulationStatus('Idle');
+    setStep(0);
+    setResultText('');
   }, [transitions]);
+
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+    if (simulator) {
+      simulator.setInput(event.target.value);
+    }
+    setStep(0);
+  };
+
+  const handleStepSimulation = () => {
+    // ---
+  };
+
+  const handleSimulate = () => {
+    // ---
+  };
+
+  const getResultColor = () => {
+    if (resultText === 'Accepts') {
+      return 'accepts-text';
+    } else if (resultText === 'Rejects') {
+      return 'rejects-text';
+    } else {
+      return '';
+    }
+  }
 
   return (
     <div className='tm-simulation-container'>
       <h2 className="section-title">TM Simulation</h2>
-      <p className="section-description">
-          Turing Machine Simulation.
-      </p>
+      <p className="section-description">Turing Machine Simulation</p>
       <div className='side-by-side-container'>
         <div className='tm-form'>
           <TMForm
@@ -72,9 +108,28 @@ function TMSimulation() {
           <button onClick={handleCreateTM}>Create TM</button>
         </div>
         <div className='simulation-view'>
+          <div className="simulation-controls">
+            <input
+              type="text"
+              placeholder="Enter input..."
+              value={input}
+              onChange={(e) => handleInputChange(e)}
+            />
+            <button onClick={handleStepSimulation}>Step</button>
+            <button onClick={handleSimulate}>Simulate</button>
+            <div className="simulation-info">
+              <div className="status">
+                <p>Current Input: {input}</p>
+                <p>Step: {step}</p>
+                <p>Simulation Status: {simulationStatus}</p>
+                <p>Current State: {currentNode}</p>
+                <p className={getResultColor()}>{resultText}</p>
+              </div>
+            </div>
+          </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
-                {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null? []:[currentNode]} />}
+              {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null ? [] : [currentNode]} />}
             </div>
           </div>
         </div>

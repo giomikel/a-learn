@@ -49,7 +49,7 @@ class TuringMachine{
     }
 
     toGraph(){
-        let transitions = this.transitions.map(t => new Transition(t.fromState, `${t.writeSymbol}, ${t.readSymbol} / ${t.move}`, t.toState));
+        let transitions = this.transitions.map(t => new Transition(t.fromState, `${t.readSymbol} -> ${t.writeSymbol}, ${t.move}`, t.toState));
         return new Graph(this.states, transitions, [this.acceptState], TM_TYPE, this.startState);
     }
 }
