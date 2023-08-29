@@ -64,14 +64,19 @@
 
 .tape-visualizer-container {
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  /* overflow-x: auto; */
+  
 }
 
 .tape-visualizer {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border: 1px solid #ccc;
+  max-width: 50%;
   padding: 10px;
+  overflow-x: auto;
+  direction: ltr;
 }
