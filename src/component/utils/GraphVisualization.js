@@ -1,10 +1,11 @@
 import { React, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
-import { DFA_TYPE, PDA_TYPE } from '../../core/constants.mjs';
+import { DFA_TYPE, PDA_TYPE, TM_TYPE } from '../../core/constants.mjs';
 
 function getParamsByGraphType(graph) {
   if (graph.getType() === DFA_TYPE) return [-1200, 180, 600, 5];
-  if (graph.getType() === PDA_TYPE) return [-1200, 200, 600, 8]
+  if (graph.getType() === PDA_TYPE) return [-1200, 200, 600, 8];
+  if (graph.getType() === TM_TYPE)  return [-1200, 210, 500, 8];
   return [-300, 60, 75, 5];
 }
 
