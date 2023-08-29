@@ -20,8 +20,10 @@ function TMSimulation() {
   const [resultText, setResultText] = useState('');
   const [pointer, setPointer] = useState(-1);
   const [tape, setTape] = useState('');
+  const [simulateInterval, setSimulateInterval] = useState(null);
 
   const handleCreateTM = () => {
+    clearSimulateInterval();
     const transitionObjects = transitions.map((transition) => {
       return new TuringTransition(
         parseInt(transition.source, 10),
@@ -71,9 +73,20 @@ function TMSimulation() {
     setStep(0);
     setResultText('');
     setPointer(-1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    clearSimulateInterval();
   }, [transitions]);
 
+  const clearSimulateInterval = () => {
+    if (simulateInterval) {
+      clearInterval(simulateInterval);
+      setSimulationStatus('Idle');
+      setSimulateInterval(null);
+    }
+  };
+
   const handleInputChange = (event) => {
+    clearSimulateInterval();
     setInput(event.target.value);
     if (simulator) {
       simulator.setInput(event.target.value);
@@ -94,27 +107,31 @@ function TMSimulation() {
       setTape(simulator.turingMachine.tape.join(''));
       setStep(simulator.currentStepNum);
       setPointer(simulator.pointer);
-    } 
+    }
   };
 
   const handleSimulate = () => {
     if (simulator) {
+      if (simulateInterval) {
+        clearInterval(simulateInterval)
+      }
       simulator.setInput(input);
       setSimulationStatus('Simulating');
       setStep(0);
       setCurrentNode(simulator.currentState);
       setPointer(simulator.pointer);
-      const simulateInterval = setInterval(() => {
+      const newSimulateInterval = setInterval(() => {
         const result = simulator.step();
         setCurrentNode(simulator.currentState);
         setStep(simulator.currentStepNum);
         setPointer(simulator.pointer);
         setTape(simulator.turingMachine.tape.join(''));
         if (result !== 0) {
-          clearInterval(simulateInterval);
+          clearInterval(newSimulateInterval);
           setSimulationStatus('Simulation Complete');
         }
       }, 500);
+      setSimulateInterval(newSimulateInterval);
     }
   };
 
@@ -173,11 +190,8 @@ function TMSimulation() {
                 <p>Current State: {currentNode}</p>
                 <p className={getResultColor()}>{resultText}</p>
               </div>
+              <TapeVisualizer tape={tape} pointer={pointer} />
             </div>
-          </div>
-          <div className='tape-visualizer-container'>
-            {/* Render the TapeVisualizer component */}
-            <TapeVisualizer tape={tape} pointer={pointer} />
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
@@ -185,7 +199,7 @@ function TMSimulation() {
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   );
