@@ -1,16 +1,13 @@
-/* Reset default margin and padding */
   body, h1, h2, h3, p {
     margin: 0;
     padding: 0;
   }
   
-  /* Set a base font size and family */
   body {
     font-family: Arial, sans-serif;
     font-size: 16px;
   }
   
-  /* Container */
   .home-container {
     display: flex;
     flex-direction: column;
@@ -20,7 +17,6 @@
     background-color: #f2f2f2;
   }
   
-  /* Header */
   .header {
     background-color: #007bff;
     color: white;
@@ -34,7 +30,6 @@
     font-size: 24px;
   }
   
-  /* Navigation bar */
   .navbar {
     background-color: #f8f9fa;
     padding: 20px 0;
@@ -54,7 +49,6 @@
     margin: 0 15px;
   }
   
-  /* Styling for the link cards */
   .nav-card {
     background-color: white;
     border: 1px solid #ccc;
@@ -71,7 +65,6 @@
     transition: color 0.3s ease;
   }
   
-  /* Apply hover effects */
   .nav-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -81,7 +74,6 @@
     color: #007bff;
   }
   
-  /* Main content */
   .main-content {
     padding: 20px;
     width: 80%;
