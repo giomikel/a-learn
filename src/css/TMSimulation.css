@@ -61,3 +61,17 @@
 .rejects-text {
   color: red;
 }
+
+.tape-visualizer-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.tape-visualizer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+}

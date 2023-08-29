@@ -5,6 +5,7 @@ import TuringTransition from '../../core/structures/turing-transition.mjs';
 import TuringMachine from '../../core/structures/turing-machine.mjs';
 import TMSimulator from '../../core/tm-simulation/tm-simulation.mjs';
 import GraphVisualization from '../utils/GraphVisualization';
+import TapeVisualizer from '../utils/TapeVisualizer';
 
 function TMSimulation() {
   const [numStates, setNumStates] = useState(1);
@@ -17,6 +18,8 @@ function TMSimulation() {
   const [simulationStatus, setSimulationStatus] = useState('Idle');
   const [step, setStep] = useState(0);
   const [resultText, setResultText] = useState('');
+  const [pointer, setPointer] = useState(-1);
+  const [tape, setTape] = useState('');
 
   const handleCreateTM = () => {
     const transitionObjects = transitions.map((transition) => {
@@ -36,8 +39,11 @@ function TMSimulation() {
     setSimulator(tmSimulator);
     setCurrentNode(tmSimulator.currentState);
     setInput('');
+    setTape('');
     setStep(0);
     setResultText('');
+    setPointer(-1);
+    setSimulationStatus('Idle');
 
     const graph = tm.toGraph();
 
@@ -60,26 +66,69 @@ function TMSimulation() {
     setSimulator(null);
     setCurrentNode([]);
     setInput('');
+    setTape('');
     setSimulationStatus('Idle');
     setStep(0);
     setResultText('');
+    setPointer(-1);
   }, [transitions]);
 
   const handleInputChange = (event) => {
     setInput(event.target.value);
     if (simulator) {
       simulator.setInput(event.target.value);
+      setCurrentNode(simulator.currentState);
+      setPointer(simulator.pointer);
     }
     setStep(0);
+    setTape(event.target.value);
+    setSimulationStatus('Idle');
+    setResultText('');
   };
 
   const handleStepSimulation = () => {
-    // ---
+    if (simulator) {
+      const result = simulator.step();
+      setSimulationStatus(result === 0 ? 'Simulating' : 'Simulation Complete');
+      setCurrentNode(simulator.currentState);
+      setTape(simulator.turingMachine.tape.join(''));
+      setStep(simulator.currentStepNum);
+      setPointer(simulator.pointer);
+    } 
   };
 
   const handleSimulate = () => {
-    // ---
+    if (simulator) {
+      simulator.setInput(input);
+      setSimulationStatus('Simulating');
+      setStep(0);
+      setCurrentNode(simulator.currentState);
+      setPointer(simulator.pointer);
+      const simulateInterval = setInterval(() => {
+        const result = simulator.step();
+        setCurrentNode(simulator.currentState);
+        setStep(simulator.currentStepNum);
+        setPointer(simulator.pointer);
+        setTape(simulator.turingMachine.tape.join(''));
+        if (result !== 0) {
+          clearInterval(simulateInterval);
+          setSimulationStatus('Simulation Complete');
+        }
+      }, 500);
+    }
   };
+
+  useEffect(() => {
+    if (simulationStatus === 'Simulation Complete') {
+      if (simulator.isAccepted()) {
+        setResultText('Accepts');
+      } else {
+        setResultText('Rejects');
+      }
+    } else {
+      setResultText('');
+    }
+  }, [simulationStatus, simulator]);
 
   const getResultColor = () => {
     if (resultText === 'Accepts') {
@@ -119,7 +168,6 @@ function TMSimulation() {
             <button onClick={handleSimulate}>Simulate</button>
             <div className="simulation-info">
               <div className="status">
-                <p>Current Input: {input}</p>
                 <p>Step: {step}</p>
                 <p>Simulation Status: {simulationStatus}</p>
                 <p>Current State: {currentNode}</p>
@@ -127,12 +175,17 @@ function TMSimulation() {
               </div>
             </div>
           </div>
+          <div className='tape-visualizer-container'>
+            {/* Render the TapeVisualizer component */}
+            <TapeVisualizer tape={tape} pointer={pointer} />
+          </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
               {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null ? [] : [currentNode]} />}
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   );
