@@ -92,7 +92,7 @@
   body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    background-color: #000000; /* Black background */
+    background-color: #000000;
     color: #333;
   }
   
@@ -120,6 +120,7 @@
   .navbar {
     background-color: #ecf0f1;
     padding: 20px 0;
+    width: 100%;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
   }
   
@@ -134,7 +135,7 @@
   }
   
   .nav-item {
-    margin: 0 15px;
+    margin: 0 auto;
   }
   
   .nav-link {
@@ -176,13 +177,13 @@
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Adjust the column count */
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
     justify-content: center;
   }
   
   .nav-list:last-child {
-    grid-template-columns: repeat(2, 1fr); /* Change the last column to have 2 buttons */
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .main-content {
