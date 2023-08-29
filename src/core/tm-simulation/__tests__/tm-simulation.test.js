@@ -47,7 +47,7 @@ test('test tm-simulator - check step by step - (1)', () => {
     turingSimulator.setInput("");
 
     turingSimulator.step();
-    expect(turingSimulator.currentState).toEqual(0);
+    expect(turingSimulator.currentState).toEqual(null);
     expect(turingSimulator.status).toEqual(-1);
     expect(turingSimulator.turingMachine.tape).toEqual([]);
     expect(turingSimulator.isAccepted()).toEqual(false);
@@ -184,7 +184,7 @@ test('test tm-simulator - check step by step - (2)', () => {
     expect(turingSimulator.isAccepted()).toEqual(false);
 
     turingSimulator.step();
-    expect(turingSimulator.currentState).toEqual(1);
+    expect(turingSimulator.currentState).toEqual(null);
     expect(turingSimulator.status).toEqual(-1);
     expect(turingSimulator.turingMachine.tape).toEqual(['X', 'X']);
     expect(turingSimulator.isAccepted()).toEqual(false);
