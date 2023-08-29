@@ -34,6 +34,10 @@ class TMSimulator{
     }
 
     step() {
+        
+        if (this.isAccepted()) return 1;
+
+        if (this.status === -1) return -1;
 
         if (this.input === ''){
             return this.getEmptyInputStatus();
@@ -42,6 +46,9 @@ class TMSimulator{
         if (this.currentStepNum > TURING_MACHINE_MAX_STEP_NUM || !(this.currentState in this.turingMachine.transitionMap) || !(this.turingMachine.tape[this.pointer] in this.turingMachine.transitionMap[this.currentState])){
             this.currentState = null;
             this.status = -1;
+            if (this.currentStepNum <= TURING_MACHINE_MAX_STEP_NUM){
+               this.currentStepNum +=1;
+            }
             return this.status;
         }
 
@@ -60,6 +67,7 @@ class TMSimulator{
 
         if (this.currentState === this.turingMachine.acceptState){
             this.status = 1;
+            this.currentStepNum ++;
             return this.status;
         } 
         
