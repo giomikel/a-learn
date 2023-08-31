@@ -124,13 +124,15 @@ function PDASimulation() {
     if (simulationStatus === 'Simulation Complete') {
       if (simulator.isInAcceptStates() && input.length === 0) {
         setResultText('Accepts');
-      } else {
+      } else if (step !== 0) {
         setResultText('Rejects');
+      } else {
+        setResultText('');
       }
     } else {
       setResultText('');
     }
-  }, [simulationStatus, input.length, simulator]);
+  }, [simulationStatus, input.length, simulator, step]);
 
   return (
     <div className='container'>

@@ -73,8 +73,8 @@ function TMSimulation() {
     setStep(0);
     setResultText('');
     setPointer(-1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     clearSimulateInterval();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transitions]);
 
   const clearSimulateInterval = () => {
@@ -137,15 +137,17 @@ function TMSimulation() {
 
   useEffect(() => {
     if (simulationStatus === 'Simulation Complete') {
-      if (simulator.isAccepted()) {
+      if (simulator.isInAcceptStates() && input.length === 0) {
         setResultText('Accepts');
-      } else {
+      } else if (step !== 0) {
         setResultText('Rejects');
+      } else {
+        setResultText('');
       }
     } else {
       setResultText('');
     }
-  }, [simulationStatus, simulator]);
+  }, [simulationStatus, simulator, input.length, step]);
 
   const getResultColor = () => {
     if (resultText === 'Accepts') {
