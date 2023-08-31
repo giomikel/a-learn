@@ -155,7 +155,7 @@ function PDASimulation() {
         </div>
         <div className='simulation-view'>
           <div className="simulation-controls">
-            <input
+            <input className='simulation-input'
               type="text"
               placeholder="Enter input..."
               value={input}

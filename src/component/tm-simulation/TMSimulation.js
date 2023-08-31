@@ -139,7 +139,7 @@ function TMSimulation() {
     if (simulationStatus === 'Simulation Complete') {
       if (simulator.isAccepted()) {
         setResultText('Accepts');
-      } else if (step !== 0){
+      } else if (step !== 0) {
         setResultText('Rejects');
       } else {
         setResultText('');
@@ -177,7 +177,7 @@ function TMSimulation() {
         </div>
         <div className='simulation-view'>
           <div className="simulation-controls">
-            <input
+            <input className="simulation-input"
               type="text"
               placeholder="Enter input..."
               value={input}
@@ -192,7 +192,10 @@ function TMSimulation() {
                 <p>Current State: {currentNode}</p>
                 <p className={getResultColor()}>{resultText}</p>
               </div>
-              <TapeVisualizer tape={tape} pointer={pointer} />
+              <div className='tape-container'>
+                <p>Tape</p>
+                <TapeVisualizer tape={tape} pointer={pointer} />
+              </div>
             </div>
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
