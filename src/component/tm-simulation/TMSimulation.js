@@ -137,9 +137,9 @@ function TMSimulation() {
 
   useEffect(() => {
     if (simulationStatus === 'Simulation Complete') {
-      if (simulator.isInAcceptStates() && input.length === 0) {
+      if (simulator.isAccepted()) {
         setResultText('Accepts');
-      } else if (step !== 0) {
+      } else if (step !== 0){
         setResultText('Rejects');
       } else {
         setResultText('');
@@ -147,7 +147,7 @@ function TMSimulation() {
     } else {
       setResultText('');
     }
-  }, [simulationStatus, simulator, input.length, step]);
+  }, [simulationStatus, simulator, step, input.length]);
 
   const getResultColor = () => {
     if (resultText === 'Accepts') {
