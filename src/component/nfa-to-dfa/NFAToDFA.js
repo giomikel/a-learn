@@ -66,9 +66,12 @@ function NFAToDFA() {
           />
           <button onClick={handleCreateFSM}>Create FSM</button>
         </div>
-        <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
-          <div className="graph-visualization-container">
-            {graph && <GraphVisualization graph={graph} />}
+        <div className='graph-view'>
+          <div className='graph-top'/>
+          <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
+            <div className="graph-visualization-container">
+              {graph && <GraphVisualization graph={graph} />}
+            </div>
           </div>
         </div>
       </div>

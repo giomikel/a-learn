@@ -50,7 +50,8 @@ function NFAToRegex() {
 
   return (
     <div className='container'>
-      <h1>NFA to Regex Conversion</h1>
+      <h2 className='section-title'>NFA to Regex Conversion</h2>
+      <p className="section-description">NFA to Regex</p>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm

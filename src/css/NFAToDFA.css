@@ -10,7 +10,30 @@
 
 .graph-visualization-scroll-container {
   overflow: auto;
-  flex: 7;
   height: 100%;
   max-height: 90vh;
+  max-width: 100%;
+}
+
+.graph-view {
+  position: relative;
+  flex: 7;
+  display: flex;
+  flex-flow: column;
+  overflow-y: auto;
+  max-height: 80vh;
+  box-shadow: 0px 2px 5px #000000;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.graph-top {
+  position: relative;
+  z-index: 1;
+  background-image: linear-gradient(#1c62cc, #bcdcff);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 10%;
+  padding: 10px;
 }

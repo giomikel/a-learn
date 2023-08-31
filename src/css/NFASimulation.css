@@ -44,7 +44,7 @@
 
 .graph-visualization-scroll-container {
   overflow: auto;
-  height: 75%;
+  flex-grow: 1;
   max-width: 100%;
   max-height: 70vh;
   box-shadow: 1px 1px 5px #000000;

@@ -34,18 +34,20 @@ function RegexToNFA() {
 
   return (
     <div className="regex-to-nfa-container">
-      <h2 className="section-title">Regex to NFA</h2>
-      <p className="section-description">
-        Convert Regular Expression to Non-Deterministic Finite Automata (NFA).
-      </p>
-      <div className="input-container">
-        <input
-          type="text"
-          value={regex}
-          onChange={(e) => setRegex(e.target.value)}
-          placeholder="Enter regex..."
-        />
-        <button onClick={handleGenerateNFA}>Generate NFA</button>
+      <div className='regex-form'>
+        <h2 className="section-title">Regex to NFA</h2>
+        <p className="section-description">
+          Convert Regular Expression to Non-Deterministic Finite Automata (NFA).
+        </p>
+        <div className="input-container">
+          <input className='regex-input'
+            type="text"
+            value={regex}
+            onChange={(e) => setRegex(e.target.value)}
+            placeholder="Enter regex..."
+          />
+          <button onClick={handleGenerateNFA}>Generate NFA</button>
+        </div>
       </div>
       {validationError && <p className="error-message">{validationError}</p>}
       <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container'>

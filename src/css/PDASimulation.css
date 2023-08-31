@@ -11,7 +11,8 @@
 
 .simulation-view {
   flex: 7;
-  display: block;
+  display: flex;
+  flex-flow: column;
   overflow-y: auto;
   max-height: 90vh;
 }
@@ -39,7 +40,6 @@
 .simulation-info {
   display: flex;
 }
-
 
 .current-stacks {
   margin-left: 50px;

@@ -114,7 +114,7 @@ function NFASimulation() {
     if (simulationStatus === 'Simulation Complete') {
       if (simulator.isInAcceptStates() && input.length === 0) {
         setResultText('Accepts');
-      } else if (step !== 0){
+      } else if (step !== 0) {
         setResultText('Rejects');
       } else {
         setResultText('');
@@ -137,7 +137,8 @@ function NFASimulation() {
 
   return (
     <div className='container'>
-      <h1>DFA Simulation</h1>
+      <h2 className='section-title'>DFA Simulation</h2>
+      <p className="section-description">DFA Simulation</p>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
