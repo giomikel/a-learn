@@ -44,7 +44,9 @@ function TransitionCreator({ states, transitions, setTransitions }) {
         onChange={(field, value) => setTemplate({ ...template, [field]: value })}
         templateEditable
       />
-      <button onClick={addTransition}>Add Transition</button>
+       <div className="center-button">
+         <button onClick={addTransition}>Add Transition</button>
+      </div>
 
       <h3>Transitions:</h3>
 
@@ -60,7 +62,9 @@ function TransitionCreator({ states, transitions, setTransitions }) {
             onChange={() => { }}
             disabled={!transition.editable} // Transition inputs are non-editable
           />
-          <button onClick={() => removeTransition(index)}>Remove</button>
+          <div className="center-button">
+             <button onClick={() => removeTransition(index)}>Remove</button>
+         </div>
         </div>
       ))}
     </div>

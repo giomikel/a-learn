@@ -1,3 +1,9 @@
+h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
 .regex-container {
   background-color: #f5f5f5;
   border: 1px solid #ddd;
@@ -29,4 +35,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 12px 7px 5px rgba(0, 0, 0, 0.1);
 }

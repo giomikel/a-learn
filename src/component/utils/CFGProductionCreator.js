@@ -47,7 +47,9 @@ function ProductionCreator({selectedStartSymbol, alphabet, productions, setProdu
         onChange={(field, value) => setTemplate({ ...template, [field]: value })}
         templateEditable
       />
-      <button onClick={addProduction}>Add Production</button>
+      <div className="center-button">
+         <button onClick={addProduction}>Add Production</button>
+      </div>
 
       <h3>Productions:</h3>
 
@@ -60,7 +62,9 @@ function ProductionCreator({selectedStartSymbol, alphabet, productions, setProdu
             onChange={() => { }}
             disabled={!production.editable} 
           />
-          <button onClick={() => removeProduction(index)}>Remove</button>
+          <div className="center-button">
+             <button onClick={() => removeProduction(index)}>Remove</button>
+         </div>
         </div>
       ))}
     </div>

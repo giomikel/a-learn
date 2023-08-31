@@ -40,7 +40,7 @@ function FSMForm(props) {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container-fsm">
       <h2 className="form-title">Finite State Machine</h2>
       <div className="input-group">
         <label className="input-label">Select the number of states:</label>
