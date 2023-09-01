@@ -124,7 +124,7 @@ function PDASimulation() {
     if (simulationStatus === 'Simulation Complete') {
       if (simulator.isInAcceptStates() && input.length === 0) {
         setResultText('Accepts');
-      } else if (step !== 0) {
+      } else if (step !== 0 || (step === 0 && !simulator.isInAcceptStates())) {
         setResultText('Rejects');
       } else {
         setResultText('');

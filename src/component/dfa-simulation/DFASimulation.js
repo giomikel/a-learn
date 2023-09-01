@@ -112,9 +112,9 @@ function NFASimulation() {
 
   useEffect(() => {
     if (simulationStatus === 'Simulation Complete') {
-      if (simulator.isInAcceptStates() && input.length === 0) {
+      if (simulator.isAcceptState() && input.length === 0) {
         setResultText('Accepts');
-      } else if (step !== 0) {
+      } else if (step !== 0 || (step === 0 && !simulator.isAcceptState())) {
         setResultText('Rejects');
       } else {
         setResultText('');
