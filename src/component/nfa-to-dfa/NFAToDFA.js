@@ -49,7 +49,8 @@ function NFAToDFA() {
 
   return (
     <div className='container'>
-      <h1>NFA to DFA Conversion</h1>
+      <h2 className='section-title'>NFA to DFA Conversion</h2>
+      <p className='section-description'>NFA to DFA Conversion</p>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
@@ -67,7 +68,7 @@ function NFAToDFA() {
           <button onClick={handleCreateFSM}>Create FSM</button>
         </div>
         <div className='graph-view'>
-          <div className='graph-top'/>
+          <div className='graph-top' />
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
               {graph && <GraphVisualization graph={graph} />}

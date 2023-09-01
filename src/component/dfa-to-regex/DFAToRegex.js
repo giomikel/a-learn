@@ -75,6 +75,7 @@ function DFAToRegex() {
           </div>
         </div>
         <div className="regex-container">
+          <p>Converted Regex</p>
           <pre className="regex-pattern">
             {regex}
           </pre>
