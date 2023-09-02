@@ -49,8 +49,10 @@ function NFAToDFA() {
 
   return (
     <div className='container'>
-      <h2 className='section-title'>NFA to DFA Conversion</h2>
-      <p className='section-description'>NFA to DFA Conversion</p>
+      <div className='description-container'>
+        <h2 className='section-title'>NFA to DFA Conversion</h2>
+        <p className='section-description'>NFA to DFA Conversion</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm

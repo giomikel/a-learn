@@ -35,15 +35,17 @@ function RegexToDFA() {
   return (
     <div className="regex-to-dfa-container">
       <div className="regex-form">
-        <h2 className="section-title">Regex to DFA</h2>
-        <p className="section-description">
-          Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|').
-          '*' - Kleene star operator. This symbol should be used after valid expression enclosed in parentheses. For example: (a|b)*, (a)*.
-          '|' - Unification operator.
-          ''  - Concatenation is implicit.
-          Empty symbol can be represented as ().  
-          After clicking "Generate DFA" button, valid regex is transformed into DFA graph and is displayed on the screen.         
-        </p>
+        <div className='description-container'>
+          <h2 className="section-title">Regex to DFA</h2>
+          <p className="section-description">
+             Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|').
+             '*' - Kleene star operator. This symbol should be used after valid expression enclosed in parentheses. For example: (a|b)*, (a)*.
+             '|' - Unification operator.
+             ''  - Concatenation is implicit.
+             Empty symbol can be represented as ().  
+             After clicking "Generate DFA" button, valid regex is transformed into DFA graph and is displayed on the screen.         
+          </p>
+        </div>
         <div className="input-container">
           <input className='regex-input'
             type="text"

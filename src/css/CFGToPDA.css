@@ -12,7 +12,6 @@
   overflow: auto;
   flex: 7;
   height: 100%;
-  /* max-height: 90vh; */
   flex-grow: 1;
 }
 

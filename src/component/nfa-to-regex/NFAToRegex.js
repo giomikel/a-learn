@@ -48,8 +48,10 @@ function NFAToRegex() {
 
   return (
     <div className='container'>
-      <h2 className='section-title'>NFA to Regex Conversion</h2>
-      <p className="section-description">Create valid non-deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid NFA is transformed into Regex and is displayed on the screen.</p>
+      <div className='description-container'>
+        <h2 className='section-title'>NFA to Regex Conversion</h2>
+        <p className="section-description">Create valid non-deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid NFA is transformed into Regex and is displayed on the screen.</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
