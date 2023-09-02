@@ -154,7 +154,7 @@ function NFASimulation() {
             states={states}
           />
           <button onClick={handleCreateFSM}>Create FSM</button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
         <div className='simulation-view'>
           <div className="simulation-controls">

@@ -47,9 +47,9 @@ function RegexToNFA() {
             placeholder="Enter regex..."
           />
           <button onClick={handleGenerateNFA}>Generate NFA</button>
+          {validationError && <p className="error-message">{validationError}</p>}
         </div>
       </div>
-      {validationError && <p className="error-message">{validationError}</p>}
       <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container'>
         <div className="graph-visualization-container">
           {graph && <GraphVisualization graph={graph} />}

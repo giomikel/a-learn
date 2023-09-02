@@ -1,48 +1,42 @@
 .side-by-side-container {
-    display: flex;
-    height: 90vh;
-  }
-  
-  .fsm-form {
-    display: flex;
-    flex-flow: column;
-    flex: 3 1;
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    align-items: center;
-  }
-  
-  .simulation-view {
-    flex: 7;
-    display: block;
-    overflow-y: auto;
-    max-height: 90vh;
-  }
-  
-  .graph-visualization-scroll-container {
-    overflow: auto;
-    height: 75%;
-    max-width: 100%;
-    max-height: 70vh;
-  }
-  
-  .graph-visualization-container {
-    width: 5000px;
-    height: 4000px;
-  }
+  display: flex;
+  height: 90vh;
+}
 
-  .error-message {
-    color: red;
-    font-weight: bold;
-    margin-top: 8px;
-  }
+.fsm-form {
+  display: flex;
+  flex-flow: column;
+  flex: 3 1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  align-items: center;
+}
 
-  .accepts-text {
-    color: green;
-  }
-  
-  .rejects-text {
-    color: red;
-  }
+.simulation-view {
+  flex: 7;
+  display: block;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.graph-visualization-scroll-container {
+  overflow: auto;
+  height: 75%;
+  max-width: 100%;
+  max-height: 70vh;
+}
+
+.graph-visualization-container {
+  width: 5000px;
+  height: 4000px;
+}
+
+.accepts-text {
+  color: green;
+}
+
+.rejects-text {
+  color: red;
+}

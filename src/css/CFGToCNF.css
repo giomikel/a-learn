@@ -31,9 +31,3 @@
   flex: 7;
   flex-direction: column;
 }
-
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 8px;
-}
