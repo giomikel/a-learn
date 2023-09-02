@@ -38,12 +38,12 @@ function RegexToNFA() {
         <div className='description-container'>
           <h2 className="section-title">Regex to NFA</h2>
           <p className="section-description">
-             Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|').
-             '*' - Kleene star operator. This symbol should be used after valid expression enclosed in parentheses. For example: (a|b)*, (a)*.
-             '|' - Unification operator.
-             ''  - Concatenation is implicit.
-             Empty symbol can be represented as ().  
-             After clicking "Generate NFA" button, valid regex is transformed into NFA graph and is displayed on the screen. 
+             Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|'). 
+             After clicking "Generate NFA" button, valid regex is transformed into NFA graph and is displayed on the screen.<br/>
+             '*' - Kleene star operator. This symbol should be used after valid expression enclosed in parentheses. For example: (a|b)*, (a)*.<br/>
+             '|' - Unification operator.<br/>
+             ''  - Concatenation is implicit.<br/>
+             Empty symbol can be represented as ().<br/>  
           </p>
         </div>
         <div className="input-container">

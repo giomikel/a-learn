@@ -51,7 +51,7 @@ function NFAToDFA() {
     <div className='container'>
       <div className='description-container'>
         <h2 className='section-title'>NFA to DFA Conversion</h2>
-        <p className='section-description'>Create valid non-deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid NFA is transformed into DFA and is displayed on the screen</p>
+        <p className='section-description'>Create valid non-deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid NFA is transformed into DFA and is displayed on the screen.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
