@@ -139,7 +139,13 @@ function NFASimulation() {
     <div className='container'>
       <div className='description-container'>
         <h2 className='section-title'>DFA Simulation</h2>
-        <p className="section-description">DFA Simulation</p>
+        <p className="section-description">
+          Create valid deterministic finite automaton by specifying states, accept states, transitions.
+          After clicking "Create FSM" button, valid DFA is displayed on the screen and after entering the input string,
+          simulation can be controlled with "step" and "simulate" buttons.
+          Details about the simulation is conveyed with "Current Input", "Step", Simulation Status" and "Current State" fields.
+          State that is colored blue points out the current state.
+          After the simulation is complete, corresponding text is displayed if the DFA accepts or rejects given input.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>

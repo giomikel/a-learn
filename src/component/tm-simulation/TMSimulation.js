@@ -163,7 +163,14 @@ function TMSimulation() {
     <div className='tm-simulation-container'>
       <div className='description-container'>
         <h2 className="section-title">TM Simulation</h2>
-        <p className="section-description">Turing Machine Simulation</p>
+        <p className="section-description">
+          Create valid Turing Machine by specifying states, accept states, transitions.
+          After clicking "Create TM" button, valid TM is displayed on the screen and after entering the input string,
+          simulation can be controlled with "step" and "simulate" buttons.
+          Details about the simulation is conveyed with "Step", Simulation Status" and "Current State" fields.
+          Additionally the tape is visible above the Turing Machine, yellow color indicating tape head.
+          State that is colored blue points out the current state.
+          After the simulation is complete, corresponding text is displayed if the TM accepts or rejects given input.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='tm-form'>
