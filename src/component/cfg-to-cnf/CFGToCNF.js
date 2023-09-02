@@ -41,7 +41,7 @@ function CFGToCNF() {
     <div className="container">
       <div className='description-container'>
         <h2 className="section-title">CFG to CNF</h2>
-        <p className="section-description">Convert CFG to CNF</p>
+        <p className="section-description">Create valid context-free grammar by specifying start symbol, productions. Capital letters are interpreted as non-terminal symbols. Left side of production rule must contain non-terminal which shuld be start symbol or already defined in expression(s). All non-terminals should be defined in following production rules. Expression must contain only alphanumeric symbols. After clicking "Create CFG" button, valid CFG is transformed into Chomsky normal form (each rule in new line) and is displayed as text on the screen.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='cfg-form'>

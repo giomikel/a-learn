@@ -56,7 +56,7 @@ function DFAToRegex() {
     <div className='container'>
       <div className='description-container'>
         <h2 className='section-title'>DFA To Regex</h2>
-        <p className="section-description">DFA to Regex</p>
+        <p className="section-description">Create valid deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid DFA is transformed into Regex and is displayed on the screen.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
