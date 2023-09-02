@@ -47,8 +47,8 @@ function RegexToDFA() {
             placeholder="Enter regex..."
           />
           <button onClick={handleGenerateDFA}>Generate DFA</button>
+          {validationError && <p className="error-message">{validationError}</p>}
         </div>
-        {validationError && <p className="error-message">{validationError}</p>}
       </div>
       <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container'>
         <div className="graph-visualization-container">
