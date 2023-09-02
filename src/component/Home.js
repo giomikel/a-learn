@@ -7,12 +7,12 @@ const navigationLinks = [
   { path: '/DFAToRegex', description: 'Convert DFA to Regular Expression' },
   { path: '/RegexToDFA', description: 'Convert Regular Expression to DFA' },
   { path: '/NFAToDFA', description: 'Convert NFA to DFA' },
-  { path: '/CFGToCNF', description: 'Convert context-free grammar to Chomsky normal form' },
-  { path: '/CFGToPDA', description: 'Convert context-free grammar to PDA' },
-  { path: '/DFASimulation', description: 'DFA simulation' },
-  { path: '/NFASimulation', description: 'NFA simulation' },
-  { path: '/TMSimulation', description: 'Turing machine simulation' },
-  { path: '/PDASimulation', description: 'PDA simulation' },
+  { path: '/CFGToCNF', description: 'Convert Context-Free Grammar to Chomsky Normal Form' },
+  { path: '/CFGToPDA', description: 'Convert Context-Free Grammar to PDA' },
+  { path: '/DFASimulation', description: 'DFA Simulation' },
+  { path: '/NFASimulation', description: 'NFA Simulation' },
+  { path: '/TMSimulation', description: 'Turing Machine Simulation' },
+  { path: '/PDASimulation', description: 'PDA Simulation' },
 ];
 
 function Home() {
