@@ -41,7 +41,7 @@ text.shadow {
 
 .regex-form {
   position: relative;
-  background-image: linear-gradient(#1c62cc, #bcdcff);
+  background-color: #bcdcff;
   padding: 5px;
   z-index: 1;
   margin-top: 5px;
@@ -51,7 +51,7 @@ text.shadow {
   font-weight: bold;
 }
 
-.regex-form:hover {
+/* .regex-form:hover {
   background-color: #e0e0e0;
   transition: background-color 0.3s ease;
 }
@@ -73,7 +73,7 @@ text.shadow {
 
 .regex-form:hover::before {
   opacity: 1;
-}
+} */
 
 .regex-input {
   width: 200px;

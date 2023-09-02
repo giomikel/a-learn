@@ -1,20 +1,15 @@
 .section-title {
-  color: rgb(12, 12, 12);
+  color: rgb(255, 255, 255);
   font-size: 24px;
   margin-bottom: 10px;
   text-align: center;
 }
 
 .section-description {
-  color: rgb(3, 3, 3);
+  color: rgb(255, 255, 255);
   font-size: 16px;
   line-height: 1.5;
   text-align: left;
-}
-
-.side-by-side-container {
-  display: flex;
-  height: 90vh;
 }
 
 .tm-form {

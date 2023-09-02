@@ -20,7 +20,6 @@ function Home() {
     <div className="home-container">
       <header className="header">
         <h1 className="app-title">A-learn</h1>
-        <p>Welcome to A-learn!</p>
       </header>
       <nav className="navbar">
         <ul className="nav-list">

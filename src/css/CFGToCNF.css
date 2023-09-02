@@ -9,11 +9,6 @@
   align-items: center;
 }
 
-.side-by-side-container {
-  display: flex;
-  height: 90vh;
-}
-
 .cnf-visualization-container {
   display: flex;
   flex-flow: column;

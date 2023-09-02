@@ -1,8 +1,3 @@
-.side-by-side-container {
-  display: flex;
-  height: 90vh;
-}
-
 .pda-form {
   display: flex;
   flex-flow: column;
