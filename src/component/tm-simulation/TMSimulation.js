@@ -200,7 +200,7 @@ function TMSimulation() {
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
-              {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null ? [] : [currentNode]} />}
+              {graph && <GraphVisualization graph={graph} currentNodes={currentNode === null ? [] : [currentNode]} ticks={true} />}
             </div>
           </div>
         </div>

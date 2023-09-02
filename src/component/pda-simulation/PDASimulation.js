@@ -186,7 +186,7 @@ function PDASimulation() {
           </div>
           <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
             <div className="graph-visualization-container">
-              {graph && <GraphVisualization graph={graph} currentNodes={currentNodes} />}
+              {graph && <GraphVisualization graph={graph} currentNodes={currentNodes} ticks={true} />}
             </div>
           </div>
         </div>
