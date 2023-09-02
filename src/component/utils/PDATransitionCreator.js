@@ -34,18 +34,20 @@ function TransitionCreator({ states, transitions, setTransitions }) {
 
   return (
     <div>
-      <TransitionInput
-        states={states}
-        source={template.source}
-        destination={template.destination}
-        inputSymbol={template.inputSymbol}
-        popSymbol={template.popSymbol}
-        pushSymbol={template.pushSymbol}
-        onChange={(field, value) => setTemplate({ ...template, [field]: value })}
-        templateEditable
-      />
-       <div className="center-button">
-         <button onClick={addTransition}>Add Transition</button>
+      <div className='template-transition-container'>
+        <TransitionInput
+          states={states}
+          source={template.source}
+          destination={template.destination}
+          inputSymbol={template.inputSymbol}
+          popSymbol={template.popSymbol}
+          pushSymbol={template.pushSymbol}
+          onChange={(field, value) => setTemplate({ ...template, [field]: value })}
+          templateEditable
+        />
+        <div className="center-button">
+          <button onClick={addTransition}>Add Transition</button>
+        </div>
       </div>
 
       <h3>Transitions:</h3>
@@ -63,8 +65,8 @@ function TransitionCreator({ states, transitions, setTransitions }) {
             disabled={!transition.editable} // Transition inputs are non-editable
           />
           <div className="center-button">
-             <button onClick={() => removeTransition(index)}>Remove</button>
-         </div>
+            <button onClick={() => removeTransition(index)}>Remove</button>
+          </div>
         </div>
       ))}
     </div>

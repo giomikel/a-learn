@@ -3,14 +3,8 @@
   height: 90vh;
 }
 
-.fsm-form {
-  flex: 3;
-  height: 100%;
-}
-
 .center-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 12px 7px 5px rgba(0, 0, 0, 0.1);
 }

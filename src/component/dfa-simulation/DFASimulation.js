@@ -114,7 +114,7 @@ function NFASimulation() {
     if (simulationStatus === 'Simulation Complete') {
       if (simulator.isAcceptState() && input.length === 0) {
         setResultText('Accepts');
-      } else if (step !== 0 || (step === 0 && !simulator.isAcceptState())) {
+      } else if (step !== 0 || (step === 0 && (!simulator.isAcceptState() || ((currentNode ?? []).length === 0 && input.length === 0)))) {
         setResultText('Rejects');
       } else {
         setResultText('');
@@ -122,7 +122,7 @@ function NFASimulation() {
     } else {
       setResultText('');
     }
-  }, [simulationStatus, input.length, simulator, step]);
+  }, [simulationStatus, input.length, simulator, step, currentNode]);
 
   useEffect(() => {
     setGraph(null);

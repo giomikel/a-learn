@@ -118,7 +118,7 @@ function NFASimulation() {
     if (simulationStatus === 'Simulation Complete') {
       if (simulator.isInAcceptStates() && input.length === 0) {
         setResultText('Accepts');
-      } else if (step !== 0 || (step === 0 && !simulator.isInAcceptStates())) {
+      } else if (step !== 0 || (step === 0 && (!simulator.isInAcceptStates() || (currentNodes.length === 0 && input.length === 0)))) {
         setResultText('Rejects');
       } else {
         setResultText('');
@@ -126,7 +126,7 @@ function NFASimulation() {
     } else {
       setResultText('');
     }
-  }, [simulationStatus, input.length, simulator, step]);
+  }, [simulationStatus, input.length, simulator, step, currentNodes.length]);
 
   return (
     <div className='container'>

@@ -1,42 +1,42 @@
 .production-input-container {
-    background-color: #f2f2f2;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .production-input-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .expression-input {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-  }
-  
-  .production-dropdown {
-    width: 30%;
-    font-size: 14px;
-  }
-  
-  button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 9px;
-    cursor: pointer;
-    border: 1px solid #000;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.production-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.expression-input {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  background-color: #bcdcff;
+}
+
+.production-dropdown {
+  width: 30%;
+  font-size: 14px;
+}
+
+.production-container {
+  padding: 5px;
+  margin: 5px;
+  box-shadow: 1px 1px 5px black;
+  background-image: linear-gradient(to bottom right, #00398f, #008ba3);
+  border-radius: 10px;
+}
+
+.template-production-container {
+  padding: 5px;
+  margin: 5px;
+  box-shadow: 1px 1px 5px black;
+  background-image: linear-gradient(to bottom right, #004ab9, #00b167);
+  border-radius: 10px;
+}

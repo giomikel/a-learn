@@ -1,7 +1,12 @@
 .cfg-form {
-  flex: 3;
+  display: flex;
+  flex-flow: column;
+  flex: 3 1;
   height: 100%;
   width: 100%;
+  margin: 0 auto;
+  position: relative;
+  align-items: center;
 }
 
 .side-by-side-container {
@@ -17,7 +22,7 @@
   padding: 10px;
   border-radius: 5px;
   overflow: auto;
-  max-width: 60%;
+  max-width: 70%;
   height: fit-content;
   min-height: 10%;
   max-height: 60%;

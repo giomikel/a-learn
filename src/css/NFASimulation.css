@@ -3,12 +3,6 @@
   height: 90vh;
 }
 
-.fsm-form {
-  flex: 3;
-  height: 100%;
-  width: 100%;
-}
-
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
@@ -107,4 +101,20 @@
 
 .simulation-info:hover::before {
   opacity: 1;
+}
+
+.transition-container {
+  padding: 5px;
+  margin: 5px;
+  box-shadow: 1px 1px 5px black;
+  background-image: linear-gradient(to bottom right, #00398f, #008ba3);
+  border-radius: 10px;
+}
+
+.template-transition-container {
+  padding: 5px;
+  margin: 5px;
+  box-shadow: 1px 1px 5px black;
+  background-image: linear-gradient(to bottom right, #004ab9, #00b167);
+  border-radius: 10px;
 }

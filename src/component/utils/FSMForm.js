@@ -53,7 +53,7 @@ function FSMForm(props) {
       <div className="input-group">
         <label className="input-label">Select Accept State:</label>
         <Dropdown
-          options={['Select accept state', ...states]}
+          options={['', ...states]}
           selectedOption={selectedAcceptState}
           onSelect={handleAcceptStateChange}
         />

@@ -12,7 +12,7 @@ h3 {
   padding: 10px;
   border-radius: 5px;
   overflow: auto;
-  max-width: 60%;
+  max-width: 70%;
   height: fit-content;
   min-height: 10%;
   max-height: 60%;
@@ -36,16 +36,4 @@ h3 {
 .side-by-side-container {
   display: flex;
   height: 90vh;
-}
-
-.fsm-form {
-  flex: 3;
-  height: 100%;
-}
-
-.center-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 12px 7px 5px rgba(0, 0, 0, 0.1);
 }
