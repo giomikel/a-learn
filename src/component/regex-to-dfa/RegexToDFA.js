@@ -38,7 +38,7 @@ function RegexToDFA() {
         <div className='description-container'>
           <h2 className="section-title">Regex to DFA</h2>
           <p className="section-description">
-             Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|').
+             Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|').<br/>
              After clicking "Generate DFA" button, valid regex is transformed into DFA graph and is displayed on the screen.<br/>
              '*' - Kleene star operator. This symbol should be used after valid expression enclosed in parentheses. For example: (a|b)*, (a)*.<br/>
              '|' - Unification operator.<br/>
