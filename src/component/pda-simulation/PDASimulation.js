@@ -136,8 +136,10 @@ function PDASimulation() {
 
   return (
     <div className='container'>
-      <h2 className='section-title'>PDA Simulation</h2>
-      <p className="section-description">PDA Simulation</p>
+      <div className='description-container'>
+        <h2 className='section-title'>PDA Simulation</h2>
+        <p className="section-description">PDA Simulation</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='pda-form'>
           <PDAForm

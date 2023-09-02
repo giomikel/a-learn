@@ -130,8 +130,10 @@ function NFASimulation() {
 
   return (
     <div className='container'>
-      <h2 className='section-title'>NFA Simulation</h2>
-      <p className="section-description">NFA Simulation</p>
+      <div className='description-container'>
+        <h2 className='section-title'>NFA Simulation</h2>
+        <p className="section-description">NFA Simulation</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm

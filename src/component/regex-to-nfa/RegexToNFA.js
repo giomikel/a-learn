@@ -35,10 +35,12 @@ function RegexToNFA() {
   return (
     <div className="regex-to-nfa-container">
       <div className='regex-form'>
-        <h2 className="section-title">Regex to NFA</h2>
-        <p className="section-description">
-          Convert Regular Expression to Non-Deterministic Finite Automata (NFA).
-        </p>
+        <div className='description-container'>
+          <h2 className="section-title">Regex to NFA</h2>
+          <p className="section-description">
+            Convert Regular Expression to Non-Deterministic Finite Automata (NFA).
+          </p>
+        </div>
         <div className="input-container">
           <input className='regex-input'
             type="text"

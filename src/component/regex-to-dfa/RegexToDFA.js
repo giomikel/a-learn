@@ -35,10 +35,12 @@ function RegexToDFA() {
   return (
     <div className="regex-to-dfa-container">
       <div className="regex-form">
-        <h2 className="section-title">Regex to DFA</h2>
-        <p className="section-description">
-          Convert Regular Expression to Deterministic Finite Automata (DFA).
-        </p>
+        <div className='description-container'>
+          <h2 className="section-title">Regex to DFA</h2>
+          <p className="section-description">
+            Convert Regular Expression to Deterministic Finite Automata (DFA).
+          </p>
+        </div>
         <div className="input-container">
           <input className='regex-input'
             type="text"

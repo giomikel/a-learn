@@ -54,8 +54,10 @@ function DFAToRegex() {
 
   return (
     <div className='container'>
-      <h2 className='section-title'>DFA To Regex</h2>
-      <p className="section-description">DFA to Regex</p>
+      <div className='description-container'>
+        <h2 className='section-title'>DFA To Regex</h2>
+        <p className="section-description">DFA to Regex</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm

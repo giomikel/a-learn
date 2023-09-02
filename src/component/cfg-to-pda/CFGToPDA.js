@@ -39,10 +39,10 @@ function CFGToPDA() {
 
   return (
     <div className="container">
-      <h2 className="section-title">CFG to PDA</h2>
-      <p className="section-description">
-        Convert CFG to PDA.
-      </p>
+      <div className='description-container'>
+        <h2 className="section-title">CFG to PDA</h2>
+        <p className="section-description">Convert CFG to PDA.</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='cfg-form'>
           <CFGForm

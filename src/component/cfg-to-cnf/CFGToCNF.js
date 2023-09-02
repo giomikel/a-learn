@@ -39,8 +39,10 @@ function CFGToCNF() {
 
   return (
     <div className="container">
-      <h2 className="section-title">CFG to CNF</h2>
-      <p className="section-description">Convert CFG to CNF</p>
+      <div className='description-container'>
+        <h2 className="section-title">CFG to CNF</h2>
+        <p className="section-description">Convert CFG to CNF</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='cfg-form'>
           <CFGForm

@@ -161,8 +161,10 @@ function TMSimulation() {
 
   return (
     <div className='tm-simulation-container'>
-      <h2 className="section-title">TM Simulation</h2>
-      <p className="section-description">Turing Machine Simulation</p>
+      <div className='description-container'>
+        <h2 className="section-title">TM Simulation</h2>
+        <p className="section-description">Turing Machine Simulation</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='tm-form'>
           <TMForm
