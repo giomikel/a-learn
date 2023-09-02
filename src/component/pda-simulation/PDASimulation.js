@@ -138,7 +138,13 @@ function PDASimulation() {
     <div className='container'>
       <div className='description-container'>
         <h2 className='section-title'>PDA Simulation</h2>
-        <p className="section-description">PDA Simulation</p>
+        <p className="section-description">
+          Create valid Push-down automaton by specifying states, accept states, transitions.
+          After clicking "Create PDA" button, valid PDA is displayed on the screen and after entering the input string,
+          simulation can be controlled with "step" and "simulate" buttons.
+          Details about the simulation is conveyed with "Current Input", "Step", Simulation Status", "Current States" and "Current Stacks" fields.
+          States that are colored blue point out the current states.
+          After the simulation is complete, corresponding text is displayed if the PDA accepts or rejects given input.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='pda-form'>
