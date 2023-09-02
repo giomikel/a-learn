@@ -17,15 +17,16 @@ h3 {
   min-height: 10%;
   max-height: 60%;
   margin: 10px;
-  color: gold;
+  color: white;
   flex: 7;
   flex-direction: column;
+  background-image: linear-gradient(to bottom right, #00a759, #006e8a);
 }
 
 .regex-pattern {
   margin: 0 auto;
   padding: 10px;
-  color: #333;
+  color: white;
   width: calc(100% - 40px);
   word-wrap: break-word;
   /* overflow-wrap: break-word; */

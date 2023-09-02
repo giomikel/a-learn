@@ -9,6 +9,7 @@
   padding: 10px;
   margin: 10px;
   border-radius: 15px;
+  background-image: linear-gradient(to bottom right, #00a759, #006e8a);
 }
 
 .graph-top {
@@ -17,6 +18,6 @@
   background-color: #bcdcff;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
-  height: 10%;
+  height: 7%;
   padding: 10px;
 }

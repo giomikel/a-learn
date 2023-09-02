@@ -29,7 +29,7 @@
   padding: 5px;
   margin: 5px;
   box-shadow: 1px 1px 5px black;
-  background-image: linear-gradient(to bottom right, #00398f, #008ba3);
+  background-image: linear-gradient(to bottom right, #004927, #008141);
   border-radius: 10px;
 }
 
@@ -37,6 +37,6 @@
   padding: 5px;
   margin: 5px;
   box-shadow: 1px 1px 5px black;
-  background-image: linear-gradient(to bottom right, #004ab9, #00b167);
+  background-image: linear-gradient(to bottom right, #004927, #008141);
   border-radius: 10px;
 }

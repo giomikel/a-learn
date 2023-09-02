@@ -16,7 +16,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #0022b880;
+  background: #00b86b80;
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
@@ -34,6 +34,7 @@
   padding: 10px;
   margin: 10px;
   border-radius: 15px;
+  background-image: linear-gradient(to bottom right, #00a759, #006e8a);
 }
 
 .graph-visualization-scroll-container {
@@ -107,7 +108,7 @@
   padding: 5px;
   margin: 5px;
   box-shadow: 1px 1px 5px black;
-  background-image: linear-gradient(to bottom right, #00398f, #008ba3);
+  background-image: linear-gradient(to bottom right, #004927, #008141);
   border-radius: 10px;
 }
 
@@ -115,7 +116,7 @@
   padding: 5px;
   margin: 5px;
   box-shadow: 1px 1px 5px black;
-  background-image: linear-gradient(to bottom right, #004ab9, #00b167);
+  background-image: linear-gradient(to bottom right, #004927, #008141);
   border-radius: 10px;
 }
 
@@ -132,7 +133,7 @@
   white-space: normal;
   height: fit-content;
   max-height: 70px;
-  background-image: linear-gradient(to bottom right, #00398f, #005eb6);
+  background-image: linear-gradient(to bottom right, #005f47, #007e5e);
 }
 
 .container {

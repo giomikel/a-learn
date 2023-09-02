@@ -4,6 +4,7 @@
   box-shadow: 0px 3px 5px rgb(0, 0, 0);
   text-align: center;
   margin: 20px;
+  background-image: linear-gradient(to bottom right, #00a759, #006e8a);
 }
 
 path.link {

@@ -27,7 +27,7 @@
 
 button {
   padding: 6px 10px;
-  background-color: #008ba3;
+  background-color: #00745a;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -38,5 +38,5 @@ button {
 
 button:hover {
   transition-duration: 0.5s;
-  background-color: #0056b3;
+  background-color: #009474;
 }
