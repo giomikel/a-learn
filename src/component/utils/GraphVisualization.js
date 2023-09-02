@@ -5,8 +5,8 @@ import { DFA_TYPE, PDA_TYPE, TM_TYPE } from '../../core/constants.mjs';
 function getParamsByGraphType(graph) {
   if (graph.getType() === DFA_TYPE) return [-1200, 180, 600, 5];
   if (graph.getType() === PDA_TYPE) return [-1200, 200, 600, 8];
-  if (graph.getType() === TM_TYPE) return [-1200, 210, 500, 8];
-  return [-300, 60, 75, 5];
+  if (graph.getType() === TM_TYPE)  return [-1200, 210, 500, 8];
+  return [-300, 60 + (graph.transitions.length/10)*50, 75 + (graph.transitions.length/10)*80, 5];
 }
 
 function GraphVisualization({ graph, currentNodes = [], ticks = false }) {
@@ -268,7 +268,7 @@ function GraphVisualization({ graph, currentNodes = [], ticks = false }) {
 
     }
 
-  }, [graph, graph.transitions, graph.acceptStates, currentNodes]);
+  }, [graph, graph.transitions, graph.acceptStates, currentNodes, ticks]);
 
   return (
     <svg ref={svgRef} className="graph-container">
