@@ -2,17 +2,17 @@ import React from 'react';
 import '../css/Home.css';
 
 const navigationLinks = [
-  { path: '/NFAToRegex', title: 'NFAToRegex', description: 'Convert NFA to Regular Expression' },
-  { path: '/RegexToNFA', title: 'RegexToNFA', description: 'Convert NFA to Regular Expression' },
-  { path: '/DFAToRegex', title: 'DFAToRegex', description: 'Convert NFA to Regular Expression' },
-  { path: '/RegexToDFA', title: 'RegexToDFA', description: 'Convert NFA to Regular Expression' },
-  { path: '/NFAToDFA', title: 'NFAToDFA', description: 'Convert NFA to Regular Expression' },
-  { path: '/CFGToCNF', title: 'CFGToCNF', description: 'Convert NFA to Regular Expression' },
-  { path: '/CFGToPDA', title: 'CFGToPDA', description: 'Convert NFA to Regular Expression' },
-  { path: '/DFASimulation', title: 'DFASimulation', description: 'Convert NFA to Regular Expression' },
-  { path: '/NFASimulation', title: 'NFASimulation', description: 'Convert NFA to Regular Expression' },
-  { path: '/TMSimulation', title: 'TMSimulation', description: 'Convert NFA to Regular Expression' },
-  { path: '/PDASimulation', title: 'PDASimulation', description: 'Convert NFA to Regular Expression' },
+  { path: '/NFAToRegex', description: 'Convert NFA to Regular Expression' },
+  { path: '/RegexToNFA', description: 'Convert Regular Expression to NFA' },
+  { path: '/DFAToRegex', description: 'Convert DFA to Regular Expression' },
+  { path: '/RegexToDFA', description: 'Convert Regular Expression to DFA' },
+  { path: '/NFAToDFA', description: 'Convert NFA to DFA' },
+  { path: '/CFGToCNF', description: 'Convert context-free grammar to Chomsky normal form' },
+  { path: '/CFGToPDA', description: 'Convert context-free grammar to PDA' },
+  { path: '/DFASimulation', description: 'DFA simulation' },
+  { path: '/NFASimulation', description: 'NFA simulation' },
+  { path: '/TMSimulation', description: 'Turing machine simulation' },
+  { path: '/PDASimulation', description: 'PDA simulation' },
 ];
 
 function Home() {
