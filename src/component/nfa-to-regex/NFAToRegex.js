@@ -29,8 +29,6 @@ function NFAToRegex() {
 
     const convertedRegex = convertNFAToRegex(fsm);
     const resultRegex = convertedRegex == null ? "This Finite State Machine cannot be converted to Regex" : convertedRegex;
-    // console.log(fsm);
-    // console.log(convertedRegex);
     setRegex(resultRegex);
   };
 
@@ -50,7 +48,10 @@ function NFAToRegex() {
 
   return (
     <div className='container'>
-      <h1>NFA to Regex Conversion</h1>
+      <div className='description-container'>
+        <h2 className='section-title'>NFA to Regex Conversion</h2>
+        <p className="section-description">Create valid non-deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid NFA is transformed into Regex and is displayed on the screen.</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
@@ -70,6 +71,7 @@ function NFAToRegex() {
           </div>
         </div>
         <div className="regex-container">
+          <p>Converted Regex</p>
           <pre className="regex-pattern">
             {regex}
           </pre>

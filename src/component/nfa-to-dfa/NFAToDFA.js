@@ -49,7 +49,10 @@ function NFAToDFA() {
 
   return (
     <div className='container'>
-      <h1>NFA to DFA Conversion</h1>
+      <div className='description-container'>
+        <h2 className='section-title'>NFA to DFA Conversion</h2>
+        <p className='section-description'>Create valid non-deterministic finite automaton by specifying states, accept states, transitions. Selected accept states must contain at least one member which is reachable from start state. After clicking "Create FSM" button, valid NFA is transformed into DFA and is displayed on the screen.</p>
+      </div>
       <div className='side-by-side-container'>
         <div className='fsm-form'>
           <FSMForm
@@ -66,9 +69,12 @@ function NFAToDFA() {
           />
           <button onClick={handleCreateFSM}>Create FSM</button>
         </div>
-        <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
-          <div className="graph-visualization-container">
-            {graph && <GraphVisualization graph={graph} />}
+        <div className='graph-view'>
+          <div className='graph-top' />
+          <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container' style={{ maxHeight: '90vh' }}>
+            <div className="graph-visualization-container">
+              {graph && <GraphVisualization graph={graph} />}
+            </div>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ function TMForm(props) {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container-tm">
       <h2 className="form-title">Turing Machine</h2>
       <div className="input-group">
         <label className="input-label">Select the number of states:</label>

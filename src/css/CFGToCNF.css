@@ -1,44 +1,29 @@
-.cfg-to-cnf-container {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin: 20px;
-  }
-  
-  .section-title {
-    color: #007bff;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .section-description {
-    color: #555;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  
-  .cfg-form {
-    flex: 3;
-    height: 100%;
-    width: 100%;
-  }
+.cfg-form {
+  display: flex;
+  flex-flow: column;
+  flex: 3 1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  align-items: center;
+}
 
-  .side-by-side-container {
-    display: flex;
-    height: 90vh;
-  }
-  
-  .cnf-visualization-container {
-    overflow: auto;
-    flex: 7;
-    height: 100%;
-    max-height: 90vh;
-  }
-
-  .error-message {
-    color: red;
-    font-weight: bold;
-    margin-top: 8px;
-  }
+.cnf-visualization-container {
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  box-shadow: 0px 2px 5px #000000;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: auto;
+  max-width: 70%;
+  height: fit-content;
+  min-height: 10%;
+  max-height: 60%;
+  margin: 10px;
+  color: white;
+  flex: 7;
+  flex-direction: column;
+  background-image: linear-gradient(to bottom right, #00a759, #006e8a);
+}

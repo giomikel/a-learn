@@ -1,32 +1,35 @@
+h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
 .regex-container {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  box-shadow: 0px 2px 5px #000000;
   padding: 10px;
   border-radius: 5px;
-  font-family: monospace;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  max-width: 100%;
-  flex: 7
+  overflow: auto;
+  max-width: 70%;
+  height: fit-content;
+  min-height: 10%;
+  max-height: 60%;
+  margin: 10px;
+  color: white;
+  flex: 7;
+  flex-direction: column;
+  background-image: linear-gradient(to bottom right, #00a759, #006e8a);
 }
 
 .regex-pattern {
-  margin: 0;
-  color: #333;
-}
-
-.side-by-side-container {
-  display: flex;
-  height: 90vh;
-}
-
-.fsm-form {
-  flex: 3;
-  height: 100%;
-}
-
-.center-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto;
+  padding: 10px;
+  color: white;
+  width: calc(100% - 40px);
+  word-wrap: break-word;
+  /* overflow-wrap: break-word; */
+  white-space: normal;
+  /* word-break: break-word; */
 }

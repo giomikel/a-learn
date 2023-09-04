@@ -40,7 +40,7 @@ function PDAForm(props) {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container-pda">
       <h2 className="form-title">Pushdown Automaton</h2>
       <div className="input-group">
         <label className="input-label">Select the number of states:</label>
@@ -53,7 +53,7 @@ function PDAForm(props) {
       <div className="input-group">
         <label className="input-label">Select Accept State:</label>
         <Dropdown
-          options={['Select accept state', ...states]}
+          options={['', ...states]}
           selectedOption={selectedAcceptState}
           onSelect={handleAcceptStateChange}
         />

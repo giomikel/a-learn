@@ -6,10 +6,10 @@ function getParamsByGraphType(graph) {
   if (graph.getType() === DFA_TYPE) return [-1200, 180, 600, 5];
   if (graph.getType() === PDA_TYPE) return [-1200, 200, 600, 8];
   if (graph.getType() === TM_TYPE)  return [-1200, 210, 500, 8];
-  return [-300, 60, 75, 5];
+  return [-300, 60 + (graph.transitions.length/10)*50, 75 + (graph.transitions.length/10)*80, 5];
 }
 
-function GraphVisualization({ graph, currentNodes = [] }) {
+function GraphVisualization({ graph, currentNodes = [], ticks = false }) {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -99,6 +99,7 @@ function GraphVisualization({ graph, currentNodes = [] }) {
       .force('charge', d3.forceManyBody().strength(params[0]))
       .force('center', d3.forceCenter(w / 2, h / 2))
       .on('tick', tick)
+      .tick(ticks ? 1000 : 0)
       .restart();
 
     svg
@@ -127,7 +128,7 @@ function GraphVisualization({ graph, currentNodes = [] }) {
     linkGroup
       .append('path')
       .attr('class', function (d) { return 'link ' + d.type; })
-      .attr('marker-end', function (d, i) { return 'url(#marker-' + i + ')'; });
+      .attr('marker-end', function (d, i) { return 'url(#marker-' + 0 + ')'; });
 
     linkGroup
       .append('text')
@@ -267,7 +268,7 @@ function GraphVisualization({ graph, currentNodes = [] }) {
 
     }
 
-  }, [graph, graph.transitions, graph.acceptStates, currentNodes]);
+  }, [graph, graph.transitions, graph.acceptStates, currentNodes, ticks]);
 
   return (
     <svg ref={svgRef} className="graph-container">

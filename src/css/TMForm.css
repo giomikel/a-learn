@@ -1,26 +1,22 @@
-.form-container {
-    vertical-align: top;
-    width: 80%;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  
-  .form-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .input-group {
-    margin-bottom: 20px;
-  }
-  
-  .input-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+.form-container-tm {
+  vertical-align: top;
+  width: 90%;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 7px black;
+  max-height: 80vh;
+  overflow-y: auto;
+  color: white;
+  font-size: 16px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

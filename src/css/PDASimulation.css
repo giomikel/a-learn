@@ -1,26 +1,12 @@
-.side-by-side-container {
-  display: flex;
-  height: 90vh;
-}
-
 .pda-form {
-  flex: 3;
+  display: flex;
+  flex-flow: column;
+  flex: 3 1;
   height: 100%;
   width: 100%;
-}
-
-.simulation-view {
-  flex: 7;
-  display: block;
-  overflow-y: auto;
-  max-height: 90vh;
-}
-
-.graph-visualization-scroll-container {
-  overflow: auto;
-  height: 80%;
-  max-width: 100%;
-  max-height: 70vh;
+  margin: 0 auto;
+  position: relative;
+  align-items: center;
 }
 
 .graph-visualization-container {
@@ -40,7 +26,6 @@
   display: flex;
 }
 
-
 .current-stacks {
   margin-left: 50px;
 }
@@ -49,8 +34,4 @@
   display: flex;
   margin-bottom: 5px;
   font-weight: bold;
-}
-
-.status {
-  width: 40vh;
 }

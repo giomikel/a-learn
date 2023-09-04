@@ -34,20 +34,29 @@ function RegexToNFA() {
 
   return (
     <div className="regex-to-nfa-container">
-      <h2 className="section-title">Regex to NFA</h2>
-      <p className="section-description">
-        Convert Regular Expression to Non-Deterministic Finite Automata (NFA).
-      </p>
-      <div className="input-container">
-        <input
-          type="text"
-          value={regex}
-          onChange={(e) => setRegex(e.target.value)}
-          placeholder="Enter regex..."
-        />
-        <button onClick={handleGenerateNFA}>Generate NFA</button>
+      <div className='regex-form'>
+        <div className='description-container'>
+          <h2 className="section-title">Regex to NFA</h2>
+          <p className="section-description">
+             Entered regular expression can only contain alphanumeric and special symbols ('(', ')', '*', '|').<br/> 
+             After clicking "Generate NFA" button, valid regex is transformed into NFA graph and is displayed on the screen.<br/>
+             '*' - Kleene star operator. This symbol should be used after valid expression enclosed in parentheses. For example: (a|b)*, (a)*.<br/>
+             '|' - Unification operator.<br/>
+             ''  - Concatenation is implicit.<br/>
+             Empty symbol can be represented as ().<br/>  
+          </p>
+        </div>
+        <div className="input-container">
+          <input className='regex-input'
+            type="text"
+            value={regex}
+            onChange={(e) => setRegex(e.target.value)}
+            placeholder="Enter regex..."
+          />
+          <button onClick={handleGenerateNFA}>Generate NFA</button>
+          {validationError && <p className="error-message">{validationError}</p>}
+        </div>
       </div>
-      {validationError && <p className="error-message">{validationError}</p>}
       <div className="graph-visualization-scroll-container" id='graph-visualization-scroll-container'>
         <div className="graph-visualization-container">
           {graph && <GraphVisualization graph={graph} />}

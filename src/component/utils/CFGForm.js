@@ -18,7 +18,7 @@ function CFGForm(props) {
   };
 
   return (
-    <div className="form-container">
+    <div className="form-container-cfg">
       <h2 className="form-title">Context Free Grammar</h2>
       <div className="input-group">
         <label className="input-label">Select Start Symbol:</label>
