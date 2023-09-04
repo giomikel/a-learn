@@ -21,10 +21,12 @@ function NFASimulation() {
   const [currentNodes, setCurrentNodes] = useState([]);
   const [step, setStep] = useState(0);
   const [resultText, setResultText] = useState('');
+  const [simulateInterval, setSimulateInterval] = useState(null);
 
   const states = Array.from({ length: numStates }, (_, i) => i);
 
   const handleCreateFSM = () => {
+    clearSimulateInterval();
     const transitionObjects = transitions.map((transition) => {
       return new Transition(parseInt(transition.source, 10), transition.symbol === '' ? EPSILON_SYMBOL : transition.symbol, parseInt(transition.destination, 10));
     });
@@ -48,7 +50,16 @@ function NFASimulation() {
     setGraph(graph);
   };
 
+  const clearSimulateInterval = () => {
+    if (simulateInterval) {
+      clearInterval(simulateInterval);
+      setSimulationStatus('Idle');
+      setSimulateInterval(null);
+    }
+  };
+
   const handleInputChange = (event) => {
+    clearSimulateInterval();
     setInput(event.target.value);
     if (simulator) {
       simulator.setInput(event.target.value);
@@ -69,17 +80,21 @@ function NFASimulation() {
 
   const handleSimulate = () => {
     if (simulator) {
+      if (simulateInterval) {
+        clearInterval(simulateInterval);
+      }
       setSimulationStatus('Simulating');
-      const simulateInterval = setInterval(() => {
+      const newSimulateInterval = setInterval(() => {
         const result = simulator.step();
         setCurrentNodes(simulator.currentStates);
         setStep((prevStep) => result ? prevStep + 1 : prevStep);
         setInput((prevInput) => result ? prevInput.substring(1) : prevInput);
         if (!result) {
-          clearInterval(simulateInterval);
+          clearInterval(newSimulateInterval);
           setSimulationStatus('Simulation Complete');
         }
       }, 500);
+      setSimulateInterval(newSimulateInterval);
     }
   };
 
