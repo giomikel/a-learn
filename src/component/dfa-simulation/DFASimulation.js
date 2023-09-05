@@ -71,14 +71,18 @@ function NFASimulation() {
       simulator.setInput(event.target.value);
     }
     setStep(0);
+    if (simulationStatus === 'Simulation Complete') {
+      setSimulationStatus('Idle');
+      handleCreateFSM();
+    }
   };
 
   const handleStepSimulation = () => {
     if (simulator) {
       const result = simulator.step();
-      setSimulationStatus(result ? 'Simulating' : 'Simulation Complete');
       setCurrentNode(simulator.currentState);
       setInput((prevInput) => result ? prevInput.substring(1) : prevInput);
+      setSimulationStatus(result ? 'Simulating' : 'Simulation Complete');
       if (result)
         setStep(step + 1);
     }
