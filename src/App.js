@@ -18,18 +18,18 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="" element={<Home />} />
-        <Route path="RegexToNFA" element={<RegexToNFA />} />
-        <Route path="NFAToRegex" element={<NFAToRegex />} />
-        <Route path="NFAToDFA" element={<NFAToDFA />} />
-        <Route path="RegexToDFA" element={<RegexToDFA />} />
-        <Route path="CFGToCNF" element={<CFGToCNF />} />
-        <Route path="DFAToRegex" element={<DFAToRegex />} />
-        <Route path="CFGToPDA" element={<CFGToPDA />} />
-        <Route path="NFASimulation" element={<NFASimulation />} />
-        <Route path="DFASimulation" element={<DFASimulation />} />
-        <Route path="TMSimulation" element={<TMSimulation />} />
-        <Route path="PDASimulation" element={<PDASimulation />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/RegexToNFA" element={<RegexToNFA />} />
+        <Route path="/NFAToRegex" element={<NFAToRegex />} />
+        <Route path="/NFAToDFA" element={<NFAToDFA />} />
+        <Route path="/RegexToDFA" element={<RegexToDFA />} />
+        <Route path="/CFGToCNF" element={<CFGToCNF />} />
+        <Route path="/DFAToRegex" element={<DFAToRegex />} />
+        <Route path="/CFGToPDA" element={<CFGToPDA />} />
+        <Route path="/NFASimulation" element={<NFASimulation />} />
+        <Route path="/DFASimulation" element={<DFASimulation />} />
+        <Route path="/TMSimulation" element={<TMSimulation />} />
+        <Route path="/PDASimulation" element={<PDASimulation />} />
       </Routes>
     </div>
   );
