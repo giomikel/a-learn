@@ -19,3 +19,5 @@ You can access the live demo of A-Learn at [https://giomikel.github.io/a-learn/]
 - **NFA Simulation**: Simulate the behavior of an NFA on input strings.
 - **PDA Simulation**: Simulate the behavior of a Pushdown Automaton (PDA) on input strings.
 - **TM Simulation**: Simulate the behavior of a Turing Machine (TM) on input strings.
+
+**A-Learn** is developed and maintained by students of Free University of Tbilisi - Giorgi Mikeladze and Giorgi Abuladze.
