@@ -103,7 +103,7 @@ class PDASimulator {
 
         while (this.step());
 
-        return this.currentStates.some(s => this.isInAcceptStates(s) && Array.from(this.currentStacks.get(s) || []).some(st => st.length === 0));
+        return this.currentStates.some(s => this.isInAcceptStates(s) && (Array.from(this.currentStacks.get(s) || []).some(st => st.length === 0) || this.currentStacks.size === 0));
     }
 
     arraysInclude(arrays, targetArray) {

@@ -141,7 +141,7 @@ function PDASimulation() {
 
   useEffect(() => {
     if (simulationStatus === 'Simulation Complete') {
-      if (simulator.isInAcceptStates() && input.length === 0) {
+      if (simulator.isInAcceptStates() && input.length === 0 && simulator.currentStates.some(s => Array.from(simulator.currentStacks.get(s) || []).some(st => st.length === 0) || simulator.currentStacks.size === 0)) {
         setResultText('Accepts');
       } else if (step !== 0 || (step === 0 && (!simulator.isInAcceptStates() || (currentNodes.length === 0 && input.length === 0)))) {
         setResultText('Rejects');
