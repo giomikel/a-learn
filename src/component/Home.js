@@ -25,7 +25,7 @@ function Home() {
         <ul className="nav-list">
           {navigationLinks.map((link, index) => (
             <li className="nav-item" key={index}>
-              <a href={link.path} className="nav-link">
+              <a href={process.env.PUBLIC_URL + link.path} className="nav-link">
                 <div className="nav-card">
                   <span className="nav-card-title">{link.title}</span>
                   <span className="nav-card-description">{link.description}</span>
