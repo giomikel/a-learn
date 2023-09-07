@@ -2,17 +2,17 @@ import React from 'react';
 import '../css/Home.css';
 
 const navigationLinks = [
-  { path: '/NFAToRegex', description: 'Convert NFA to Regular Expression' },
-  { path: '/RegexToNFA', description: 'Convert Regular Expression to NFA' },
-  { path: '/DFAToRegex', description: 'Convert DFA to Regular Expression' },
-  { path: '/RegexToDFA', description: 'Convert Regular Expression to DFA' },
-  { path: '/NFAToDFA', description: 'Convert NFA to DFA' },
-  { path: '/CFGToCNF', description: 'Convert Context-Free Grammar to Chomsky Normal Form' },
-  { path: '/CFGToPDA', description: 'Convert Context-Free Grammar to PDA' },
-  { path: '/DFASimulation', description: 'DFA Simulation' },
-  { path: '/NFASimulation', description: 'NFA Simulation' },
-  { path: '/TMSimulation', description: 'Turing Machine Simulation' },
-  { path: '/PDASimulation', description: 'PDA Simulation' },
+  { path: '/#NFAToRegex', description: 'Convert NFA to Regular Expression' },
+  { path: '/#RegexToNFA', description: 'Convert Regular Expression to NFA' },
+  { path: '/#DFAToRegex', description: 'Convert DFA to Regular Expression' },
+  { path: '/#RegexToDFA', description: 'Convert Regular Expression to DFA' },
+  { path: '/#NFAToDFA', description: 'Convert NFA to DFA' },
+  { path: '/#CFGToCNF', description: 'Convert Context-Free Grammar to Chomsky Normal Form' },
+  { path: '/#CFGToPDA', description: 'Convert Context-Free Grammar to PDA' },
+  { path: '/#DFASimulation', description: 'DFA Simulation' },
+  { path: '/#NFASimulation', description: 'NFA Simulation' },
+  { path: '/#TMSimulation', description: 'Turing Machine Simulation' },
+  { path: '/#PDASimulation', description: 'PDA Simulation' },
 ];
 
 function Home() {
