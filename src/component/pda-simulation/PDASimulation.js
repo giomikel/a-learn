@@ -163,7 +163,8 @@ function PDASimulation() {
           simulation can be controlled with "step" and "simulate" buttons.
           Details about the simulation is conveyed with "Current Input", "Step", Simulation Status", "Current States" and "Current Stacks" fields.
           States that are colored blue point out the current states.
-          After the simulation is complete, corresponding text is displayed if the PDA accepts or rejects given input.</p>
+          After the simulation is complete, corresponding text is displayed if the PDA accepts or rejects given input
+          and you can reset the simulation to its initial state by typing in any symbol inside the input field.</p>
       </div>
       <div className='side-by-side-container'>
         <div className='pda-form'>
